@@ -64,7 +64,7 @@ Class MyWorker implements Worker {
                 if(mt_rand(0,10)==9) {
                         throw new \RuntimeException('We have a problem for '.$input.'.');
                 }
-                return "Hi $input";
+                return "Hi $input"; // return null here, in case you do not want to pass any data to the parent
         }
 }
 
