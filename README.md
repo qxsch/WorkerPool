@@ -85,15 +85,15 @@ echo "Busy Workers:".$wp->getBusyWorkers()."  Free Workers:".$wp->getFreeWorkers
 $wp->waitForAllWorkers();
 
 // collect all the results
-foreach($wp as $key => $val) {
+foreach($wp as $val) {
         if(isset($val['data'])) {
-                echo "RESULT $key: ".$val['data']."\n";
+                echo "RESULT: ".$val['data']."\n";
         }
         elseif(isset($val['workerException'])) {
-                echo "WORKER EXCEPTION $key: ".$val['workerException']['class'].": ".$val['workerException']['message']."\n".$val['workerException']['trace']."\n";
+                echo "WORKER EXCEPTION: ".$val['workerException']['class'].": ".$val['workerException']['message']."\n".$val['workerException']['trace']."\n";
         }
         elseif(isset($val['poolException'])) {
-                echo "POOL EXCEPTION $key: ".$val['poolException']['class'].": ".$val['poolException']['message']."\n".$val['poolException']['trace']."\n";
+                echo "POOL EXCEPTION: ".$val['poolException']['class'].": ".$val['poolException']['message']."\n".$val['poolException']['trace']."\n";
         }
 }
 
