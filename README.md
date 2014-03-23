@@ -32,6 +32,7 @@ Class MyWorker implements Worker {
          * @throws \Exception in case of a processing Error an Exception will be thrown
          */
         public function onProcessCreate(Semaphore $semaphore) {
+                // semaphore can be used in the run method to synchronize the workers
                 $this->sem=$semaphore;
                 // write something to the stdout
                 echo "\t[".getmypid()."] has been created.\n";
