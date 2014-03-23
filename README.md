@@ -1,0 +1,4 @@
+WorkerPool
+==========
+
+WorkerPool for PHP
