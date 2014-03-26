@@ -178,7 +178,11 @@ class WorkerPool implements \Iterator, \Countable {
 			}
 			// send the exit instruction
 			foreach($this->processes as $process) {
-				$process['socket']->send(array('cmd' => 'exit'));
+				try {
+					$process['socket']->send(array('cmd' => 'exit'));
+				}
+				catch(\Exception $e) {
+				}
 			}
 			// wait up to 10 seconds
 			for($i=0; $i<$maxWaitSecs; $i++) {
@@ -195,7 +199,7 @@ class WorkerPool implements \Iterator, \Countable {
 			pcntl_signal(SIGUSR1, SIG_DFL);
 			// kill all remaining processes
 			foreach($this->processes as $process) {
-				socket_close($process['socket']->getSocket());
+				@socket_close($process['socket']->getSocket());
 				posix_kill($process['pid'], 9);
 			}
 			usleep(500000); // 0.5 seconds
@@ -237,7 +241,7 @@ class WorkerPool implements \Iterator, \Countable {
 		while($childpid>0) {
 			if(isset($this->processes[$childpid])) {
 				$this->workerPoolSize--;
-				socket_close($this->processes[$childpid]['socket']->getSocket());
+				@socket_close($this->processes[$childpid]['socket']->getSocket());
 				unset($this->processes[$childpid]);
 				unset($this->freeProcesses[$childpid]);
 			}
