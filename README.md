@@ -7,12 +7,11 @@ _This library is in its infancy. I am adding features to it as I require them._
 
 ## Examples
 
-### WorkerPool
 
 The WorkerPool class provides a very simple interface to pass data to a worker pool and have it processed.
 You can at any time fetch the results from the workers. Each worker child can return any value that can be [serialized][serialize].
 
-A simple example:
+### A simple example
 
 ```php
 <?php
@@ -48,7 +47,7 @@ foreach($wp as $val) {
 
 ```
 
-A more sophisticated example:
+### A more sophisticated example
 
 ```php
 <?php
@@ -140,6 +139,18 @@ foreach($wp as $val) {
 // write something, before the parent exits
 echo "ByeBye\n";
 
+```
+
+### Transparent output to ps
+
+See what's happening when running a PS:
+
+```
+root      2378  0.5  0.4 260256  8856 pts/1    S+   22:28   0:00          \_ simpleExample.php: Parent
+root      2379  0.0  0.2 260256  4588 pts/1    S+   22:28   0:00              \_ simpleExample.php: Worker 1 of QXS\WorkerPool\ClosureWorker [busy]
+root      2380  0.0  0.2 260256  4616 pts/1    S+   22:28   0:00              \_ simpleExample.php: Worker 2 of QXS\WorkerPool\ClosureWorker [busy]
+root      2381  0.0  0.2 260256  4424 pts/1    S+   22:28   0:00              \_ simpleExample.php: Worker 3 of QXS\WorkerPool\ClosureWorker [free]
+root      2382  0.0  0.2 260256  4424 pts/1    S+   22:28   0:00              \_ simpleExample.php: Worker 4 of QXS\WorkerPool\ClosureWorker [free]
 ```
 
   [serialize]: http://php.net/serialize
