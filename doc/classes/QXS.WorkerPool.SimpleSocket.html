@@ -114,7 +114,7 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">34</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">0</span>
                                 </a>
                             </li>
                             <li>
@@ -144,28 +144,28 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-651660223"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1500798348"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-651660223" class="accordion-body collapse in">
+            <div id="namespace-1500798348" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1632844265"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-628096726"></a>
                                 <a href="../namespaces/QXS.html" style="margin-left: 30px; padding-left: 0">QXS</a>
             </div>
-            <div id="namespace-1632844265" class="accordion-body collapse ">
+            <div id="namespace-628096726" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2131422601"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1539315841"></a>
                                 <a href="../namespaces/QXS.WorkerPool.html" style="margin-left: 30px; padding-left: 0">WorkerPool</a>
             </div>
-            <div id="namespace-2131422601" class="accordion-body collapse ">
+            <div id="namespace-1539315841" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -211,7 +211,7 @@
                     <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
 
                     <h1><small>\QXS\WorkerPool</small>SimpleSocket</h1>
-                    <p><em></em></p>
+                    <p><em>Socket Class for IPC</em></p>
                     
 
                     <section id="summary">
@@ -312,11 +312,13 @@
             <a id="property_annotation" name="property_annotation" class="anchor"></a>
             <article class="property">
                 <h3 class="public ">$annotation</h3>
-                <pre class="signature">$annotation</pre>
-                <p><em></em></p>
+                <pre class="signature">$annotation : array</pre>
+                <p><em>This Variable can be used to attack custom information to the socket</em></p>
                 
 
-                            </article>
+                                <h4>Type</h4>
+                array
+                &mdash; of custom annotations                            </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -340,11 +342,13 @@
             <a id="property_socket" name="property_socket" class="anchor"></a>
             <article class="property">
                 <h3 class="protected ">$socket</h3>
-                <pre class="signature">$socket</pre>
+                <pre class="signature">$socket : resource</pre>
                 <p><em></em></p>
                 
 
-                            </article>
+                                <h4>Type</h4>
+                resource
+                &mdash; the connection socket, that is used for IPC                            </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -376,16 +380,16 @@
             <article class="method">
                 <h3 class="public ">__construct()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">__construct( <span class="argument">$socket</span>)</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">__construct(resource <span class="argument">$socket</span>)</pre>
+                <p><em>The constructor</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>resource</td>
                                 <td>$socket</td>
-                                <td></td>
+                                <td><p>a valid socket resource</p></td>
                             </tr>
                                             </table>
                 
@@ -416,7 +420,7 @@
                 <h3 class="public ">__destruct()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">__destruct()</pre>
-                <p><em></em></p>
+                <p><em>The destructor</em></p>
                 
 
                 
@@ -446,8 +450,8 @@
             <article class="method">
                 <h3 class="public ">select()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">select(array <span class="argument">$readSockets</span>, array <span class="argument">$writeSockets</span>, array <span class="argument">$exceptSockets</span>,  <span class="argument">$sec</span>,  <span class="argument">$usec</span>)</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">select(array <span class="argument">$readSockets</span>, array <span class="argument">$writeSockets</span>, array <span class="argument">$exceptSockets</span>, int <span class="argument">$sec</span>, int <span class="argument">$usec</span>) : array</pre>
+                <p><em>Selects active sockets with a timeout</em></p>
                 
 
                                     <h4>Parameters</h4>
@@ -455,32 +459,35 @@
                                                     <tr>
                                 <td>array</td>
                                 <td>$readSockets</td>
-                                <td></td>
+                                <td><p>Array of \QXS\WorkerPool\SimpleSocket Objects, that should be monitored for read activity</p></td>
                             </tr>
                                                     <tr>
                                 <td>array</td>
                                 <td>$writeSockets</td>
-                                <td></td>
+                                <td><p>Array of \QXS\WorkerPool\SimpleSocket Objects, that should be monitored for write activity</p></td>
                             </tr>
                                                     <tr>
                                 <td>array</td>
                                 <td>$exceptSockets</td>
-                                <td></td>
+                                <td><p>Array of \QXS\WorkerPool\SimpleSocket Objects, that should be monitored for except activity</p></td>
                             </tr>
                                                     <tr>
-                                <td></td>
+                                <td>int</td>
                                 <td>$sec</td>
-                                <td></td>
+                                <td><p>seconds to wait until a timeout is reached</p></td>
                             </tr>
                                                     <tr>
-                                <td></td>
+                                <td>int</td>
                                 <td>$usec</td>
-                                <td></td>
+                                <td><p>microseconds to wait a timeout is reached</p></td>
                             </tr>
                                             </table>
                 
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>Associative Array of \QXS\WorkerPool\SimpleSocket Objects, that matched the monitoring, with the following keys 'read', 'write', 'except'</p>
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -507,7 +514,7 @@
                 <h3 class="public ">getResourceId()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">getResourceId()</pre>
-                <p><em></em></p>
+                <p><em>Get the id of the socket resource</em></p>
                 
 
                 
@@ -538,7 +545,7 @@
                 <h3 class="public ">getSocket()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">getSocket()</pre>
-                <p><em></em></p>
+                <p><em>Get the socket resource</em></p>
                 
 
                 
@@ -568,26 +575,29 @@
             <article class="method">
                 <h3 class="public ">hasData()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">hasData( <span class="argument">$sec</span>,  <span class="argument">$usec</span>)</pre>
-                <p><em>Write the data to the socket in a predetermined format</em></p>
+                <pre class="signature" style="margin-right: 54px;">hasData(int <span class="argument">$sec</span>, int <span class="argument">$usec</span>) : bool</pre>
+                <p><em>Check if there is any data available</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>int</td>
                                 <td>$sec</td>
-                                <td></td>
+                                <td><p>seconds to wait until a timeout is reached</p></td>
                             </tr>
                                                     <tr>
-                                <td></td>
+                                <td>int</td>
                                 <td>$usec</td>
-                                <td></td>
+                                <td><p>microseconds to wait a timeout is reached</p></td>
                             </tr>
                                             </table>
                 
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    bool
+                                            &mdash; <p>true, in case there is data, that can be red</p>
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -612,16 +622,16 @@
             <article class="method">
                 <h3 class="public ">send()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">send( <span class="argument">$data</span>)</pre>
+                <pre class="signature" style="margin-right: 54px;">send(mixed <span class="argument">$data</span>)</pre>
                 <p><em>Write the data to the socket in a predetermined format</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>mixed</td>
                                 <td>$data</td>
-                                <td></td>
+                                <td><p>the data, that should be sent</p></td>
                             </tr>
                                             </table>
                 
@@ -651,13 +661,16 @@
             <article class="method">
                 <h3 class="public ">receive()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">receive()</pre>
+                <pre class="signature" style="margin-right: 54px;">receive() : mixed</pre>
                 <p><em>Read a data packet from the socket in a predetermined format.</em></p>
                 
 
                 
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    mixed
+                                            &mdash; <p>the data, that has been received</p>
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -726,7 +739,7 @@
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on March 27th, 2014 at 22:57.
+                    on March 27th, 2014 at 23:28.
                 </section>
             </section>
         </section>

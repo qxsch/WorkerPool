@@ -114,7 +114,7 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">34</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">0</span>
                                 </a>
                             </li>
                             <li>
@@ -144,28 +144,28 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-2064914649"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-588233302"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-2064914649" class="accordion-body collapse in">
+            <div id="namespace-588233302" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-58834327"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-402167317"></a>
                                 <a href="../namespaces/QXS.html" style="margin-left: 30px; padding-left: 0">QXS</a>
             </div>
-            <div id="namespace-58834327" class="accordion-body collapse ">
+            <div id="namespace-402167317" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-781735045"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-365696344"></a>
                                 <a href="../namespaces/QXS.WorkerPool.html" style="margin-left: 30px; padding-left: 0">WorkerPool</a>
             </div>
-            <div id="namespace-781735045" class="accordion-body collapse ">
+            <div id="namespace-365696344" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -321,7 +321,7 @@ $t->synchronizedEnd();</p>
             <article id="constant_SEM_RAND_KEY" class="constant">
                 <h3 class="">SEM_RAND_KEY</h3>
                 <pre class="signature">SEM_RAND_KEY</pre>
-                <p><em></em></p>
+                <p><em>generate a random key</em></p>
                 
             </article>
         </div>
@@ -348,7 +348,7 @@ $t->synchronizedEnd();</p>
             <article id="constant_SEM_FTOK_KEY" class="constant">
                 <h3 class="">SEM_FTOK_KEY</h3>
                 <pre class="signature">SEM_FTOK_KEY</pre>
-                <p><em></em></p>
+                <p><em>generate a key based on ftok</em></p>
                 
             </article>
         </div>
@@ -383,11 +383,13 @@ $t->synchronizedEnd();</p>
             <a id="property_semaphore" name="property_semaphore" class="anchor"></a>
             <article class="property">
                 <h3 class="protected ">$semaphore</h3>
-                <pre class="signature">$semaphore</pre>
+                <pre class="signature">$semaphore : resource</pre>
                 <p><em></em></p>
                 
 
-                            </article>
+                                <h4>Type</h4>
+                resource
+                &mdash; the semaphore resource                            </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -411,11 +413,13 @@ $t->synchronizedEnd();</p>
             <a id="property_semKey" name="property_semKey" class="anchor"></a>
             <article class="property">
                 <h3 class="protected ">$semKey</h3>
-                <pre class="signature">$semKey</pre>
+                <pre class="signature">$semKey : int</pre>
                 <p><em></em></p>
                 
 
-                            </article>
+                                <h4>Type</h4>
+                int
+                &mdash; the key that is used to access the semaphore                            </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -447,13 +451,16 @@ $t->synchronizedEnd();</p>
             <article class="method">
                 <h3 class="public ">getSemaphoreKey()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getSemaphoreKey()</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">getSemaphoreKey() : int</pre>
+                <p><em>Returns the key, that can be used to access the semaphore</em></p>
                 
 
                 
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    int
+                                            &mdash; <p>the key of the semaphore</p>
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -478,26 +485,34 @@ $t->synchronizedEnd();</p>
             <article class="method">
                 <h3 class="public ">create()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">create( <span class="argument">$semKey</span>,  <span class="argument">$maxAcquire</span>)</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">create(int <span class="argument">$semKey</span>, mixed <span class="argument">$maxAcquire</span>) : \QXS\WorkerPool\Semaphore</pre>
+                <p><em>Create a semaphore</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>int</td>
                                 <td>$semKey</td>
-                                <td></td>
+                                <td><p>the key of the semaphore - use a specific number or Semaphore::SEM_RAND_KEY or Semaphore::SEM_FTOK_KEY</p></td>
                             </tr>
                                                     <tr>
-                                <td></td>
+                                <td>mixed</td>
                                 <td>$maxAcquire</td>
-                                <td></td>
+                                <td><p>the maximum number of processes, that can acquire the semaphore</p></td>
                             </tr>
                                             </table>
                 
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\QXS\WorkerPool\SemaphoreException</dt>
+                            <dd><p>in case of an error</p></dd>
+                                                                    </dl>
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    <a href="../classes/QXS.WorkerPool.Semaphore.html">\QXS\WorkerPool\Semaphore</a>
+                                            &mdash; <p>the current object</p>
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -522,13 +537,21 @@ $t->synchronizedEnd();</p>
             <article class="method">
                 <h3 class="public ">acquire()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">acquire()</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">acquire() : \QXS\WorkerPool\Semaphore</pre>
+                <p><em>Acquire the semaphore</em></p>
                 
 
                 
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\QXS\WorkerPool\SemaphoreException</dt>
+                            <dd><p>in case of an error</p></dd>
+                                                                    </dl>
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    <a href="../classes/QXS.WorkerPool.Semaphore.html">\QXS\WorkerPool\Semaphore</a>
+                                            &mdash; <p>the current object</p>
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -553,13 +576,21 @@ $t->synchronizedEnd();</p>
             <article class="method">
                 <h3 class="public ">release()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">release()</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">release() : \QXS\WorkerPool\Semaphore</pre>
+                <p><em>Releases the semaphore</em></p>
                 
 
                 
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\QXS\WorkerPool\SemaphoreException</dt>
+                            <dd><p>in case of an error</p></dd>
+                                                                    </dl>
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    <a href="../classes/QXS.WorkerPool.Semaphore.html">\QXS\WorkerPool\Semaphore</a>
+                                            &mdash; <p>the current object</p>
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -584,18 +615,28 @@ $t->synchronizedEnd();</p>
             <article class="method">
                 <h3 class="public ">synchronizedBegin()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">synchronizedBegin()</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">synchronizedBegin() : \QXS\WorkerPool\Semaphore</pre>
+                <p><em>Acquire the semaphore</em></p>
                 
 
                 
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\QXS\WorkerPool\SemaphoreException</dt>
+                            <dd><p>in case of an error</p></dd>
+                                                                    </dl>
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    <a href="../classes/QXS.WorkerPool.Semaphore.html">\QXS\WorkerPool\Semaphore</a>
+                                            &mdash; <p>the current object</p>
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/QXS.WorkerPool.Semaphore.html#method_acquire"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr>
@@ -615,18 +656,28 @@ $t->synchronizedEnd();</p>
             <article class="method">
                 <h3 class="public ">synchronizedEnd()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">synchronizedEnd()</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">synchronizedEnd() : \QXS\WorkerPool\Semaphore</pre>
+                <p><em>Releases the semaphore</em></p>
                 
 
                 
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\QXS\WorkerPool\SemaphoreException</dt>
+                            <dd><p>in case of an error</p></dd>
+                                                                    </dl>
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    <a href="../classes/QXS.WorkerPool.Semaphore.html">\QXS\WorkerPool\Semaphore</a>
+                                            &mdash; <p>the current object</p>
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/QXS.WorkerPool.Semaphore.html#method_release"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr>
@@ -646,13 +697,21 @@ $t->synchronizedEnd();</p>
             <article class="method">
                 <h3 class="public ">destroy()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">destroy()</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">destroy() : \QXS\WorkerPool\Semaphore</pre>
+                <p><em>Destroys the semaphore</em></p>
                 
 
                 
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\QXS\WorkerPool\SemaphoreException</dt>
+                            <dd><p>in case of an error</p></dd>
+                                                                    </dl>
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    <a href="../classes/QXS.WorkerPool.Semaphore.html">\QXS\WorkerPool\Semaphore</a>
+                                            &mdash; <p>the current object</p>
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -721,7 +780,7 @@ $t->synchronizedEnd();</p>
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on March 27th, 2014 at 22:57.
+                    on March 27th, 2014 at 23:28.
                 </section>
             </section>
         </section>

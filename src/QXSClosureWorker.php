@@ -1,17 +1,31 @@
 <?php
+/**
+ * Closure Worker Class
+ */
 
 namespace QXS\WorkerPool;
 
 require_once(__DIR__.'/QXSWorkerPool.php');
 
 /**
-Example:
+ * The Closure Worker Class
  */
 class ClosureWorker implements Worker {
+	/** @var \Closure Closure that runs the task */
 	protected $create=null;
+	/** @var \Closure Closure that will be used when a worker has been forked */
 	protected $run=null;
+	/** @var \Closure Closure that will be used before a worker is getting destroyed */
 	protected $destroy=null;
+	/** @var \ArrayObject persistent storage container for the working process */
 	protected $storage=null;
+
+	/**
+	 * The constructor
+	 * @param \Closure $run Closure that runs the task
+	 * @param \Closure $create Closure that can be used when a worker has been forked
+	 * @param \Closure $destroy Closure that can be used before a worker is getting destroyed
+	 */
 	public function __construct(\Closure $run, \Closure $create=null, \Closure $destroy=null) {
 		$this->storage=new \ArrayObject();
 		if(is_null($create)) {

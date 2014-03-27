@@ -114,7 +114,7 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">34</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">0</span>
                                 </a>
                             </li>
                             <li>
@@ -144,28 +144,28 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1488797058"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-2068667008"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1488797058" class="accordion-body collapse in">
+            <div id="namespace-2068667008" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1154762307"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-380688193"></a>
                                 <a href="../namespaces/QXS.html" style="margin-left: 30px; padding-left: 0">QXS</a>
             </div>
-            <div id="namespace-1154762307" class="accordion-body collapse ">
+            <div id="namespace-380688193" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1872413813"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-951620304"></a>
                                 <a href="../namespaces/QXS.WorkerPool.html" style="margin-left: 30px; padding-left: 0">WorkerPool</a>
             </div>
-            <div id="namespace-1872413813" class="accordion-body collapse ">
+            <div id="namespace-951620304" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -211,7 +211,7 @@
                     <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
 
                     <h1><small>\QXS\WorkerPool</small>ClosureWorker</h1>
-                    <p><em>Example:</em></p>
+                    <p><em>The Closure Worker Class</em></p>
                     
 
                     <section id="summary">
@@ -313,11 +313,13 @@
             <a id="property_create" name="property_create" class="anchor"></a>
             <article class="property">
                 <h3 class="protected ">$create</h3>
-                <pre class="signature">$create</pre>
+                <pre class="signature">$create : \Closure</pre>
                 <p><em></em></p>
                 
 
-                            </article>
+                                <h4>Type</h4>
+                \Closure
+                &mdash; Closure that runs the task                            </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -341,11 +343,13 @@
             <a id="property_run" name="property_run" class="anchor"></a>
             <article class="property">
                 <h3 class="protected ">$run</h3>
-                <pre class="signature">$run</pre>
+                <pre class="signature">$run : \Closure</pre>
                 <p><em></em></p>
                 
 
-                            </article>
+                                <h4>Type</h4>
+                \Closure
+                &mdash; Closure that will be used when a worker has been forked                            </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -369,11 +373,13 @@
             <a id="property_destroy" name="property_destroy" class="anchor"></a>
             <article class="property">
                 <h3 class="protected ">$destroy</h3>
-                <pre class="signature">$destroy</pre>
+                <pre class="signature">$destroy : \Closure</pre>
                 <p><em></em></p>
                 
 
-                            </article>
+                                <h4>Type</h4>
+                \Closure
+                &mdash; Closure that will be used before a worker is getting destroyed                            </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -397,11 +403,13 @@
             <a id="property_storage" name="property_storage" class="anchor"></a>
             <article class="property">
                 <h3 class="protected ">$storage</h3>
-                <pre class="signature">$storage</pre>
+                <pre class="signature">$storage : \ArrayObject</pre>
                 <p><em></em></p>
                 
 
-                            </article>
+                                <h4>Type</h4>
+                \ArrayObject
+                &mdash; persistent storage container for the working process                            </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -434,7 +442,7 @@
                 <h3 class="public ">__construct()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">__construct(\Closure <span class="argument">$run</span>, \Closure <span class="argument">$create</span>, \Closure <span class="argument">$destroy</span>)</pre>
-                <p><em></em></p>
+                <p><em>The constructor</em></p>
                 
 
                                     <h4>Parameters</h4>
@@ -442,17 +450,17 @@
                                                     <tr>
                                 <td>\Closure</td>
                                 <td>$run</td>
-                                <td></td>
+                                <td><p>Closure that runs the task</p></td>
                             </tr>
                                                     <tr>
                                 <td>\Closure</td>
                                 <td>$create</td>
-                                <td></td>
+                                <td><p>Closure that can be used when a worker has been forked</p></td>
                             </tr>
                                                     <tr>
                                 <td>\Closure</td>
                                 <td>$destroy</td>
-                                <td></td>
+                                <td><p>Closure that can be used before a worker is getting destroyed</p></td>
                             </tr>
                                             </table>
                 
@@ -647,7 +655,7 @@
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on March 27th, 2014 at 22:57.
+                    on March 27th, 2014 at 23:28.
                 </section>
             </section>
         </section>

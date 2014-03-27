@@ -3,6 +3,7 @@
  * The WorkerPool Requires the following PHP extensions
  *	* pcntl
  *	* posix
+ *	* sysvsem
  *	* proctitle (optional)
  * 
  * Use the following commands to install them on RHEL:
