@@ -1,14 +1,24 @@
 <?php
-
-// REQUIRES: yum install php-process php-pcntl
-// FOR PROCTITLE: yum install php-pear php-devel ; pecl install proctitle
+/**
+ * The WorkerPool Requires the following PHP extensions
+ *	* pcntl
+ *	* posix
+ *	* proctitle (optional)
+ * 
+ * Use the following commands to install them on RHEL:
+ * 	yum install php-process php-pcntl
+ * 	yum install php-pear php-devel ; pecl install proctitle
+ * 	echo 'extension=proctitle.so' > /etc/php.d/proctitle.ini
+ */
 
 
 namespace QXS\WorkerPool;
 
 require_once(__DIR__.'/QXSSemaphore.php');
 require_once(__DIR__.'/QXSSimpleSocket.php');
-
+/**
+ * Exception for the WorkerPool Class
+ */
 class WorkerPoolException extends \Exception { }
 
 /**
@@ -44,13 +54,21 @@ interface Worker {
  * 
  */
 class WorkerPool implements \Iterator, \Countable {
+	/** @var bool has the pool already been created? */
 	private $created=false;
+	/** @var int the current worker pool size */
 	private $workerPoolSize=2;
+	/** @var int the id of the parent */
 	protected $parentPid=0;
+	/** @var array forked processes with their pids and sockets */
 	protected $processes=array();
+	/** @var \QXS\WorkerPool\Worker the worker class, that is used to run the tasks */
 	protected $worker=null;
+	/** @var \QXS\WorkerPool\Semaphore the semaphore, that is used to synchronizd tasks across all processes */
 	protected $semaphore=null;
+	/** @var array queue of free process pids */
 	protected $freeProcesses=array();
+	/** @var array received results from the workers */
 	protected $results=array();
 
 
@@ -106,9 +124,10 @@ class WorkerPool implements \Iterator, \Countable {
 	}
 	/**
 	 * Terminates the current process
+	 * @param int $code the exit code
 	 */
-	public function _exit($int) {
-		exit($int);
+	public function _exit($code) {
+		exit($code);
 	}
 	/**
 	 * Sets the proccess title
@@ -235,7 +254,7 @@ class WorkerPool implements \Iterator, \Countable {
 
 	/**
 	 * Destroy the WorkerPool with all its children
-	 * @param int $$maxWaitSecs a timeout to wait for the children, before killing them
+	 * @param int $maxWaitSecs a timeout to wait for the children, before killing them
 	 */
 	public function destroy($maxWaitSecs=10) {
 		if(!$this->created) {
@@ -488,6 +507,7 @@ class WorkerPool implements \Iterator, \Countable {
 		return $this->count();
 	}
 	/**
+	 * Shifts the next result from the result queue
 	 * @return array gets the next result
 	 */
 	public function getNextResult() {

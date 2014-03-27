@@ -114,7 +114,7 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">47</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">34</span>
                                 </a>
                             </li>
                             <li>
@@ -144,28 +144,28 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1915728577"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-310250320"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1915728577" class="accordion-body collapse in">
+            <div id="namespace-310250320" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-638633775"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-890758723"></a>
                                 <a href="../namespaces/QXS.html" style="margin-left: 30px; padding-left: 0">QXS</a>
             </div>
-            <div id="namespace-638633775" class="accordion-body collapse ">
+            <div id="namespace-890758723" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-675720053"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2069587425"></a>
                                 <a href="../namespaces/QXS.WorkerPool.html" style="margin-left: 30px; padding-left: 0">WorkerPool</a>
             </div>
-            <div id="namespace-675720053" class="accordion-body collapse ">
+            <div id="namespace-2069587425" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -210,8 +210,14 @@
 
                     <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
                     <h1><small></small>QXSWorkerPool.php</h1>
-                    <p><em></em></p>
-                    
+                    <p><em>The WorkerPool Requires the following PHP extensions
+* pcntl
+* posix
+* proctitle (optional)</em></p>
+                    <p>Use the following commands to install them on RHEL:</p>
+<pre><code>yum install php-process php-pcntl
+yum install php-pear php-devel ; pecl install proctitle
+echo 'extension=proctitle.so' &gt; /etc/php.d/proctitle.ini</code></pre>
 
                     
                                         <h2>Interfaces</h2>
@@ -226,7 +232,7 @@
                     <table class="table table-hover">
                                             <tr>
                             <td><a href="../classes/QXS.WorkerPool.WorkerPoolException.html">WorkerPoolException</a></td>
-                            <td><em></em></td>
+                            <td><em>Exception for the WorkerPool Class</em></td>
                         </tr>
                                             <tr>
                             <td><a href="../classes/QXS.WorkerPool.WorkerPool.html">WorkerPool</a></td>
@@ -300,7 +306,7 @@
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on March 27th, 2014 at 22:34.
+                    on March 27th, 2014 at 22:57.
                 </section>
             </section>
         </section>

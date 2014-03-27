@@ -114,7 +114,7 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">47</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">34</span>
                                 </a>
                             </li>
                             <li>
@@ -144,28 +144,28 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1225663735"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1201613503"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1225663735" class="accordion-body collapse in">
+            <div id="namespace-1201613503" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1963421483"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2044495424"></a>
                                 <a href="../namespaces/QXS.html" style="margin-left: 30px; padding-left: 0">QXS</a>
             </div>
-            <div id="namespace-1963421483" class="accordion-body collapse ">
+            <div id="namespace-2044495424" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-603233747"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-399885761"></a>
                                 <a href="../namespaces/QXS.WorkerPool.html" style="margin-left: 30px; padding-left: 0">WorkerPool</a>
             </div>
-            <div id="namespace-603233747" class="accordion-body collapse ">
+            <div id="namespace-399885761" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -338,11 +338,13 @@
             <a id="property_parentPid" name="property_parentPid" class="anchor"></a>
             <article class="property">
                 <h3 class="protected ">$parentPid</h3>
-                <pre class="signature">$parentPid</pre>
+                <pre class="signature">$parentPid : int</pre>
                 <p><em></em></p>
                 
 
-                            </article>
+                                <h4>Type</h4>
+                int
+                &mdash; the id of the parent                            </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -366,11 +368,13 @@
             <a id="property_processes" name="property_processes" class="anchor"></a>
             <article class="property">
                 <h3 class="protected ">$processes</h3>
-                <pre class="signature">$processes</pre>
+                <pre class="signature">$processes : array</pre>
                 <p><em></em></p>
                 
 
-                            </article>
+                                <h4>Type</h4>
+                array
+                &mdash; forked processes with their pids and sockets                            </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -394,11 +398,13 @@
             <a id="property_worker" name="property_worker" class="anchor"></a>
             <article class="property">
                 <h3 class="protected ">$worker</h3>
-                <pre class="signature">$worker</pre>
+                <pre class="signature">$worker : \QXS\WorkerPool\Worker</pre>
                 <p><em></em></p>
                 
 
-                            </article>
+                                <h4>Type</h4>
+                <a href="../classes/QXS.WorkerPool.Worker.html">\QXS\WorkerPool\Worker</a>
+                &mdash; the worker class, that is used to run the tasks                            </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -422,11 +428,13 @@
             <a id="property_semaphore" name="property_semaphore" class="anchor"></a>
             <article class="property">
                 <h3 class="protected ">$semaphore</h3>
-                <pre class="signature">$semaphore</pre>
+                <pre class="signature">$semaphore : \QXS\WorkerPool\Semaphore</pre>
                 <p><em></em></p>
                 
 
-                            </article>
+                                <h4>Type</h4>
+                <a href="../classes/QXS.WorkerPool.Semaphore.html">\QXS\WorkerPool\Semaphore</a>
+                &mdash; the semaphore, that is used to synchronizd tasks across all processes                            </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -450,11 +458,13 @@
             <a id="property_freeProcesses" name="property_freeProcesses" class="anchor"></a>
             <article class="property">
                 <h3 class="protected ">$freeProcesses</h3>
-                <pre class="signature">$freeProcesses</pre>
+                <pre class="signature">$freeProcesses : array</pre>
                 <p><em></em></p>
                 
 
-                            </article>
+                                <h4>Type</h4>
+                array
+                &mdash; queue of free process pids                            </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -478,11 +488,13 @@
             <a id="property_results" name="property_results" class="anchor"></a>
             <article class="property">
                 <h3 class="protected ">$results</h3>
-                <pre class="signature">$results</pre>
+                <pre class="signature">$results : array</pre>
                 <p><em></em></p>
                 
 
-                            </article>
+                                <h4>Type</h4>
+                array
+                &mdash; received results from the workers                            </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -506,11 +518,13 @@
             <a id="property_created" name="property_created" class="anchor"></a>
             <article class="property">
                 <h3 class="private ">$created</h3>
-                <pre class="signature">$created</pre>
+                <pre class="signature">$created : bool</pre>
                 <p><em></em></p>
                 
 
-                            </article>
+                                <h4>Type</h4>
+                bool
+                &mdash; has the pool already been created?                            </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -534,11 +548,13 @@
             <a id="property_workerPoolSize" name="property_workerPoolSize" class="anchor"></a>
             <article class="property">
                 <h3 class="private ">$workerPoolSize</h3>
-                <pre class="signature">$workerPoolSize</pre>
+                <pre class="signature">$workerPoolSize : int</pre>
                 <p><em></em></p>
                 
 
-                            </article>
+                                <h4>Type</h4>
+                int
+                &mdash; the current worker pool size                            </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -716,16 +732,16 @@ In case of a created pool, this method reports the real pool size (number of ali
             <article class="method">
                 <h3 class="public ">_exit()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">_exit( <span class="argument">$int</span>)</pre>
+                <pre class="signature" style="margin-right: 54px;">_exit(int <span class="argument">$code</span>)</pre>
                 <p><em>Terminates the current process</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
-                                <td>$int</td>
-                                <td></td>
+                                <td>int</td>
+                                <td>$code</td>
+                                <td><p>the exit code</p></td>
                             </tr>
                                             </table>
                 
@@ -796,16 +812,16 @@ leaving the parent process behind with invalid resource handles.</p>
             <article class="method">
                 <h3 class="public ">destroy()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">destroy( <span class="argument">$maxWaitSecs</span>)</pre>
+                <pre class="signature" style="margin-right: 54px;">destroy(int <span class="argument">$maxWaitSecs</span>)</pre>
                 <p><em>Destroy the WorkerPool with all its children</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>int</td>
                                 <td>$maxWaitSecs</td>
-                                <td></td>
+                                <td><p>a timeout to wait for the children, before killing them</p></td>
                             </tr>
                                             </table>
                 
@@ -1116,7 +1132,7 @@ You can kill all child processes, so that the parent will be unblocked.</p>
                 <h3 class="public ">getNextResult()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">getNextResult() : array</pre>
-                <p><em></em></p>
+                <p><em>Shifts the next result from the result queue</em></p>
                 
 
                 
@@ -1548,7 +1564,7 @@ You can kill all child processes, so that the parent will be unblocked.</p>
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on March 27th, 2014 at 22:34.
+                    on March 27th, 2014 at 22:57.
                 </section>
             </section>
         </section>
