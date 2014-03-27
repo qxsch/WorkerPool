@@ -54,8 +54,9 @@ A more sophisticated example:
 <?php
 require_once(__DIR__.'/src/QXSWorkerPool.php');
 
-use QXS\WorkerPool;
-use QXS\Worker;
+use QXS\WorkerPool\WorkerPool;
+use QXS\WorkerPool\Worker;
+use QXS\WorkerPool\Semaphore;
 
 
 /**
