@@ -1,6 +1,8 @@
 <?php
 
-// yum install php-process php-pcntl
+// REQUIRES: yum install php-process php-pcntl
+// FOR PROCTITLE: yum install php-pear php-devel ; pecl install proctitle
+
 
 namespace QXS\WorkerPool;
 
@@ -51,9 +53,24 @@ class WorkerPool implements \Iterator, \Countable {
 	protected $freeProcesses=array();
 	protected $results=array();
 
+
+	/**
+	 * Returns the current size of the worker pool
+	 * 
+	 * In case the pool hasn't yet been created, this method returns the value of the currently set pool size.
+	 * In case of a created pool, this method reports the real pool size (number of alive worker processes).
+	 * @return int the number of processes
+	 */
 	public function getWorkerPoolSize() { 
 		return $this->workerPoolSize;
 	}
+	/**
+	 * Sets the current size of the worker pool
+	 * @param int $size the new worker pool size
+	 * @throws \QXS\WorkerPool\WorkerPoolException in case the WorkerPool has already been created
+	 * @throws \DomainException in case the $size value is not within the permitted range
+	 * @return int the number of processes
+	 */
 	public function setWorkerPoolSize($size) {
 		if($this->created) {
 			throw new WorkerPoolException('Cannot set the Worker Pool Size for a created pool.');
@@ -67,16 +84,62 @@ class WorkerPool implements \Iterator, \Countable {
 	}
 
 
+	/**
+	 * The constructor
+	 */
 	public function __construct() {
-	}
+		if (!extension_loaded('proctitle')) {
+			$extension=ini_get('extension_dir').'/proctitle.so';
+			if(((int)ini_get('enable_dl'))>0  && file_exists($extension)) {
+				dl('proctitle.so');
+			}
+		}
 
+	}
+	/**
+	 * The destructor
+	 */
 	public function __destruct() {
 		if($this->created) {
 			$this->destroy();
 		}
 	}
+	/**
+	 * Terminates the current process
+	 */
+	public function _exit($int) {
+		exit($int);
+	}
+	/**
+	 * Sets the proccess title
+	 *
+	 * This function call requires the proctitle extension!
+	 * @param string $title the new process title
+	 */
+	protected function setProcessTitle($title) {
+		if(function_exists('setproctitle')) {
+			setproctitle(preg_replace(
+				// allowed characters
+				'/[^a-z0-9-_.: \\\\\\]\\[]/i', 
+				'',
+				// commandline
+				basename($_SERVER['PHP_SELF']).': '.$title
+			));
+		}
+	}
 
+	/**
+	 * Creates the worker pool (forks the children)
+	 *
+	 * Please close all open resources before running this function.
+	 * Child processes are going to close all open resources uppon exit,
+	 * leaving the parent process behind with invalid resource handles.
+	 * @param \QXS\WorkerPool\Worker $worker the worker, that runs future tasks
+	 */
 	public function create(Worker $worker) {
+		if($this->workerPoolSize<=1) {
+			$this->workerPoolSize=2;
+		}
 		$this->parentPid=getmypid();
 		$this->worker=$worker;
 		if($this->created) {
@@ -91,6 +154,8 @@ class WorkerPool implements \Iterator, \Countable {
 
 		$this->semaphore=new Semaphore();
 		$this->semaphore->create(Semaphore::SEM_RAND_KEY);
+
+		$this->setProcessTitle('Parent');
 
 		for($i=1; $i<=$this->workerPoolSize; $i++) {
 			$sockets=array();
@@ -107,6 +172,7 @@ class WorkerPool implements \Iterator, \Countable {
 			} 
 			elseif($processId == 0) {
 				// WE ARE IN THE CHILD
+				$this->setProcessTitle('Worker '.$i.' of '.get_class($worker).' [free]');
 				$this->processes=array();  // we do not have any children
 				$this->workerPoolSize=0;   // we do not have any children
 				socket_close($sockets[1]); // close the parent socket
@@ -115,7 +181,9 @@ class WorkerPool implements \Iterator, \Countable {
 				while(true) {
 					$output=array('pid' => getmypid());
 					try {
+						$this->setProcessTitle('Worker '.$i.' of '.get_class($worker).' [free]');
 						$cmd=$simpleSocket->receive();
+						$this->setProcessTitle('Worker '.$i.' of '.get_class($worker).' [busy]');
 						if($cmd['cmd']=='run') {
 							try {
 								$output['data']=$this->worker->run($cmd['data']);
@@ -145,7 +213,7 @@ class WorkerPool implements \Iterator, \Countable {
 					}
 				}
 				$this->worker->onProcessDestroy();
-				exit(0);
+				$this->_exit(0);
 			}
 			else {
 				// WE ARE IN THE PARENT
@@ -165,6 +233,10 @@ class WorkerPool implements \Iterator, \Countable {
 		return $this;
 	}
 
+	/**
+	 * Destroy the WorkerPool with all its children
+	 * @param int $$maxWaitSecs a timeout to wait for the children, before killing them
+	 */
 	public function destroy($maxWaitSecs=10) {
 		if(!$this->created) {
 			throw new WorkerPoolException('The pool hasn\'t yet been created.');
@@ -212,6 +284,15 @@ class WorkerPool implements \Iterator, \Countable {
 		return $this;
 	}
 
+	/**
+	 * Receives signals 
+	 * 
+	 * DO NOT MANUALLY CALL THIS METHOD!
+	 * pcntl_signal_dispatch() will be calling this method.
+	 * @param int $signo the signal number
+	 * @see pcntl_signal_dispatch
+	 * @see pcntl_signal
+	 */
 	public function signalHandler($signo) {
 		switch ($signo) {
 			case SIGCHLD:
@@ -219,7 +300,7 @@ class WorkerPool implements \Iterator, \Countable {
 				break;
 			case SIGTERM:
 				// handle shutdown tasks
-				exit;
+				$this->_exit(0);
 				break;
 			case SIGHUP:
 				// handle restart tasks
@@ -232,7 +313,11 @@ class WorkerPool implements \Iterator, \Countable {
 		// more signals to dispatch?
 		pcntl_signal_dispatch();
 	}
-
+	/**
+	 * Child process reaper
+	 * @param int $pid the process id
+	 * @see pcntl_waitpid
+	 */
 	protected function reaper($pid=-1) {
 		if (!is_int($pid)) {
 			$pid=-1;
@@ -255,11 +340,23 @@ class WorkerPool implements \Iterator, \Countable {
 		}
 	}
 
+	/**
+	 * Waits for all children to finish their worka
+	 *
+	 * This function blocks until every worker has finished its work.
+	 * You can kill hanging child processes, so that the parent will be unblocked.
+	 */
 	public function waitForAllWorkers() {
 		while($this->getBusyWorkers()>0) {
-			$this->collectWorkerResults(90);
+			$this->collectWorkerResults(10);
 		}
 	}
+	/**
+	 * Returns the number of busy and free workers
+	 *
+	 * This function collects all the information at once.
+	 * @param array with the keys 'free', 'busy', 'total'
+	 */
 	public function getFreeAndBusyWorkers() {
 		$this->collectWorkerResults();
 		return array(
@@ -268,15 +365,38 @@ class WorkerPool implements \Iterator, \Countable {
 			'total' => $this->workerPoolSize
 		);;
 	}
+	/**
+	 * Returns the number of free workers
+	 *
+	 * PAY ATTENTION WHEN USING THIS FUNCTION WITH A SUBSEQUENT CALL OF getBusyWorkers().
+	 * IN THIS CASE THE SUM MIGHT NOT EQUAL TO THE CURRENT POOL SIZE.
+	 * USE getFreeAndBusyWorkers() TO GET CONSISTENT RESULTS.
+	 * @param int number of free workers
+	 */
 	public function getFreeWorkers() {
 		$this->collectWorkerResults();
 		return count($this->freeProcesses);
 	}
+	/**
+	 * Returns the number of busy workers
+	 *
+	 * PAY ATTENTION WHEN USING THIS FUNCTION WITH A SUBSEQUENT CALL OF getFreeWorkers().
+	 * IN THIS CASE THE SUM MIGHT NOT EQUAL TO THE CURRENT POOL SIZE.
+	 * USE getFreeAndBusyWorkers() TO GET CONSISTENT RESULTS.
+	 * @param int number of free workers
+	 */
 	public function getBusyWorkers() {
 		$this->collectWorkerResults();
 		return $this->workerPoolSize - count($this->freeProcesses);
 	}
 
+	/**
+	 * Get the pid of the next free worker
+	 *
+	 * This function blocks until a worker has finished its work.
+	 * You can kill all child processes, so that the parent will be unblocked.
+	 * @return int the pid of the next free child
+	 */
 	protected function getNextFreeWorker() {
 		$sec=0;
 		while(true) {
@@ -289,13 +409,17 @@ class WorkerPool implements \Iterator, \Countable {
 					return $childpid;
 				}
 			}
-			$sec=90;
+			$sec=10;
 			if($this->workerPoolSize<=0) {
 				throw new WorkerPoolException('All workers were gone.');
 			}
 		}
 	}
 
+	/**
+	 * Collects the resluts form the workers and processes any pending signals
+	 * @param int $sec timeout to wait for new results from the workers
+	 */
 	protected function collectWorkerResults($sec=0) {
 		// dispatch signals
 		pcntl_signal_dispatch();
@@ -326,6 +450,13 @@ class WorkerPool implements \Iterator, \Countable {
 		pcntl_signal_dispatch();
 	}
 
+	/**
+	 * Sends the input to the next free worker process
+	 *
+	 * This function blocks until a worker has finished its work.
+	 * You can kill all child processes, so that the parent will be unblocked.
+	 * @param mixed $input any serializeable value
+	 */
 	public function run($input) {
 		while($this->workerPoolSize>0) {
 			try {
@@ -340,37 +471,70 @@ class WorkerPool implements \Iterator, \Countable {
 		throw new WorkerPoolException('Unable to run the task.');
 	}
 
+	/**
+	 * Is there any result available?
+	 * @return bool true, in case we have received some results
+	 */
 	public function hasResults() {
 		$this->collectWorkerResults();
 		return !empty($this->results);
 	}
+	/**
+	 * How many results did we receive?
+	 * @return int the number of results
+	 */
 	public function countResults() {
 		$this->collectWorkerResults();
 		return $this->count();
 	}
+	/**
+	 * @return array gets the next result
+	 */
 	public function getNextResult() {
 		$this->collectWorkerResults();
 		return array_shift($this->results);
 	}
 
-	// Countable Methods
+	/**
+	 * Countable Method count
+	 * @return int the number of results
+	 * @see \QXS\WorkerPool\WorkerPool::countResults()
+	 */
 	public function count() {
 		$this->collectWorkerResults();
 		return count($this->results);
 	}
-	// Iterator Methods
+	/**
+	 * Iterator Method current
+	 * @return array gets the current result
+	 */
 	public function current() {
 		return reset($this->results);
 	}
+	/**
+	 * Iterator Method key
+	 * @todo return some reasonable key
+	 * @return string returns the current key
+	 */
 	public function key() {
 		return 1;
 	}
+	/**
+	 * Iterator Method next()
+	 */
 	public function next() {
 		$this->collectWorkerResults();
 		array_shift($this->results);
 	}
+	/**
+	 * Iterator Method rewind()
+	 */
 	public function rewind() {
 	}
+	/**
+	 * Iterator Method valid()
+	 * @return bool true = there is a pending result
+	 */
 	public function valid() {
 		return !empty($this->results);
 	}
