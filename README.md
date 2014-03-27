@@ -29,7 +29,7 @@ $wp->setWorkerPoolSize(4)
                         function($input, $semaphore, $storage) {
                                 echo "[".getmypid()."]"." hi $input\n";
                                 sleep(rand(1,3)); // this is the working load!
-                                return $input;
+                                return $input; // return null here, in case you do not want to pass any data to the parent 
                         }
                 )
 );
