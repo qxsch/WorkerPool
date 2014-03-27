@@ -12,6 +12,44 @@ _This library is in its infancy. I am adding features to it as I require them._
 The WorkerPool class provides a very simple interface to pass data to a worker pool and have it processed.
 You can at any time fetch the results from the workers. Each worker child can return any value that can be [serialized][serialize].
 
+A simple example:
+
+```php
+<?php
+require_once(__DIR__.'/src/QXSClosureWorker.php');
+
+$wp=new \QXS\WorkerPool\WorkerPool();
+$wp->setWorkerPoolSize(4)
+   ->create(new \QXS\WorkerPool\ClosureWorker(
+                        /**
+                          * @param mixed $input the input from the WorkerPool::run() Method
+                          * @param \QXS\WorkerPool\Semaphore $semaphore the semaphore to synchronize calls accross all workers
+                          * @param \ArrayObject $storage a persistent storage for the current child process
+                          */
+                        function($input, $semaphore, $storage) {
+                                echo "[".getmypid()."]"." hi $input\n";
+                                sleep(rand(1,3)); // this is the working load!
+                                return $input;
+                        }
+                )
+);
+
+
+for($i=0; $i<10; $i++) {
+        $wp->run($i);
+        sleep(1);
+}
+
+$wp->waitForAllWorkers(); // wait for all workers
+
+foreach($wp as $val) {
+        var_dump($val);  // dump the returned values
+}
+
+```
+
+A more sophisticated example:
+
 ```php
 <?php
 require_once(__DIR__.'/src/QXSWorkerPool.php');
