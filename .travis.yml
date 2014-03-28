@@ -6,5 +6,5 @@ php:
 before_script:
   - pecl install -f proctitle
   - phpenv config-add travisphp.ini
-script: phpunit
+script: phpunit --testdox
 
