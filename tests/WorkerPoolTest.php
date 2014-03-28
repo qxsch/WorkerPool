@@ -37,6 +37,18 @@ Class FatalFailingWorker implements \QXS\WorkerPool\Worker {
 
 
 class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
+	public function setUp() {
+		$missingExtensions=array();
+		foreach(array('sockets', 'posix', 'sysvsem', 'pcntl') as $extension) {
+			if(!extension_loaded($extension)) {
+				$missingExtensions[$extension]=$extension;
+			}
+		}
+		if(!empty($missingExtensions)) {
+			$this->markTestSkipped('The following extension are missing: '.implode(', ', $missingExtensions));
+		}
+		
+	}
 	public function testFatalFailingWorker() {
 		$exceptionMsg=null;
 		$exception=null;

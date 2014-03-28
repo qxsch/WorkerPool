@@ -4,6 +4,7 @@
  *	* pcntl
  *	* posix
  *	* sysvsem
+ *	* sockets
  *	* proctitle (optional)
  * 
  * Use the following commands to install them on RHEL:
