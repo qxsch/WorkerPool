@@ -14,6 +14,7 @@ class SemaphoreException extends \Exception { }
 Semaphore Class
 
 <code>
+<?php
 $t=new Semaphore();
 $t->create(Semaphore::SEM_FTOK_KEY);
 
@@ -26,6 +27,7 @@ echo "We are in the sem\n";
 $t->synchronizedEnd();
 
 $t->destroy();
+?>
 </code>
  */
 class Semaphore {
