@@ -153,4 +153,8 @@ root      2381  0.0  0.2 260256  4424 pts/1    S+   22:28   0:00              \_
 root      2382  0.0  0.2 260256  4424 pts/1    S+   22:28   0:00              \_ simpleExample.php: Worker 4 of QXS\WorkerPool\ClosureWorker [free]
 ```
 
+### Documentation
+
+The documentation can be found here http://qxsch.github.io/WorkerPool/doc/
+
   [serialize]: http://php.net/serialize
