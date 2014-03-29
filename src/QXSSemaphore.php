@@ -11,7 +11,9 @@ namespace QXS\WorkerPool;
 class SemaphoreException extends \Exception { }
 
 /**
-Example:
+Semaphore Class
+
+<code>
 $t=new Semaphore();
 $t->create(Semaphore::SEM_FTOK_KEY);
 
@@ -24,6 +26,7 @@ echo "We are in the sem\n";
 $t->synchronizedEnd();
 
 $t->destroy();
+</code>
  */
 class Semaphore {
 	/** generate a random key */
