@@ -47,8 +47,6 @@ class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
 		if(!empty($missingExtensions)) {
 			$this->markTestSkipped('The following extension are missing: '.implode(', ', $missingExtensions));
 		}
-// for travis 
-$this->markTestSkipped('The following extension are missing: '.implode(', ', $missingExtensions));
 	}
 
 	public function testFatalFailingWorker() {
