@@ -11,22 +11,22 @@ namespace QXS\WorkerPool;
 class SemaphoreException extends \Exception { }
 
 /**
-Semaphore Class
-
-<code>
-$t=new Semaphore();
-$t->create(Semaphore::SEM_FTOK_KEY);
-
-$t->acquire();
-echo "We are in the sem\n";
-$t->release();
-
-$t->synchronizedBegin();
-echo "We are in the sem\n";
-$t->synchronizedEnd();
-
-$t->destroy();
-</code>
+ * Semaphore Class
+ * 
+ * <code>
+ * $t=new Semaphore();
+ * $t->create(Semaphore::SEM_FTOK_KEY);
+ * 
+ * $t->acquire();
+ * echo "We are in the sem\n";
+ * $t->release();
+ * 
+ * $t->synchronizedBegin();
+ * echo "We are in the sem\n";
+ * $t->synchronizedEnd();
+ * 
+ * $t->destroy();
+ * </code>
  */
 class Semaphore {
 	/** generate a random key */
