@@ -5,8 +5,8 @@ php:
   - 5.5
 install:
   - composer require "phpunit/phpunit:4.0.*"
-before_script:
-  - pecl install -f proctitle
+#before_script:
+#  - pecl install -f proctitle
 #  - phpenv config-add travisphp.ini
 script: ./vendor/bin/phpunit 
 
