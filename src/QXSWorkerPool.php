@@ -424,7 +424,8 @@ class WorkerPool implements \Iterator, \Countable {
 			$this->collectWorkerResults($sec);
 			// get a free child
 			while(count($this->freeProcesses)>0) {
-				$childpid=array_shift(array_keys($this->freeProcesses)); //array_shift  modifies the keys
+				$arr=array_keys($this->freeProcesses); // combining array_keys and array_shift returns an error: Strict standards: Only variables should be passed by reference
+				$childpid=array_shift($arr); //array_shift  modifies the keys
 				unset($this->freeProcesses[$childpid]);
 				if(isset($this->processes[$childpid])) {
 					return $childpid;

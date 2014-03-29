@@ -3,8 +3,10 @@ php:
   - 5.3
   - 5.4
   - 5.5
+install:
+  - composer require "phpunit/phpunit:4.0.*@dev"
 before_script:
   - pecl install -f proctitle
 #  - phpenv config-add travisphp.ini
-script: phpunit 
+script: ./vendor/bin/phpunit 
 
