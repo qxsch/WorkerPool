@@ -16,11 +16,11 @@ class SemaphoreException extends \Exception { }
  * <code>
  * $t=new Semaphore();
  * $t->create(Semaphore::SEM_FTOK_KEY);
- * 
+ * // acquire &&  release
  * $t->acquire();
  * echo "We are in the sem\n";
  * $t->release();
- * 
+ * // acquire && release (aliases)
  * $t->synchronizedBegin();
  * echo "We are in the sem\n";
  * $t->synchronizedEnd();
