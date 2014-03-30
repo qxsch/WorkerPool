@@ -1,5 +1,8 @@
-WorkerPool [![Build Status](https://travis-ci.org/qxsch/WorkerPool.svg?branch=master)](https://travis-ci.org/qxsch/WorkerPool)
+WorkerPool 
 ==========
+
+[![Build Status](https://travis-ci.org/qxsch/WorkerPool.svg?branch=master)](https://travis-ci.org/qxsch/WorkerPool)
+![Project Status](http://stillmaintained.com/qxsch/WorkerPool.png)
 
 **Parallel Processing WorkerPool for PHP**
 
