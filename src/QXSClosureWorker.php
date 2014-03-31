@@ -19,6 +19,8 @@ class ClosureWorker implements Worker {
 	protected $destroy=null;
 	/** @var \ArrayObject persistent storage container for the working process */
 	protected $storage=null;
+	/** @var \QXS\WorkerPool\Semaphore $semaphore the semaphore to run synchronized tasks */
+	protected $semaphore=null;
 
 	/**
 	 * The constructor
