@@ -72,6 +72,8 @@ class WorkerPool implements \Iterator, \Countable {
 	protected $freeProcesses=array();
 	/** @var array received results from the workers */
 	protected $results=array();
+	/** @var int number of received results */
+	protected $resultPosition=0;
 
 
 	/**
@@ -530,11 +532,11 @@ class WorkerPool implements \Iterator, \Countable {
 	}
 	/**
 	 * Iterator Method key
-	 * @todo return some reasonable key
 	 * @return string returns the current key
 	 */
 	public function key() {
-		return 1;
+		$this->resultPosition++;
+		return $this->resultPosition;
 	}
 	/**
 	 * Iterator Method next()
