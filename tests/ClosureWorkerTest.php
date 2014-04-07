@@ -5,7 +5,12 @@ namespace QXS\Tests\WorkerPool;
 require_once(__DIR__.'/../src/QXSClosureWorker.php');
 
 
-
+/**
+ * @requires extension pcntl
+ * @requires extension posix
+ * @requires extension sysvsem
+ * @requires extension sockets
+ */
 class ClosureWorkerTest extends \PHPUnit_Framework_TestCase {
 	public function testClosureMethods() {
 		$semaphore=new \QXS\WorkerPool\Semaphore();

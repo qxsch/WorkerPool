@@ -35,7 +35,12 @@ Class FatalFailingWorker implements \QXS\WorkerPool\Worker {
 	}
 }
 
-
+/**
+ * @requires extension pcntl
+ * @requires extension posix
+ * @requires extension sysvsem
+ * @requires extension sockets
+ */
 class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
 	public function setUp() {
 		$missingExtensions=array();
