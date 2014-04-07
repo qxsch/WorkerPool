@@ -108,14 +108,8 @@ class WorkerPool implements \Iterator, \Countable {
 	 * The constructor
 	 */
 	public function __construct() {
-		if (!extension_loaded('proctitle')) {
-			$extension=ini_get('extension_dir').'/proctitle.so';
-			if(((int)ini_get('enable_dl'))>0  && file_exists($extension)) {
-				dl('proctitle.so');
-			}
-		}
-
 	}
+
 	/**
 	 * The destructor
 	 */
@@ -128,7 +122,7 @@ class WorkerPool implements \Iterator, \Countable {
 	 * Terminates the current process
 	 * @param int $code the exit code
 	 */
-	public function _exit($code) {
+	public function exitPhp($code) {
 		exit($code);
 	}
 	/**
@@ -234,7 +228,7 @@ class WorkerPool implements \Iterator, \Countable {
 					}
 				}
 				$this->worker->onProcessDestroy();
-				$this->_exit(0);
+				$this->exitPhp(0);
 			}
 			else {
 				// WE ARE IN THE PARENT
@@ -321,13 +315,13 @@ class WorkerPool implements \Iterator, \Countable {
 				break;
 			case SIGTERM:
 				// handle shutdown tasks
-				$this->_exit(0);
+				$this->exitPhp(0);
 				break;
 			case SIGHUP:
 				// handle restart tasks
 				break;
 			case SIGUSR1:
-				//echo "Caught SIGUSR1...\n";
+				// handle sigusr
 				break;
 			default: // handle all other signals
 		}
