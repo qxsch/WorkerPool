@@ -5,7 +5,6 @@
 
 namespace QXS\WorkerPool;
 
-require_once(__DIR__.'/QXSWorkerPool.php');
 
 /**
  * The Closure Worker Class

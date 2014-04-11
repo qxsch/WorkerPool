@@ -2,7 +2,7 @@
 
 namespace QXS\Tests\WorkerPool;
 
-require_once(__DIR__.'/../src/QXSWorkerPool.php');
+require_once(__DIR__.'/require_once.php');
 
 
 

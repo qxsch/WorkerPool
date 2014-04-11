@@ -16,40 +16,6 @@
 
 namespace QXS\WorkerPool;
 
-require_once(__DIR__.'/QXSSemaphore.php');
-require_once(__DIR__.'/QXSSimpleSocket.php');
-/**
- * Exception for the WorkerPool Class
- */
-class WorkerPoolException extends \Exception { }
-
-/**
- * The Interface for worker processes
- */
-interface Worker {
-	/**
-	 * After the worker has been forked into another process
-	 *
-	 * @param \QXS\WorkerPool\Semaphore $semaphore the semaphore to run synchronized tasks
-	 * @throws \Exception in case of a processing Error an Exception will be thrown
-	 */
-	public function onProcessCreate(Semaphore $semaphore);
-	/**
-	 * Before the worker process is getting destroyed
-	 *
-	 * @throws \Exception in case of a processing Error an Exception will be thrown
-	 */
-	public function onProcessDestroy();
-	/**
-	 * run the work
-	 *
-	 * @param Serializeable $input the data, that the worker should process
-	 * @return Serializeable Returns the result
-	 * @throws \Exception in case of a processing Error an Exception will be thrown
-	 */
-	public function run($input);
-}
-
 
 /**
  * The Worker Pool class runs worker processes in parallel

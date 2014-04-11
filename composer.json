@@ -1,0 +1,31 @@
+{
+    "name": "qxsch/WorkerPool",
+    "description": "Runs tasks in a parallel processing workerpool.",
+    "keywords": ["fork", "paralel", "worker", "workerpool"],
+    "homepage": "https://github.com/qxsch/WorkerPool",
+    "type": "library",
+    "license": "GPL3",
+    "authors": [
+        {
+            "name": "Marco Weber",
+            "email": "marco.weber@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "ext-pcntl": "*",
+        "ext-posix": "*",
+        "ext-sysvsem": "*",
+        "ext-sockets": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": ">=4.0.0",
+    },
+    "suggest": {
+	"ext-proctitle": "*"
+    },
+    "autoload": {
+        "psr-0": {"QXS\\WorkerPool\\": "src/"}
+    }
+}
+

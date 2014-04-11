@@ -6,11 +6,6 @@
 namespace QXS\WorkerPool;
 
 /**
- * Exception for the Semaphore Class
- */
-class SemaphoreException extends \Exception { }
-
-/**
  * Semaphore Class
  * 
  * <code>
