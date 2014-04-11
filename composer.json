@@ -1,5 +1,5 @@
 {
-    "name": "qxsch/WorkerPool",
+    "name": "qxsch/worker-pool",
     "description": "Runs tasks in a parallel processing workerpool.",
     "keywords": ["fork", "paralel", "worker", "workerpool"],
     "homepage": "https://github.com/qxsch/WorkerPool",
