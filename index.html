@@ -52,7 +52,6 @@ You can at any time fetch the results from the workers. Each worker child can re
 <a name="a-simple-example" class="anchor" href="#a-simple-example"><span class="octicon octicon-link"></span></a>A simple example</h3>
 
 <div class="highlight highlight-php"><pre><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">require_once</span><span class="p">(</span><span class="nx">__DIR__</span><span class="o">.</span><span class="s1">'/src/QXSClosureWorker.php'</span><span class="p">);</span>
 
 <span class="nv">$wp</span><span class="o">=</span><span class="k">new</span> <span class="nx">\QXS\WorkerPool\WorkerPool</span><span class="p">();</span>
 <span class="nv">$wp</span><span class="o">-&gt;</span><span class="na">setWorkerPoolSize</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
@@ -88,7 +87,6 @@ You can at any time fetch the results from the workers. Each worker child can re
 <a name="a-more-sophisticated-example" class="anchor" href="#a-more-sophisticated-example"><span class="octicon octicon-link"></span></a>A more sophisticated example</h3>
 
 <div class="highlight highlight-php"><pre><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">require_once</span><span class="p">(</span><span class="nx">__DIR__</span><span class="o">.</span><span class="s1">'/src/QXSWorkerPool.php'</span><span class="p">);</span>
 
 <span class="k">use</span> <span class="nx">QXS\WorkerPool\WorkerPool</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">QXS\WorkerPool\Worker</span><span class="p">;</span>
