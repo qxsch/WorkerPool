@@ -18,7 +18,6 @@ You can at any time fetch the results from the workers. Each worker child can re
 
 ```php
 <?php
-require_once(__DIR__.'/src/QXSClosureWorker.php');
 
 $wp=new \QXS\WorkerPool\WorkerPool();
 $wp->setWorkerPoolSize(4)
@@ -54,7 +53,6 @@ foreach($wp as $val) {
 
 ```php
 <?php
-require_once(__DIR__.'/src/QXSWorkerPool.php');
 
 use QXS\WorkerPool\WorkerPool;
 use QXS\WorkerPool\Worker;
