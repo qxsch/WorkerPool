@@ -4,7 +4,7 @@
     "keywords": ["fork", "paralel", "worker", "workerpool"],
     "homepage": "https://github.com/qxsch/WorkerPool",
     "type": "library",
-    "license": "GPL3",
+    "license": "GPL-3.0+",
     "authors": [
         {
             "name": "Marco Weber",
@@ -25,7 +25,7 @@
 	"ext-proctitle": "*"
     },
     "autoload": {
-        "psr-0": {"QXS\\WorkerPool\\": "src/"}
+        "psr-4": {"QXS\\WorkerPool\\": "src/"}
     }
 }
 
