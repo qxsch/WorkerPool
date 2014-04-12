@@ -130,6 +130,19 @@ class Semaphore {
 	public function synchronizedEnd() { return $this->release(); }
 
 	/**
+	 * Run something synchronized
+	 * @param \Closure $closure the closure, that should be run synchronized
+	 * @throws \QXS\WorkerPool\SemaphoreException in case of an error
+	 * @return \QXS\WorkerPool\Semaphore the current object
+	 */
+	public function synchronize(\Closure $closure) { 
+		$this->acquire();
+		$closure->__invoke();
+		$this->release();
+		return $this;
+	}
+
+	/**
 	 * Destroys the semaphore
 	 * @throws \QXS\WorkerPool\SemaphoreException in case of an error
 	 * @return \QXS\WorkerPool\Semaphore the current object

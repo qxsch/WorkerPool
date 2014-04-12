@@ -28,7 +28,6 @@ $wp->setWorkerPoolSize(4)
 
 for($i=0; $i<10; $i++) {
         $wp->run($i);
-        sleep(1);
 }
 
 $wp->waitForAllWorkers(); // wait for all workers
