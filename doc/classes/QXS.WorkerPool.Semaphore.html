@@ -144,28 +144,28 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1946485107"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1014541832"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1946485107" class="accordion-body collapse in">
+            <div id="namespace-1014541832" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-107506510"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1498709977"></a>
                                 <a href="../namespaces/QXS.html" style="margin-left: 30px; padding-left: 0">QXS</a>
             </div>
-            <div id="namespace-107506510" class="accordion-body collapse ">
+            <div id="namespace-1498709977" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2101175692"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1629299106"></a>
                                 <a href="../namespaces/QXS.WorkerPool.html" style="margin-left: 30px; padding-left: 0">WorkerPool</a>
             </div>
-            <div id="namespace-2101175692" class="accordion-body collapse ">
+            <div id="namespace-1629299106" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -247,6 +247,7 @@ $t->synchronizedEnd();</p>
                                                                     <a href="../classes/QXS.WorkerPool.Semaphore.html#method_release" class="">release()</a><br />
                                                                     <a href="../classes/QXS.WorkerPool.Semaphore.html#method_synchronizedBegin" class="">synchronizedBegin()</a><br />
                                                                     <a href="../classes/QXS.WorkerPool.Semaphore.html#method_synchronizedEnd" class="">synchronizedEnd()</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.Semaphore.html#method_synchronize" class="">synchronize()</a><br />
                                                                     <a href="../classes/QXS.WorkerPool.Semaphore.html#method_destroy" class="">destroy()</a><br />
                                                             </section>
                             <section class="span4">
@@ -697,6 +698,53 @@ $t->synchronizedEnd();</p>
 
                                     <div class="row-fluid">
         <div class="span8 content class">
+            <a id="method_synchronize" name="method_synchronize" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">synchronize()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">synchronize(\Closure <span class="argument">$closure</span>) : \QXS\WorkerPool\Semaphore</pre>
+                <p><em>Run something synchronized</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\Closure</td>
+                                <td>$closure</td>
+                                <td><p>the closure, that should be run synchronized</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\QXS\WorkerPool\SemaphoreException</dt>
+                            <dd><p>in case of an error</p></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/QXS.WorkerPool.Semaphore.html">\QXS\WorkerPool\Semaphore</a>
+                                            &mdash; <p>the current object</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
             <a id="method_destroy" name="method_destroy" class="anchor"></a>
             <article class="method">
                 <h3 class="public ">destroy()</h3>
@@ -784,7 +832,7 @@ $t->synchronizedEnd();</p>
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on April 12th, 2014 at 21:02.
+                    on April 12th, 2014 at 23:01.
                 </section>
             </section>
         </section>
