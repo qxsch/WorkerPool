@@ -42,80 +42,80 @@
 <path fill="none" stroke="gray" d="M24,-186C24,-180 30,-174 36,-174"/>
 <text text-anchor="middle" x="165.5" y="-505.1" font-family="Times Roman,serif" font-size="11.00" fill="gray">WorkerPool</text>
 </g>
-<!-- \\QXS\\WorkerPool\\SemaphoreException -->
-<g id="node4" class="node"><title>\\QXS\\WorkerPool\\SemaphoreException</title>
-<polygon fill="none" stroke="black" points="297,-326 187,-326 187,-290 297,-290 297,-326"/>
-<text text-anchor="middle" x="242" y="-305.6" font-family="Times Roman,serif" font-size="11.00">SemaphoreException</text>
-</g>
-<!-- \\Exception -->
-<g id="node12" class="node"><title>\\Exception</title>
-<ellipse fill="none" stroke="black" cx="59" cy="-131" rx="53.033" ry="19.0919"/>
-<text text-anchor="middle" x="59" y="-127.9" font-family="Times Roman,serif" font-size="14.00" fill="gray">\Exception</text>
-</g>
-<!-- \\QXS\\WorkerPool\\SemaphoreException&#45;&gt;\\Exception -->
-<g id="edge5" class="edge"><title>\\QXS\\WorkerPool\\SemaphoreException&#45;&gt;\\Exception</title>
-<path fill="none" stroke="black" d="M197.512,-289.998C193.059,-287.314 188.791,-284.317 185,-281 140.748,-242.276 153.526,-212.608 113,-170 107.396,-164.108 100.797,-158.511 94.1719,-153.491"/>
-<polygon fill="none" stroke="black" points="95.9927,-150.488 85.8393,-147.462 91.8893,-156.159 95.9927,-150.488"/>
-</g>
-<!-- \\QXS\\WorkerPool\\SimpleSocket -->
-<g id="node5" class="node"><title>\\QXS\\WorkerPool\\SimpleSocket</title>
-<polygon fill="none" stroke="black" points="280,-434 204,-434 204,-398 280,-398 280,-434"/>
-<text text-anchor="middle" x="242" y="-413.6" font-family="Times Roman,serif" font-size="11.00">SimpleSocket</text>
-</g>
-<!-- \\QXS\\WorkerPool\\WorkerPoolException -->
-<g id="node6" class="node"><title>\\QXS\\WorkerPool\\WorkerPoolException</title>
-<polygon fill="none" stroke="black" points="299,-380 185,-380 185,-344 299,-344 299,-380"/>
-<text text-anchor="middle" x="242" y="-359.6" font-family="Times Roman,serif" font-size="11.00">WorkerPoolException</text>
-</g>
-<!-- \\QXS\\WorkerPool\\WorkerPoolException&#45;&gt;\\Exception -->
-<g id="edge7" class="edge"><title>\\QXS\\WorkerPool\\WorkerPoolException&#45;&gt;\\Exception</title>
-<path fill="none" stroke="black" d="M195.81,-343.864C191.886,-341.247 188.201,-338.302 185,-335 129.305,-277.556 163.21,-232.296 113,-170 107.999,-163.796 101.779,-158.106 95.3565,-153.103"/>
-<polygon fill="none" stroke="black" points="97.3327,-150.212 87.1912,-147.146 93.2073,-155.868 97.3327,-150.212"/>
+<!-- \\QXS\\WorkerPool\\Semaphore -->
+<g id="node4" class="node"><title>\\QXS\\WorkerPool\\Semaphore</title>
+<polygon fill="none" stroke="black" points="275,-488 209,-488 209,-452 275,-452 275,-488"/>
+<text text-anchor="middle" x="242" y="-467.6" font-family="Times Roman,serif" font-size="11.00">Semaphore</text>
 </g>
 <!-- \\QXS\\WorkerPool\\WorkerPool -->
-<g id="node7" class="node"><title>\\QXS\\WorkerPool\\WorkerPool</title>
-<polygon fill="none" stroke="black" points="277,-218 207,-218 207,-182 277,-182 277,-218"/>
-<text text-anchor="middle" x="242" y="-197.6" font-family="Times Roman,serif" font-size="11.00">WorkerPool</text>
+<g id="node5" class="node"><title>\\QXS\\WorkerPool\\WorkerPool</title>
+<polygon fill="none" stroke="black" points="277,-380 207,-380 207,-344 277,-344 277,-380"/>
+<text text-anchor="middle" x="242" y="-359.6" font-family="Times Roman,serif" font-size="11.00">WorkerPool</text>
 </g>
 <!-- \\Iterator -->
-<g id="node15" class="node"><title>\\Iterator</title>
-<ellipse fill="none" stroke="black" cx="59" cy="-75" rx="41.9273" ry="19.0919"/>
-<text text-anchor="middle" x="59" y="-71.9" font-family="Times Roman,serif" font-size="14.00" fill="gray">\Iterator</text>
+<g id="node12" class="node"><title>\\Iterator</title>
+<ellipse fill="none" stroke="black" cx="59" cy="-131" rx="41.9273" ry="19.0919"/>
+<text text-anchor="middle" x="59" y="-127.9" font-family="Times Roman,serif" font-size="14.00" fill="gray">\Iterator</text>
 </g>
 <!-- \\QXS\\WorkerPool\\WorkerPool&#45;&gt;\\Iterator -->
-<g id="edge9" class="edge"><title>\\QXS\\WorkerPool\\WorkerPool&#45;&gt;\\Iterator</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M219.977,-181.647C194.924,-161.201 152.371,-127.769 113,-103 107.961,-99.8298 102.522,-96.6981 97.1048,-93.7415"/>
-<polygon fill="none" stroke="black" points="98.5557,-90.5492 88.0815,-88.9554 95.2757,-96.7332 98.5557,-90.5492"/>
+<g id="edge5" class="edge"><title>\\QXS\\WorkerPool\\WorkerPool&#45;&gt;\\Iterator</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M206.867,-350.18C198.951,-346.284 191.098,-341.289 185,-335 129.305,-277.556 163.21,-232.296 113,-170 107.575,-163.27 100.715,-157.145 93.7189,-151.845"/>
+<polygon fill="none" stroke="black" points="95.7005,-148.96 85.5226,-146.017 91.6437,-154.664 95.7005,-148.96"/>
 </g>
 <!-- \\Countable -->
-<g id="node17" class="node"><title>\\Countable</title>
-<ellipse fill="none" stroke="black" cx="59" cy="-19" rx="53.2379" ry="19.0919"/>
-<text text-anchor="middle" x="59" y="-15.9" font-family="Times Roman,serif" font-size="14.00" fill="gray">\Countable</text>
+<g id="node14" class="node"><title>\\Countable</title>
+<ellipse fill="none" stroke="black" cx="59" cy="-75" rx="53.2379" ry="19.0919"/>
+<text text-anchor="middle" x="59" y="-71.9" font-family="Times Roman,serif" font-size="14.00" fill="gray">\Countable</text>
 </g>
 <!-- \\QXS\\WorkerPool\\WorkerPool&#45;&gt;\\Countable -->
-<g id="edge11" class="edge"><title>\\QXS\\WorkerPool\\WorkerPool&#45;&gt;\\Countable</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M230.33,-181.982C209.676,-151.18 164.022,-87.783 113,-47 109.471,-44.1792 105.613,-41.5192 101.636,-39.0451"/>
-<polygon fill="none" stroke="black" points="103.224,-35.9202 92.8164,-33.9354 99.7144,-41.9771 103.224,-35.9202"/>
-</g>
-<!-- \\QXS\\WorkerPool\\Semaphore -->
-<g id="node8" class="node"><title>\\QXS\\WorkerPool\\Semaphore</title>
-<polygon fill="none" stroke="black" points="275,-272 209,-272 209,-236 275,-236 275,-272"/>
-<text text-anchor="middle" x="242" y="-251.6" font-family="Times Roman,serif" font-size="11.00">Semaphore</text>
+<g id="edge7" class="edge"><title>\\QXS\\WorkerPool\\WorkerPool&#45;&gt;\\Countable</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M206.954,-350.935C198.847,-346.989 190.885,-341.782 185,-335 114.245,-253.455 182.277,-185.805 113,-103 110.406,-99.8994 107.38,-97.1 104.11,-94.581"/>
+<polygon fill="none" stroke="black" points="105.843,-91.5297 95.5835,-88.8854 101.955,-97.3505 105.843,-91.5297"/>
 </g>
 <!-- \\QXS\\WorkerPool\\ClosureWorker -->
-<g id="node9" class="node"><title>\\QXS\\WorkerPool\\ClosureWorker</title>
-<polygon fill="none" stroke="black" points="284,-488 200,-488 200,-452 284,-452 284,-488"/>
-<text text-anchor="middle" x="242" y="-467.6" font-family="Times Roman,serif" font-size="11.00">ClosureWorker</text>
+<g id="node6" class="node"><title>\\QXS\\WorkerPool\\ClosureWorker</title>
+<polygon fill="none" stroke="black" points="284,-434 200,-434 200,-398 284,-398 284,-434"/>
+<text text-anchor="middle" x="242" y="-413.6" font-family="Times Roman,serif" font-size="11.00">ClosureWorker</text>
 </g>
 <!-- \\QXS\\WorkerPool\\Worker -->
 <g id="node10" class="node"><title>\\QXS\\WorkerPool\\Worker</title>
-<polygon fill="none" stroke="black" points="86,-488 32,-488 32,-452 86,-452 86,-488"/>
-<text text-anchor="middle" x="59" y="-467.6" font-family="Times Roman,serif" font-size="11.00">Worker</text>
+<polygon fill="none" stroke="black" points="86,-434 32,-434 32,-398 86,-398 86,-434"/>
+<text text-anchor="middle" x="59" y="-413.6" font-family="Times Roman,serif" font-size="11.00">Worker</text>
 </g>
 <!-- \\QXS\\WorkerPool\\ClosureWorker&#45;&gt;\\QXS\\WorkerPool\\Worker -->
-<g id="edge13" class="edge"><title>\\QXS\\WorkerPool\\ClosureWorker&#45;&gt;\\QXS\\WorkerPool\\Worker</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M199.095,-470C167.815,-470 125.861,-470 96.0401,-470"/>
-<polygon fill="none" stroke="black" points="96.0354,-466.5 86.0353,-470 96.0353,-473.5 96.0354,-466.5"/>
+<g id="edge9" class="edge"><title>\\QXS\\WorkerPool\\ClosureWorker&#45;&gt;\\QXS\\WorkerPool\\Worker</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M199.095,-416C167.815,-416 125.861,-416 96.0401,-416"/>
+<polygon fill="none" stroke="black" points="96.0354,-412.5 86.0353,-416 96.0353,-419.5 96.0354,-412.5"/>
+</g>
+<!-- \\QXS\\WorkerPool\\WorkerPoolException -->
+<g id="node7" class="node"><title>\\QXS\\WorkerPool\\WorkerPoolException</title>
+<polygon fill="none" stroke="black" points="299,-326 185,-326 185,-290 299,-290 299,-326"/>
+<text text-anchor="middle" x="242" y="-305.6" font-family="Times Roman,serif" font-size="11.00">WorkerPoolException</text>
+</g>
+<!-- \\Exception -->
+<g id="node17" class="node"><title>\\Exception</title>
+<ellipse fill="none" stroke="black" cx="59" cy="-19" rx="53.033" ry="19.0919"/>
+<text text-anchor="middle" x="59" y="-15.9" font-family="Times Roman,serif" font-size="14.00" fill="gray">\Exception</text>
+</g>
+<!-- \\QXS\\WorkerPool\\WorkerPoolException&#45;&gt;\\Exception -->
+<g id="edge11" class="edge"><title>\\QXS\\WorkerPool\\WorkerPoolException&#45;&gt;\\Exception</title>
+<path fill="none" stroke="black" d="M194.862,-289.844C191.229,-287.248 187.866,-284.312 185,-281 113.788,-198.727 182.721,-130.54 113,-47 110.41,-43.8963 107.387,-41.0947 104.118,-38.5742"/>
+<polygon fill="none" stroke="black" points="105.853,-35.5241 95.5944,-32.8763 101.963,-41.3436 105.853,-35.5241"/>
+</g>
+<!-- \\QXS\\WorkerPool\\SimpleSocket -->
+<g id="node8" class="node"><title>\\QXS\\WorkerPool\\SimpleSocket</title>
+<polygon fill="none" stroke="black" points="280,-272 204,-272 204,-236 280,-236 280,-272"/>
+<text text-anchor="middle" x="242" y="-251.6" font-family="Times Roman,serif" font-size="11.00">SimpleSocket</text>
+</g>
+<!-- \\QXS\\WorkerPool\\SemaphoreException -->
+<g id="node9" class="node"><title>\\QXS\\WorkerPool\\SemaphoreException</title>
+<polygon fill="none" stroke="black" points="297,-218 187,-218 187,-182 297,-182 297,-218"/>
+<text text-anchor="middle" x="242" y="-197.6" font-family="Times Roman,serif" font-size="11.00">SemaphoreException</text>
+</g>
+<!-- \\QXS\\WorkerPool\\SemaphoreException&#45;&gt;\\Exception -->
+<g id="edge13" class="edge"><title>\\QXS\\WorkerPool\\SemaphoreException&#45;&gt;\\Exception</title>
+<path fill="none" stroke="black" d="M230.33,-181.982C209.676,-151.18 164.022,-87.783 113,-47 109.423,-44.1411 105.509,-41.4473 101.474,-38.9449"/>
+<polygon fill="none" stroke="black" points="102.943,-35.7515 92.533,-33.7822 99.443,-41.8136 102.943,-35.7515"/>
 </g>
 </g>
 </svg>
