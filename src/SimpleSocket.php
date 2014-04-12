@@ -52,19 +52,19 @@ class SimpleSocket {
 		$writeTbl=array();
 		$exceptTbl=array();
 		foreach($readSockets as $val) {
-			if(is_a($val, '\QXS\WorkerPool\SimpleSocket')) {
+			if($val instanceof \QXS\WorkerPool\SimpleSocket) {
 				$read[]=$val->getSocket();
 				$readTbl[$val->getResourceId()]=$val;
 			}
 		}
 		foreach($writeSockets as $val) {
-			if(is_a($val, '\QXS\WorkerPool\SimpleSocket')) {
+			if($val instanceof \QXS\WorkerPool\SimpleSocket) {
 				$write[]=$val->getSocket();
 				$writeTbl[$val->getResourceId()]=$val;
 			}
 		}
 		foreach($exceptSockets as $val) {
-			if(is_a($val, '\QXS\WorkerPool\SimpleSocket')) {
+			if($val instanceof \QXS\WorkerPool\SimpleSocket) {
 				$except[]=$val->getSocket();
 				$exceptTbl[$val->getResourceId()]=$val;
 			}
