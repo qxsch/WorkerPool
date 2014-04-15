@@ -1,0 +1,42 @@
+<?php
+
+require_once(__DIR__.'/../src/Worker.php');
+require_once(__DIR__.'/../src/WorkerPoolException.php');
+require_once(__DIR__.'/../src/SemaphoreException.php');
+require_once(__DIR__.'/../src/ClosureWorker.php');
+require_once(__DIR__.'/../src/Semaphore.php');
+require_once(__DIR__.'/../src/SimpleSocket.php');
+require_once(__DIR__.'/../src/WorkerPool.php');
+
+
+$wp=new \QXS\WorkerPool\WorkerPool();
+$wp->setWorkerPoolSize(4)
+   ->create(new \QXS\WorkerPool\ClosureWorker(
+                        /**
+                          * @param mixed $input the input from the WorkerPool::run() Method
+                          * @param \QXS\WorkerPool\Semaphore $semaphore the semaphore to synchronize calls accross all workers
+                          * @param \ArrayObject $storage a persistent storge for the current child process
+                          */
+                        function($input, $semaphore, $storage) {
+                                $semaphore->synchronizedBegin();
+                                        // this code is begin synchronized accross all workers
+                                        echo "[".getmypid()."]"." hi $input\n";
+                                $semaphore->synchronizedEnd();
+                                sleep(rand(1,3)); // this is the working load!
+                                return $input;
+                        }
+                )
+);
+
+
+for($i=0; $i<10; $i++) {
+        $wp->run($i);
+}
+
+$wp->waitForAllWorkers(); // wait for all workers
+
+foreach($wp as $val) {
+        var_dump($val);  // dump the returned values
+}
+
+

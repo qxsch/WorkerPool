@@ -5,7 +5,7 @@
  *	* posix
  *	* sysvsem
  *	* sockets
- *	* proctitle (optional)
+ *	* proctitle (optional, PHP5.5+ comes with a builtin function)
  * 
  * Use the following commands to install them on RHEL:
  * 	yum install php-process php-pcntl
@@ -100,14 +100,19 @@ class WorkerPool implements \Iterator, \Countable {
 	 * @param string $title the new process title
 	 */
 	protected function setProcessTitle($title) {
-		if(function_exists('setproctitle')) {
-			setproctitle(preg_replace(
-				// allowed characters
-				'/[^a-z0-9-_.: \\\\\\]\\[]/i', 
-				'',
-				// commandline
-				basename($_SERVER['PHP_SELF']).': '.$title
-			));
+		$title=preg_replace(
+			// allowed characters
+			'/[^a-z0-9-_.: \\\\\\]\\[]/i', 
+			'',
+			// commandline
+			basename($_SERVER['PHP_SELF']).': '.$title
+		);
+		// PHP 5.5+ has a builtin function
+		if(function_exists('cli_set_process_title')) {
+			cli_set_process_title($title);
+		}
+		elseif(function_exists('setproctitle')) {
+			setproctitle($title);
 		}
 	}
 
