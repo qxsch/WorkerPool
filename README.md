@@ -40,7 +40,6 @@ $wp->setWorkerPoolSize(4)
 
 for($i=0; $i<10; $i++) {
         $wp->run($i);
-        sleep(1);
 }
 
 $wp->waitForAllWorkers(); // wait for all workers
@@ -149,11 +148,11 @@ echo "ByeBye\n";
 See what's happening when running a PS:
 
 ```
-root      2378  0.5  0.4 260256  8856 pts/1    S+   22:28   0:00          \_ simpleExample.php: Parent
-root      2379  0.0  0.2 260256  4588 pts/1    S+   22:28   0:00              \_ simpleExample.php: Worker 1 of QXS\WorkerPool\ClosureWorker [busy]
-root      2380  0.0  0.2 260256  4616 pts/1    S+   22:28   0:00              \_ simpleExample.php: Worker 2 of QXS\WorkerPool\ClosureWorker [busy]
-root      2381  0.0  0.2 260256  4424 pts/1    S+   22:28   0:00              \_ simpleExample.php: Worker 3 of QXS\WorkerPool\ClosureWorker [free]
-root      2382  0.0  0.2 260256  4424 pts/1    S+   22:28   0:00              \_ simpleExample.php: Worker 4 of QXS\WorkerPool\ClosureWorker [free]
+root   2378   \_ simpleExample.php: Parent
+root   2379       \_ simpleExample.php: Worker 1 of QXS\WorkerPool\ClosureWorker [busy]
+root   2380       \_ simpleExample.php: Worker 2 of QXS\WorkerPool\ClosureWorker [busy]
+root   2381       \_ simpleExample.php: Worker 3 of QXS\WorkerPool\ClosureWorker [free]
+root   2382       \_ simpleExample.php: Worker 4 of QXS\WorkerPool\ClosureWorker [free]
 ```
 
 ### Documentation
