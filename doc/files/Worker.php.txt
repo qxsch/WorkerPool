@@ -1,16 +1,6 @@
 <?php
 /**
- * The WorkerPool Requires the following PHP extensions
- *	* pcntl
- *	* posix
- *	* sysvsem
- *	* sockets
- *	* proctitle (optional)
- * 
- * Use the following commands to install them on RHEL:
- * 	yum install php-process php-pcntl
- * 	yum install php-pear php-devel ; pecl install proctitle
- * 	echo 'extension=proctitle.so' > /etc/php.d/proctitle.ini
+ * Worker Definition
  */
 
 
