@@ -18,7 +18,7 @@
       <div class="inner">
 
         <header>
-          <h1>Workerpool <a href="https://travis-ci.org/qxsch/WorkerPool"><img src="https://travis-ci.org/qxsch/WorkerPool.svg?branch=master"></a></h1>
+          <h1>Workerpool</h1>
           <h2>Parallel Processing WorkerPool for PHP</h2>
         </header>
 
@@ -28,15 +28,16 @@
           <a href="https://github.com/qxsch/WorkerPool" id="view-on-github" class="button"><span>View on GitHub</span></a>
         </section>
 
-        <section id="docs" class="clearfix">
-          <a href="doc/" id="documentation" class="button"><span>Read the docs</span></a>
-        </section>
-
         <hr>
 
         <section id="main_content">
           <h1>
-<a name="workerpool" class="anchor" href="#workerpool"><span class="octicon octicon-link"></span></a>WorkerPool</h1>
+<a name="workerpool-" class="anchor" href="#workerpool-"><span class="octicon octicon-link"></span></a>WorkerPool </h1>
+
+<p><a href="https://travis-ci.org/qxsch/WorkerPool"><img src="https://travis-ci.org/qxsch/WorkerPool.svg?branch=master" alt="Build Status"></a>
+<img src="http://stillmaintained.com/qxsch/WorkerPool.png" alt="Project Status"></p>
+
+<p><a href="https://packagist.org/packages/qxsch/worker-pool"><img src="https://poser.pugx.org/qxsch/worker-pool/v/stable.png" alt="Latest Stable Version"></a> <a href="https://packagist.org/packages/qxsch/worker-pool"><img src="https://poser.pugx.org/qxsch/worker-pool/downloads.png" alt="Total Downloads"></a> <a href="https://packagist.org/packages/qxsch/worker-pool"><img src="https://poser.pugx.org/qxsch/worker-pool/license.png" alt="License"></a></p>
 
 <p><strong>Parallel Processing WorkerPool for PHP</strong></p>
 
@@ -72,7 +73,6 @@ You can at any time fetch the results from the workers. Each worker child can re
 
 <span class="k">for</span><span class="p">(</span><span class="nv">$i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span><span class="o">&lt;</span><span class="mi">10</span><span class="p">;</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
         <span class="nv">$wp</span><span class="o">-&gt;</span><span class="na">run</span><span class="p">(</span><span class="nv">$i</span><span class="p">);</span>
-        <span class="nb">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 <span class="p">}</span>
 
 <span class="nv">$wp</span><span class="o">-&gt;</span><span class="na">waitForAllWorkers</span><span class="p">();</span> <span class="c1">// wait for all workers</span>
@@ -181,12 +181,17 @@ You can at any time fetch the results from the workers. Each worker child can re
 
 <p>See what's happening when running a PS:</p>
 
-<pre><code>root      2378  0.5  0.4 260256  8856 pts/1    S+   22:28   0:00          \_ simpleExample.php: Parent
-root      2379  0.0  0.2 260256  4588 pts/1    S+   22:28   0:00              \_ simpleExample.php: Worker 1 of QXS\WorkerPool\ClosureWorker [busy]
-root      2380  0.0  0.2 260256  4616 pts/1    S+   22:28   0:00              \_ simpleExample.php: Worker 2 of QXS\WorkerPool\ClosureWorker [busy]
-root      2381  0.0  0.2 260256  4424 pts/1    S+   22:28   0:00              \_ simpleExample.php: Worker 3 of QXS\WorkerPool\ClosureWorker [free]
-root      2382  0.0  0.2 260256  4424 pts/1    S+   22:28   0:00              \_ simpleExample.php: Worker 4 of QXS\WorkerPool\ClosureWorker [free]
+<pre><code>root   2378   \_ simpleExample.php: Parent
+root   2379       \_ simpleExample.php: Worker 1 of QXS\WorkerPool\ClosureWorker [busy]
+root   2380       \_ simpleExample.php: Worker 2 of QXS\WorkerPool\ClosureWorker [busy]
+root   2381       \_ simpleExample.php: Worker 3 of QXS\WorkerPool\ClosureWorker [free]
+root   2382       \_ simpleExample.php: Worker 4 of QXS\WorkerPool\ClosureWorker [free]
 </code></pre>
+
+<h3>
+<a name="documentation" class="anchor" href="#documentation"><span class="octicon octicon-link"></span></a>Documentation</h3>
+
+<p>The documentation can be found here <a href="http://qxsch.github.io/WorkerPool/doc/">http://qxsch.github.io/WorkerPool/doc/</a></p>
         </section>
 
         <footer>
