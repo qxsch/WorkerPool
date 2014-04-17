@@ -19,7 +19,7 @@ $wp->setWorkerPoolSize(4)
                           */
                         function($input, $semaphore, $storage) {
                                 $semaphore->synchronizedBegin();
-                                        // this code is begin synchronized accross all workers
+                                        // this code is being synchronized accross all workers
                                         echo "[".getmypid()."]"." hi $input\n";
                                 $semaphore->synchronizedEnd();
                                 sleep(rand(1,3)); // this is the working load!
