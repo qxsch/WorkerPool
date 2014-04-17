@@ -13,11 +13,11 @@ $wp=new \QXS\WorkerPool\WorkerPool();
 $wp->setWorkerPoolSize(4)
    ->create(new \QXS\WorkerPool\ClosureWorker(
                         /**
-			  * The Worker::run() Method
-                          * @param mixed $input the input from the WorkerPool::run() Method
-                          * @param \QXS\WorkerPool\Semaphore $semaphore the semaphore to synchronize calls accross all workers
-                          * @param \ArrayObject $storage a persistent storge for the current child process
-                          */
+			 * The Worker::run() Method
+                         * @param mixed $input the input from the WorkerPool::run() Method
+                         * @param \QXS\WorkerPool\Semaphore $semaphore the semaphore to synchronize calls accross all workers
+                         * @param \ArrayObject $storage a persistent storge for the current child process
+                         */
                         function($input, $semaphore, $storage) {
 				$storage->append($input);
                                 echo "[".getmypid()."]"." hi $input\n";
@@ -25,18 +25,18 @@ $wp->setWorkerPoolSize(4)
                                 return $input;
                         },
                         /**
-                          * The Worker::onProcessCreate() Method
-                          * @param \QXS\WorkerPool\Semaphore $semaphore the semaphore to synchronize calls accross all workers
-                          * @param \ArrayObject $storage a persistent storge for the current child process
-                          */
+                         * The Worker::onProcessCreate() Method
+                         * @param \QXS\WorkerPool\Semaphore $semaphore the semaphore to synchronize calls accross all workers
+                         * @param \ArrayObject $storage a persistent storge for the current child process
+                         */
                         function($semaphore, $storage) {
                                 echo "[".getmypid()."]"." child has been created\n";
                         },
                         /**
-                          * The Worker::onProcessDestroy() Method
-                          * @param \QXS\WorkerPool\Semaphore $semaphore the semaphore to synchronize calls accross all workers
-                          * @param \ArrayObject $storage a persistent storge for the current child process
-                          */
+                         * The Worker::onProcessDestroy() Method
+                         * @param \QXS\WorkerPool\Semaphore $semaphore the semaphore to synchronize calls accross all workers
+                         * @param \ArrayObject $storage a persistent storge for the current child process
+                         */
                         function($semaphore, $storage) {
 				$semaphore->synchronizedBegin();
                 	                echo "[".getmypid()."]"." child will be destroyed, see its history\n";
