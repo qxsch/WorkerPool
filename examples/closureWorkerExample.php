@@ -13,6 +13,7 @@ $wp=new \QXS\WorkerPool\WorkerPool();
 $wp->setWorkerPoolSize(4)
    ->create(new \QXS\WorkerPool\ClosureWorker(
                         /**
+			  * The Worker::run() Method
                           * @param mixed $input the input from the WorkerPool::run() Method
                           * @param \QXS\WorkerPool\Semaphore $semaphore the semaphore to synchronize calls accross all workers
                           * @param \ArrayObject $storage a persistent storge for the current child process
@@ -24,7 +25,7 @@ $wp->setWorkerPoolSize(4)
                                 return $input;
                         },
                         /**
-                          * @param mixed $input the input from the WorkerPool::onProcessCreate() Method
+                          * The Worker::onProcessCreate() Method
                           * @param \QXS\WorkerPool\Semaphore $semaphore the semaphore to synchronize calls accross all workers
                           * @param \ArrayObject $storage a persistent storge for the current child process
                           */
@@ -32,7 +33,7 @@ $wp->setWorkerPoolSize(4)
                                 echo "[".getmypid()."]"." child has been created\n";
                         },
                         /**
-                          * @param mixed $input the input from the WorkerPool::onProcessDestroy() Method
+                          * The Worker::onProcessDestroy() Method
                           * @param \QXS\WorkerPool\Semaphore $semaphore the semaphore to synchronize calls accross all workers
                           * @param \ArrayObject $storage a persistent storge for the current child process
                           */
