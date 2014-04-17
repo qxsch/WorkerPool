@@ -8,7 +8,7 @@ WorkerPool
 
 **Parallel Processing WorkerPool for PHP**
 
-_This library is in its infancy. I am adding features to it as I require them._
+_This library is in its infancy. I am adding features to it as anyone requires them._
 
 ## Examples
 
