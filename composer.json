@@ -1,7 +1,7 @@
 {
     "name": "qxsch/worker-pool",
     "description": "Runs tasks in a parallel processing workerpool.",
-    "keywords": ["fork", "paralel", "worker", "workerpool"],
+    "keywords": ["fork", "parallel", "worker", "workerpool", "task"],
     "homepage": "https://github.com/qxsch/WorkerPool",
     "type": "library",
     "license": "GPL-3.0+",
