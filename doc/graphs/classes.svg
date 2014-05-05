@@ -102,28 +102,28 @@
 <path fill="none" stroke="black" d="M194.798,-343.934C191.17,-341.33 187.834,-338.367 185,-335 100.049,-234.048 194.799,-150.522 113,-47 110.494,-43.8281 107.529,-40.9787 104.3,-38.4262"/>
 <polygon fill="none" stroke="black" points="106.077,-35.4018 95.8375,-32.6788 102.144,-41.1926 106.077,-35.4018"/>
 </g>
-<!-- \\QXS\\WorkerPool\\SimpleSocket -->
-<g id="node8" class="node"><title>\\QXS\\WorkerPool\\SimpleSocket</title>
-<polygon fill="none" stroke="black" points="284,-326 208,-326 208,-290 284,-290 284,-326"/>
-<text text-anchor="middle" x="246" y="-305.6" font-family="Times Roman,serif" font-size="11.00">SimpleSocket</text>
-</g>
-<!-- \\QXS\\WorkerPool\\SemaphoreException -->
-<g id="node9" class="node"><title>\\QXS\\WorkerPool\\SemaphoreException</title>
-<polygon fill="none" stroke="black" points="301,-272 191,-272 191,-236 301,-236 301,-272"/>
-<text text-anchor="middle" x="246" y="-251.6" font-family="Times Roman,serif" font-size="11.00">SemaphoreException</text>
-</g>
-<!-- \\QXS\\WorkerPool\\SemaphoreException&#45;&gt;\\Exception -->
-<g id="edge13" class="edge"><title>\\QXS\\WorkerPool\\SemaphoreException&#45;&gt;\\Exception</title>
-<path fill="none" stroke="black" d="M195.871,-235.893C191.916,-233.286 188.216,-230.334 185,-227 125.186,-164.981 170.874,-110.833 113,-47 110.167,-43.8755 106.904,-41.0444 103.414,-38.4912"/>
-<polygon fill="none" stroke="black" points="105.253,-35.5127 94.9529,-33.0309 101.457,-41.3942 105.253,-35.5127"/>
-</g>
 <!-- \\QXS\\WorkerPool\\SimpleSocketException -->
-<g id="node10" class="node"><title>\\QXS\\WorkerPool\\SimpleSocketException</title>
-<polygon fill="none" stroke="black" points="307,-218 185,-218 185,-182 307,-182 307,-218"/>
-<text text-anchor="middle" x="246" y="-197.6" font-family="Times Roman,serif" font-size="11.00">SimpleSocketException</text>
+<g id="node8" class="node"><title>\\QXS\\WorkerPool\\SimpleSocketException</title>
+<polygon fill="none" stroke="black" points="307,-326 185,-326 185,-290 307,-290 307,-326"/>
+<text text-anchor="middle" x="246" y="-305.6" font-family="Times Roman,serif" font-size="11.00">SimpleSocketException</text>
 </g>
 <!-- \\QXS\\WorkerPool\\SimpleSocketException&#45;&gt;\\Exception -->
-<g id="edge15" class="edge"><title>\\QXS\\WorkerPool\\SimpleSocketException&#45;&gt;\\Exception</title>
+<g id="edge13" class="edge"><title>\\QXS\\WorkerPool\\SimpleSocketException&#45;&gt;\\Exception</title>
+<path fill="none" stroke="black" d="M195.282,-289.968C191.501,-287.351 188,-284.377 185,-281 112.738,-199.648 182.721,-130.54 113,-47 110.41,-43.8963 107.387,-41.0947 104.118,-38.5742"/>
+<polygon fill="none" stroke="black" points="105.853,-35.5241 95.5944,-32.8763 101.963,-41.3436 105.853,-35.5241"/>
+</g>
+<!-- \\QXS\\WorkerPool\\SimpleSocket -->
+<g id="node9" class="node"><title>\\QXS\\WorkerPool\\SimpleSocket</title>
+<polygon fill="none" stroke="black" points="284,-272 208,-272 208,-236 284,-236 284,-272"/>
+<text text-anchor="middle" x="246" y="-251.6" font-family="Times Roman,serif" font-size="11.00">SimpleSocket</text>
+</g>
+<!-- \\QXS\\WorkerPool\\SemaphoreException -->
+<g id="node10" class="node"><title>\\QXS\\WorkerPool\\SemaphoreException</title>
+<polygon fill="none" stroke="black" points="301,-218 191,-218 191,-182 301,-182 301,-218"/>
+<text text-anchor="middle" x="246" y="-197.6" font-family="Times Roman,serif" font-size="11.00">SemaphoreException</text>
+</g>
+<!-- \\QXS\\WorkerPool\\SemaphoreException&#45;&gt;\\Exception -->
+<g id="edge15" class="edge"><title>\\QXS\\WorkerPool\\SemaphoreException&#45;&gt;\\Exception</title>
 <path fill="none" stroke="black" d="M233.494,-181.518C211.847,-150.581 164.719,-87.7045 113,-47 109.402,-44.1681 105.473,-41.4923 101.43,-39.0009"/>
 <polygon fill="none" stroke="black" points="102.891,-35.8037 92.4774,-33.8524 99.4012,-41.8718 102.891,-35.8037"/>
 </g>

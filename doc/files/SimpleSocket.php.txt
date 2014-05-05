@@ -134,6 +134,7 @@ class SimpleSocket {
 	/**
 	 * Write the data to the socket in a predetermined format
 	 * @param mixed $data the data, that should be sent
+	 * @throws \QXS\WorkerPool\SimpleSocketException in case of an error
 	 */
 	public function send($data) {
 		$serialized=serialize($data);
@@ -146,7 +147,7 @@ class SimpleSocket {
 		while($total > 0) {
 			$sent=@socket_write($this->socket, $buffer);
 			if($sent===false) {
-				throw new \RuntimeException('Sending failed with: '.socket_strerror(socket_last_error()));
+				throw new SimpleSocketException('Sending failed with: '.socket_strerror(socket_last_error()));
 				break;
 			}
 			$total-=$sent;
@@ -156,6 +157,7 @@ class SimpleSocket {
 
 	/**
 	 * Read a data packet from the socket in a predetermined format.
+	 * @throws \QXS\WorkerPool\SimpleSocketException in case of an error
 	 * @return mixed the data, that has been received
 	 */
 	public function receive() {
@@ -164,7 +166,7 @@ class SimpleSocket {
 		do {
 			$read=socket_read($this->socket, 4-strlen($hdr));
 			if($read===false) {
-				throw new \RuntimeException('Reception failed with: '.socket_strerror(socket_last_error()));
+				throw new SimpleSocketException('Reception failed with: '.socket_strerror(socket_last_error()));
 			}
 			elseif($read==='' || $read===null) {
 				return null;
