@@ -171,6 +171,10 @@ class WorkerPool implements \Iterator, \Countable {
 					try {
 						$this->setProcessTitle('Worker '.$i.' of '.get_class($worker).' [free]');
 						$cmd=$simpleSocket->receive();
+						// invalid response from parent?
+						if(!isset($cmd['cmd'])) {
+							break;
+						}
 						$this->setProcessTitle('Worker '.$i.' of '.get_class($worker).' [busy]');
 						if($cmd['cmd']=='run') {
 							try {
@@ -189,6 +193,9 @@ class WorkerPool implements \Iterator, \Countable {
 						elseif($cmd['cmd']=='exit') {
 							break;
 						}
+					}
+					catch(SimpleSocketException $e) {
+						break;
 					}
 					catch(\Exception $e) {
 						// send Back the exception

@@ -163,7 +163,10 @@ class SimpleSocket {
 		$hdr='';
 		do {
 			$read=socket_read($this->socket, 4-strlen($hdr));
-			if($read===false || $read==='' || $read===null) {
+			if($read===false) {
+				throw new \RuntimeException('Reception failed with: '.socket_strerror(socket_last_error()));
+			}
+			elseif($read==='' || $read===null) {
 				return null;
 			}
 			$hdr.=$read;
