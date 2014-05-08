@@ -468,6 +468,14 @@ class WorkerPool implements \Iterator, \Countable {
 	}
 
 	/**
+	 * Clear all the results
+	 */
+	public function clearResults() {
+		$this->collectWorkerResults();
+		$this->results=array();
+		return $this;
+	}
+	/**
 	 * Is there any result available?
 	 * @return bool true, in case we have received some results
 	 */
