@@ -160,55 +160,14 @@ class WorkerPool implements \Iterator, \Countable {
 			} 
 			elseif($processId == 0) {
 				// WE ARE IN THE CHILD
-				$this->setProcessTitle('Worker '.$i.' of '.get_class($worker).' [free]');
 				$this->processes=array();  // we do not have any children
 				$this->workerPoolSize=0;   // we do not have any children
 				socket_close($sockets[1]); // close the parent socket
-				$this->worker->onProcessCreate($this->semaphore);
-				$simpleSocket=new SimpleSocket($sockets[0]);
-				while(true) {
-					$output=array('pid' => getmypid());
-					try {
-						$this->setProcessTitle('Worker '.$i.' of '.get_class($worker).' [free]');
-						$cmd=$simpleSocket->receive();
-						// invalid response from parent?
-						if(!isset($cmd['cmd'])) {
-							break;
-						}
-						$this->setProcessTitle('Worker '.$i.' of '.get_class($worker).' [busy]');
-						if($cmd['cmd']=='run') {
-							try {
-								$output['data']=$this->worker->run($cmd['data']);
-							}
-							catch(\Exception $e) {
-								$output['workerException']=array(
-									'class' => get_class($e),
-									'message' => $e->getMessage(),
-									'trace' => $e->getTraceAsString()
-								);
-							}
-							// send back the output
-							$simpleSocket->send($output);
-						}
-						elseif($cmd['cmd']=='exit') {
-							break;
-						}
-					}
-					catch(SimpleSocketException $e) {
-						break;
-					}
-					catch(\Exception $e) {
-						// send Back the exception
-						$output['poolException']=array(
-							'class' => get_class($e),
-							'message' => $e->getMessage(),
-							'trace' => $e->getTraceAsString()
-						);
-						$simpleSocket->send($output);
-					}
-				}
-				$this->worker->onProcessDestroy();
-				$this->exitPhp(0);
+				$this->runWorkerProcess(
+					$worker,
+					new SimpleSocket($sockets[0]),
+					$i
+				);
 			}
 			else {
 				// WE ARE IN THE PARENT
@@ -226,6 +185,60 @@ class WorkerPool implements \Iterator, \Countable {
 
 
 		return $this;
+	}
+
+	/**
+	 * Run the worker process
+	 * @param \QXS\WorkerPool\Worker $worker the worker, that runs the tasks
+	 * @param \QXS\WorkerPool\SimpleSocket $simpleSocket the simpleSocket, that is used for the communication
+	 * @param int $i the number of the child
+	 */
+	protected function runWorkerProcess(Worker $worker, SimpleSocket $simpleSocket, $i) {
+		$this->setProcessTitle('Worker '.$i.' of '.get_class($worker).' [free]');
+		$this->worker->onProcessCreate($this->semaphore);
+		while(true) {
+			$output=array('pid' => getmypid());
+			try {
+				$this->setProcessTitle('Worker '.$i.' of '.get_class($worker).' [free]');
+				$cmd=$simpleSocket->receive();
+				// invalid response from parent?
+				if(!isset($cmd['cmd'])) {
+					break;
+				}
+				$this->setProcessTitle('Worker '.$i.' of '.get_class($worker).' [busy]');
+				if($cmd['cmd']=='run') {
+					try {
+						$output['data']=$this->worker->run($cmd['data']);
+					}
+					catch(\Exception $e) {
+						$output['workerException']=array(
+							'class' => get_class($e),
+							'message' => $e->getMessage(),
+							'trace' => $e->getTraceAsString()
+						);
+					}
+					// send back the output
+					$simpleSocket->send($output);
+				}
+				elseif($cmd['cmd']=='exit') {
+					break;
+				}
+			}
+			catch(SimpleSocketException $e) {
+				break;
+			}
+			catch(\Exception $e) {
+				// send Back the exception
+				$output['poolException']=array(
+					'class' => get_class($e),
+					'message' => $e->getMessage(),
+					'trace' => $e->getTraceAsString()
+				);
+				$simpleSocket->send($output);
+			}
+		}
+		$this->worker->onProcessDestroy();
+		$this->exitPhp(0);
 	}
 
 	/**
