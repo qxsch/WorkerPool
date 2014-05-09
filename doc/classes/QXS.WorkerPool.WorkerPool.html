@@ -144,28 +144,28 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-286760738"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1583982225"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-286760738" class="accordion-body collapse in">
+            <div id="namespace-1583982225" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-352237688"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-814778752"></a>
                                 <a href="../namespaces/QXS.html" style="margin-left: 30px; padding-left: 0">QXS</a>
             </div>
-            <div id="namespace-352237688" class="accordion-body collapse ">
+            <div id="namespace-814778752" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-137734109"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1914461466"></a>
                                 <a href="../namespaces/QXS.WorkerPool.html" style="margin-left: 30px; padding-left: 0">WorkerPool</a>
             </div>
-            <div id="namespace-137734109" class="accordion-body collapse ">
+            <div id="namespace-1914461466" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -230,6 +230,11 @@
                         </section>
                         <section class="row-fluid public">
                             <section class="span4">
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_sanitizeProcessTitleFormat" class="">sanitizeProcessTitleFormat()</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_getChildProcessTitleFormat" class="">getChildProcessTitleFormat()</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_setChildProcessTitleFormat" class="">setChildProcessTitleFormat()</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_getParentProcessTitleFormat" class="">getParentProcessTitleFormat()</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_setParentProcessTitleFormat" class="">setParentProcessTitleFormat()</a><br />
                                                                     <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_getWorkerPoolSize" class="">getWorkerPoolSize()</a><br />
                                                                     <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_setWorkerPoolSize" class="">setWorkerPoolSize()</a><br />
                                                                     <a href="../classes/QXS.WorkerPool.WorkerPool.html#method___construct" class="">__construct()</a><br />
@@ -243,6 +248,7 @@
                                                                     <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_getFreeWorkers" class="">getFreeWorkers()</a><br />
                                                                     <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_getBusyWorkers" class="">getBusyWorkers()</a><br />
                                                                     <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_run" class="">run()</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_clearResults" class="">clearResults()</a><br />
                                                                     <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_hasResults" class="">hasResults()</a><br />
                                                                     <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_countResults" class="">countResults()</a><br />
                                                                     <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_getNextResult" class="">getNextResult()</a><br />
@@ -263,6 +269,7 @@
                         <section class="row-fluid protected">
                             <section class="span4">
                                                                     <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_setProcessTitle" class="">setProcessTitle()</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_runWorkerProcess" class="">runWorkerProcess()</a><br />
                                                                     <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_reaper" class="">reaper()</a><br />
                                                                     <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_getNextFreeWorker" class="">getNextFreeWorker()</a><br />
                                                                     <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_collectWorkerResults" class="">collectWorkerResults()</a><br />
@@ -275,6 +282,8 @@
                                                                     <a href="../classes/QXS.WorkerPool.WorkerPool.html#property_freeProcesses" class="">$freeProcesses</a><br />
                                                                     <a href="../classes/QXS.WorkerPool.WorkerPool.html#property_results" class="">$results</a><br />
                                                                     <a href="../classes/QXS.WorkerPool.WorkerPool.html#property_resultPosition" class="">$resultPosition</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#property_parentProcessTitleFormat" class="">$parentProcessTitleFormat</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#property_childProcessTitleFormat" class="">$childProcessTitleFormat</a><br />
                                                             </section>
                             <section class="span4">
                                 <em>N/A</em>
@@ -545,6 +554,66 @@
         </aside>
     </div>
 
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_parentProcessTitleFormat" name="property_parentProcessTitleFormat" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$parentProcessTitleFormat</h3>
+                <pre class="signature">$parentProcessTitleFormat : string</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                &mdash; process title of the parent                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_childProcessTitleFormat" name="property_childProcessTitleFormat" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$childProcessTitleFormat</h3>
+                <pre class="signature">$childProcessTitleFormat : string</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                &mdash; process title of the children                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
                                                     <div class="row-fluid">
         <div class="span8 content class">
             <a id="property_created" name="property_created" class="anchor"></a>
@@ -614,6 +683,222 @@
 
                                     <div class="row-fluid">
         <div class="span8 content class">
+            <a id="method_sanitizeProcessTitleFormat" name="method_sanitizeProcessTitleFormat" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">sanitizeProcessTitleFormat()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">sanitizeProcessTitleFormat(string <span class="argument">$string</span>) : string</pre>
+                <p><em>Sanitizes the process title format string</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$string</td>
+                                <td><p>the process title</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\DomainException</dt>
+                            <dd><p>in case the $string value is not within the permitted range</p></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>the process sanitized title</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getChildProcessTitleFormat" name="method_getChildProcessTitleFormat" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getChildProcessTitleFormat()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getChildProcessTitleFormat() : string</pre>
+                <p><em>Returns the process title of the child</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>the process title of the child</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setChildProcessTitleFormat" name="method_setChildProcessTitleFormat" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setChildProcessTitleFormat()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setChildProcessTitleFormat(string <span class="argument">$string</span>)</pre>
+                <p><em>Sets the process title of the child</em></p>
+                <p>Listing permitted replacments
+  %i%         The Child's Number
+  %basename%  The base name of PHPSELF
+  %fullname%  The value of PHPSELF
+  %class%     The Worker's Classname
+  %state%     The Worker's State</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$string</td>
+                                <td><p>the process title of the child</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\QXS\WorkerPool\WorkerPoolException</dt>
+                            <dd><p>in case the WorkerPool has already been created</p></dd>
+                                                    <dt>\DomainException</dt>
+                            <dd><p>in case the $string value is not within the permitted range</p></dd>
+                                                                    </dl>
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getParentProcessTitleFormat" name="method_getParentProcessTitleFormat" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getParentProcessTitleFormat()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getParentProcessTitleFormat() : string</pre>
+                <p><em>Returns the process title of the parent</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>the process title of the parent</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setParentProcessTitleFormat" name="method_setParentProcessTitleFormat" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setParentProcessTitleFormat()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setParentProcessTitleFormat(string <span class="argument">$string</span>)</pre>
+                <p><em>Sets the process title of the parent</em></p>
+                <p>Listing permitted replacments
+  %basename%  The base name of PHPSELF
+  %fullname%  The value of PHPSELF
+  %class%     The WorkerPool's Classname</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$string</td>
+                                <td><p>the process title of the parent</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\QXS\WorkerPool\WorkerPoolException</dt>
+                            <dd><p>in case the WorkerPool has already been created</p></dd>
+                                                    <dt>\DomainException</dt>
+                            <dd><p>in case the $string value is not within the permitted range</p></dd>
+                                                                    </dl>
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
             <a id="method_getWorkerPoolSize" name="method_getWorkerPoolSize" class="anchor"></a>
             <article class="method">
                 <h3 class="public ">getWorkerPoolSize()</h3>
@@ -653,7 +938,7 @@ In case of a created pool, this method reports the real pool size (number of ali
             <article class="method">
                 <h3 class="public ">setWorkerPoolSize()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">setWorkerPoolSize(int <span class="argument">$size</span>) : int</pre>
+                <pre class="signature" style="margin-right: 54px;">setWorkerPoolSize(int <span class="argument">$size</span>)</pre>
                 <p><em>Sets the current size of the worker pool</em></p>
                 
 
@@ -674,10 +959,7 @@ In case of a created pool, this method reports the real pool size (number of ali
                             <dd><p>in case the $size value is not within the permitted range</p></dd>
                                                                     </dl>
                 
-                                    <h4>Returns</h4>
-                    int
-                                            &mdash; <p>the number of processes</p>
-                                                </article>
+                            </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -1091,6 +1373,37 @@ You can kill all child processes, so that the parent will be unblocked.</p>
 
                                     <div class="row-fluid">
         <div class="span8 content class">
+            <a id="method_clearResults" name="method_clearResults" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">clearResults()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">clearResults()</pre>
+                <p><em>Clear all the results</em></p>
+                
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
             <a id="method_hasResults" name="method_hasResults" class="anchor"></a>
             <article class="method">
                 <h3 class="public ">hasResults()</h3>
@@ -1397,7 +1710,7 @@ You can kill all child processes, so that the parent will be unblocked.</p>
             <article class="method">
                 <h3 class="protected ">setProcessTitle()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">setProcessTitle(string <span class="argument">$title</span>)</pre>
+                <pre class="signature" style="margin-right: 54px;">setProcessTitle(string <span class="argument">$title</span>, array <span class="argument">$replacements</span>)</pre>
                 <p><em>Sets the proccess title</em></p>
                 <p>This function call requires the proctitle extension!</p>
 
@@ -1407,6 +1720,60 @@ You can kill all child processes, so that the parent will be unblocked.</p>
                                 <td>string</td>
                                 <td>$title</td>
                                 <td><p>the new process title</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$replacements</td>
+                                <td><p>an associative array of replacment values</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_runWorkerProcess" name="method_runWorkerProcess" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">runWorkerProcess()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">runWorkerProcess(\QXS\WorkerPool\Worker <span class="argument">$worker</span>, \QXS\WorkerPool\SimpleSocket <span class="argument">$simpleSocket</span>, int <span class="argument">$i</span>)</pre>
+                <p><em>Run the worker process</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/QXS.WorkerPool.Worker.html">\QXS\WorkerPool\Worker</a></td>
+                                <td>$worker</td>
+                                <td><p>the worker, that runs the tasks</p></td>
+                            </tr>
+                                                    <tr>
+                                <td><a href="../classes/QXS.WorkerPool.SimpleSocket.html">\QXS\WorkerPool\SimpleSocket</a></td>
+                                <td>$simpleSocket</td>
+                                <td><p>the simpleSocket, that is used for the communication</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>int</td>
+                                <td>$i</td>
+                                <td><p>the number of the child</p></td>
                             </tr>
                                             </table>
                 
@@ -1595,7 +1962,7 @@ You can kill all child processes, so that the parent will be unblocked.</p>
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on May 5th, 2014 at 18:14.
+                    on May 9th, 2014 at 22:14.
                 </section>
             </section>
         </section>
