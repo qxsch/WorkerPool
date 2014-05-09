@@ -46,7 +46,8 @@ class WorkerPool implements \Iterator, \Countable {
 	protected $childProcessTitleFormat='%basename%: Worker %i% of %class% [%state%]';
 
 
-	/*
+	/**
+	 * Sanitizes the process title format string
 	 * @param string $string the process title
 	 * @return string the process sanitized title
 	 * @throws \DomainException in case the $string value is not within the permitted range

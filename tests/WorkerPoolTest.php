@@ -78,7 +78,103 @@ class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
 		$wp->destroy();
 	} 
  
+	public function testGetters() {
+		$wp=new \QXS\WorkerPool\WorkerPool();
+		$wp->create(new PingWorker());
+		$this->assertTrue(
+			is_int($wp->getWorkerPoolSize()),
+			'getWorkerPoolSize should return an int'
+		);
+		$this->assertTrue(
+			is_string($wp->getChildProcessTitleFormat()),
+			'getChildProcessTitleFormat should return a string'
+		);
+		$this->assertTrue(
+			is_string($wp->getParentProcessTitleFormat()),
+			'getParentProcessTitleFormat should return a string'
+		);
+		$wp->destroy();
+	}
 
+	public function testSetters() {
+		$wp=new \QXS\WorkerPool\WorkerPool();
+		try {
+			$wp->setWorkerPoolSize(5);
+		}
+		catch(\Exception $e) {
+			$this->assertTrue(
+				false,
+				'setWorkerPoolSize shouldn\'t throw an exception.'
+			);
+		}
+		try {
+			$wp->setChildProcessTitleFormat('X %basename% %class% Child %i% X');
+		}
+		catch(\Exception $e) {
+			$this->assertTrue(
+				false,
+				'setChildProcessTitleFormat shouldn\'t throw an exception.'
+			);
+		}
+		try {
+			$wp->setParentProcessTitleFormat('X %basename% %class% Parent X');
+		}
+		catch(\Exception $e) {
+			$this->assertTrue(
+				false,
+				'setParentProcessTitleFormat shouldn\'t throw an exception.'
+			);
+		}
+                $this->assertEquals(
+			5,
+                        $wp->getWorkerPoolSize(),
+                        'getWorkerPoolSize should return an int'
+                );
+                $this->assertEquals(
+			'X %basename% %class% Child %i% X',
+                        $wp->getChildProcessTitleFormat(),
+                        'getChildProcessTitleFormat should return a string'
+                );
+                $this->assertEquals(
+			'X %basename% %class% Parent X',
+                        $wp->getParentProcessTitleFormat(),
+                        'getParentProcessTitleFormat should return a string'
+                );
+	
+		$wp->create(new PingWorker());
+
+		try {
+			$wp->setWorkerPoolSize(5);
+			$this->assertTrue(
+				false,
+				'setWorkerPoolSize should throw an exception for a created pool.'
+			);
+		}
+		catch(\Exception $e) {
+		}
+		try {
+			$wp->setChildProcessTitleFormat('%basename% %class% Child %i%');
+			$this->assertTrue(
+				false,
+				'setChildProcessTitleFormat should throw an exception for a created pool.'
+			);
+		}
+		catch(\Exception $e) {
+		}
+		try {
+			$wp->setParentProcessTitleFormat('%basename% %class% Parent');
+			$this->assertTrue(
+				false,
+				'setParentProcessTitleFormat should throw an exception for a created pool.'
+			);
+		}
+		catch(\Exception $e) {
+		}
+
+		$wp->destroy();
+
+	}
+ 
 	public function testDestroyException() {
 		$wp=new \QXS\WorkerPool\WorkerPool();
 		$wp->setWorkerPoolSize(50);
