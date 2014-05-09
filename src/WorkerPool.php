@@ -40,7 +40,80 @@ class WorkerPool implements \Iterator, \Countable {
 	protected $results=array();
 	/** @var int number of received results */
 	protected $resultPosition=0;
+	/** @var string process title of the parent */
+	protected $parentProcessTitleFormat='%basename%: Parent';
+	/** @var string process title of the children */
+	protected $childProcessTitleFormat='%basename%: Worker %i% of %class% [%state%]';
 
+
+	/*
+	 * @param string $string the process title
+	 * @return string the process sanitized title
+	 * @throws \DomainException in case the $string value is not within the permitted range
+	 */
+	public static function sanitizeProcessTitleFormat($string) {
+		$string=trim($string);
+		if($string=='') {
+			throw new \DomainException('"'.$string.'" is empty.');
+		}
+		return $string;
+	}
+
+	/**
+	 * Returns the process title of the child
+	 * @return string the process title of the child
+	 */
+	public function getChildProcessTitleFormat() {
+		return $this->childProcessTitleFormat;
+	}
+	/**
+	 * Sets the process title of the child
+	 *
+	 * Listing permitted replacments
+	 *   %i%         The Child's Number
+	 *   %basename%  The base name of PHPSELF
+	 *   %fullname%  The value of PHPSELF
+	 *   %class%     The Worker's Classname
+	 *   %state%     The Worker's State
+	 *
+	 * @param string $string the process title of the child
+	 * @throws \QXS\WorkerPool\WorkerPoolException in case the WorkerPool has already been created
+	 * @throws \DomainException in case the $string value is not within the permitted range
+	 */
+	public function setChildProcessTitleFormat($string) {
+		if($this->created) {
+			throw new WorkerPoolException('Cannot set the Parent\'s Process Title Format for a created pool.');
+		}
+		$this->childProcessTitleFormat=self::sanitizeProcessTitleFormat($string);
+		return $this;
+	}
+
+	/**
+	 * Returns the process title of the parent
+	 * @return string the process title of the parent
+	 */
+	public function getParentProcessTitleFormat() {
+		return $this->parentProcessTitleFormat;
+	}
+	/**
+	 * Sets the process title of the parent
+	 *
+	 * Listing permitted replacments
+	 *   %basename%  The base name of PHPSELF
+	 *   %fullname%  The value of PHPSELF
+	 *   %class%     The WorkerPool's Classname
+	 *
+	 * @param string $string the process title of the parent
+	 * @throws \QXS\WorkerPool\WorkerPoolException in case the WorkerPool has already been created
+	 * @throws \DomainException in case the $string value is not within the permitted range
+	 */
+	public function setParentProcessTitleFormat($string) {
+		if($this->created) {
+			throw new WorkerPoolException('Cannot set the Children\'s Process Title Format for a created pool.');
+		}
+		$this->parentProcessTitleFormat=self::sanitizeProcessTitleFormat($string);
+		return $this;
+	}
 
 	/**
 	 * Returns the current size of the worker pool
@@ -57,7 +130,6 @@ class WorkerPool implements \Iterator, \Countable {
 	 * @param int $size the new worker pool size
 	 * @throws \QXS\WorkerPool\WorkerPoolException in case the WorkerPool has already been created
 	 * @throws \DomainException in case the $size value is not within the permitted range
-	 * @return int the number of processes
 	 */
 	public function setWorkerPoolSize($size) {
 		if($this->created) {
@@ -93,26 +165,38 @@ class WorkerPool implements \Iterator, \Countable {
 	public function exitPhp($code) {
 		exit($code);
 	}
+
 	/**
 	 * Sets the proccess title
 	 *
 	 * This function call requires the proctitle extension!
 	 * @param string $title the new process title
+	 * @param array $replacements  an associative array of replacment values
 	 */
-	protected function setProcessTitle($title) {
-		$title=preg_replace(
-			// allowed characters
-			'/[^a-z0-9-_.: \\\\\\]\\[]/i', 
-			'',
-			// commandline
-			basename($_SERVER['PHP_SELF']).': '.$title
+	protected function setProcessTitle($title, array $replacements=array()) {
+		// 1. replace the values
+		$title=preg_replace_callback(
+			'/\%([a-z0-9]+)\%/i',
+			function($match) use ($replacements) {
+				if(isset($replacements[$match[1]])) {
+					return $replacements[$match[1]];
+				}
+				return $match[0];
+			},
+			$title
 		);
-		// PHP 5.5+ has a builtin function
+		// 2. remove forbidden chars
+		$title=preg_replace(
+			'/[^a-z0-9-_.: \\\\\\]\\[]/i',
+			'',
+			$title
+		);
+		// 3. set the title
 		if(function_exists('cli_set_process_title')) {
-			cli_set_process_title($title);
+			cli_set_process_title($title); // PHP 5.5+ has a builtin function
 		}
 		elseif(function_exists('setproctitle')) {
-			setproctitle($title);
+			setproctitle($title); // pecl proctitle extension
 		}
 	}
 
@@ -143,7 +227,14 @@ class WorkerPool implements \Iterator, \Countable {
 		$this->semaphore=new Semaphore();
 		$this->semaphore->create(Semaphore::SEM_RAND_KEY);
 
-		$this->setProcessTitle('Parent');
+		$this->setProcessTitle(
+			$this->parentProcessTitleFormat,
+			array(
+				'basename' => basename($_SERVER['PHP_SELF']),
+				'fullname' => $_SERVER['PHP_SELF'],
+				'class' => get_class($this)
+			)
+		);
 
 		for($i=1; $i<=$this->workerPoolSize; $i++) {
 			$sockets=array();
@@ -194,18 +285,27 @@ class WorkerPool implements \Iterator, \Countable {
 	 * @param int $i the number of the child
 	 */
 	protected function runWorkerProcess(Worker $worker, SimpleSocket $simpleSocket, $i) {
-		$this->setProcessTitle('Worker '.$i.' of '.get_class($worker).' [free]');
+		$replacements=array(
+			'basename' => basename($_SERVER['PHP_SELF']),
+			'fullname' => $_SERVER['PHP_SELF'],
+			'class' => get_class($worker),
+			'i' => $i,
+			'state' => 'free'
+		);
+		$this->setProcessTitle($this->childProcessTitleFormat, $replacements);
 		$this->worker->onProcessCreate($this->semaphore);
 		while(true) {
 			$output=array('pid' => getmypid());
 			try {
-				$this->setProcessTitle('Worker '.$i.' of '.get_class($worker).' [free]');
+				$replacements['state']='free';
+				$this->setProcessTitle($this->childProcessTitleFormat, $replacements);
 				$cmd=$simpleSocket->receive();
 				// invalid response from parent?
 				if(!isset($cmd['cmd'])) {
 					break;
 				}
-				$this->setProcessTitle('Worker '.$i.' of '.get_class($worker).' [busy]');
+				$replacements['state']='busy';
+				$this->setProcessTitle($this->childProcessTitleFormat, $replacements);
 				if($cmd['cmd']=='run') {
 					try {
 						$output['data']=$this->worker->run($cmd['data']);
