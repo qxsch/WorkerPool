@@ -3,11 +3,12 @@
  * The SimpleSocketException
  */
 
-
 namespace QXS\WorkerPool;
 
 /**
  * Exception for the WorkerPool Class
  */
-class SimpleSocketException extends \Exception { }
+class SimpleSocketException extends \Exception {
+
+}
 

@@ -3,13 +3,13 @@
  * Worker Definition
  */
 
-
 namespace QXS\WorkerPool;
 
 /**
  * The Interface for worker processes
  */
 interface Worker {
+
 	/**
 	 * After the worker has been forked into another process
 	 *
@@ -17,12 +17,14 @@ interface Worker {
 	 * @throws \Exception in case of a processing Error an Exception will be thrown
 	 */
 	public function onProcessCreate(Semaphore $semaphore);
+
 	/**
 	 * Before the worker process is getting destroyed
 	 *
 	 * @throws \Exception in case of a processing Error an Exception will be thrown
 	 */
 	public function onProcessDestroy();
+
 	/**
 	 * run the work
 	 *
