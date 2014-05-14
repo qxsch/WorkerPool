@@ -5,21 +5,21 @@
 
 namespace QXS\WorkerPool;
 
-
 /**
  * The Closure Worker Class
  */
 class ClosureWorker implements Worker {
+
 	/** @var \Closure Closure that runs the task */
-	protected $create=null;
+	protected $create = NULL;
 	/** @var \Closure Closure that will be used when a worker has been forked */
-	protected $run=null;
+	protected $run = NULL;
 	/** @var \Closure Closure that will be used before a worker is getting destroyed */
-	protected $destroy=null;
+	protected $destroy = NULL;
 	/** @var \ArrayObject persistent storage container for the working process */
-	protected $storage=null;
+	protected $storage = NULL;
 	/** @var \QXS\WorkerPool\Semaphore $semaphore the semaphore to run synchronized tasks */
-	protected $semaphore=null;
+	protected $semaphore = NULL;
 
 	/**
 	 * The constructor
@@ -27,18 +27,21 @@ class ClosureWorker implements Worker {
 	 * @param \Closure $create Closure that can be used when a worker has been forked
 	 * @param \Closure $destroy Closure that can be used before a worker is getting destroyed
 	 */
-	public function __construct(\Closure $run, \Closure $create=null, \Closure $destroy=null) {
-		$this->storage=new \ArrayObject();
-		if(is_null($create)) {
-			$create=function($semaphore, $storage) { };
+	public function __construct(\Closure $run, \Closure $create = NULL, \Closure $destroy = NULL) {
+		$this->storage = new \ArrayObject();
+		if (is_null($create)) {
+			$create = function ($semaphore, $storage) {
+			};
 		}
-		if(is_null($destroy)) {
-			$destroy=function($semaphore, $storage) { };
+		if (is_null($destroy)) {
+			$destroy = function ($semaphore, $storage) {
+			};
 		}
-		$this->create=$create;
-		$this->run=$run;
-		$this->destroy=$destroy;
+		$this->create = $create;
+		$this->run = $run;
+		$this->destroy = $destroy;
 	}
+
 	/**
 	 * After the worker has been forked into another process
 	 *
@@ -46,9 +49,10 @@ class ClosureWorker implements Worker {
 	 * @throws \Exception in case of a processing Error an Exception will be thrown
 	 */
 	public function onProcessCreate(Semaphore $semaphore) {
-		$this->semaphore=$semaphore;
+		$this->semaphore = $semaphore;
 		$this->create->__invoke($this->semaphore, $this->storage);
 	}
+
 	/**
 	 * Before the worker process is getting destroyed
 	 *
@@ -57,6 +61,7 @@ class ClosureWorker implements Worker {
 	public function onProcessDestroy() {
 		$this->destroy->__invoke($this->semaphore, $this->storage);
 	}
+
 	/**
 	 * run the work
 	 *
@@ -67,6 +72,5 @@ class ClosureWorker implements Worker {
 	public function run($input) {
 		return $this->run->__invoke($input, $this->semaphore, $this->storage);
 	}
-
 }
 
