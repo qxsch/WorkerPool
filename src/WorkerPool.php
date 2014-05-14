@@ -53,10 +53,12 @@ class WorkerPool implements \Iterator, \Countable {
 	 * @throws \DomainException in case the $string value is not within the permitted range
 	 */
 	public static function sanitizeProcessTitleFormat($string) {
+		$string=preg_replace(
+			'/[^a-z0-9-_.:% \\\\\\]\\[]/i',
+			'',
+			$string
+		);
 		$string=trim($string);
-		if($string=='') {
-			throw new \DomainException('"'.$string.'" is empty.');
-		}
 		return $string;
 	}
 
@@ -170,11 +172,16 @@ class WorkerPool implements \Iterator, \Countable {
 	/**
 	 * Sets the proccess title
 	 *
-	 * This function call requires the proctitle extension!
+	 * This function call requires php5.5+ or the proctitle extension!
+	 * Empty title strings won't be set.
 	 * @param string $title the new process title
 	 * @param array $replacements  an associative array of replacment values
 	 */
 	protected function setProcessTitle($title, array $replacements=array()) {
+		// skip empty title names
+		if(trim($title)=='') {
+			return null;
+		}
 		// 1. replace the values
 		$title=preg_replace_callback(
 			'/\%([a-z0-9]+)\%/i',
