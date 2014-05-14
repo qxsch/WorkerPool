@@ -21,6 +21,7 @@ class SimpleSocket {
 	/**
 	 * The constructor
 	 * @param resource $socket a valid socket resource
+	 * @throws \InvalidArgumentException
 	 */
 	public function __construct($socket) {
 		if (!is_resource($socket) && strtolower(@get_resource_type($socket) != 'socket')) {
@@ -38,9 +39,9 @@ class SimpleSocket {
 
 	/**
 	 * Selects active sockets with a timeout
-	 * @param array $readSockets Array of \QXS\WorkerPool\SimpleSocket Objects, that should be monitored for read activity
-	 * @param array $writeSockets Array of \QXS\WorkerPool\SimpleSocket Objects, that should be monitored for write activity
-	 * @param array $exceptSockets Array of \QXS\WorkerPool\SimpleSocket Objects, that should be monitored for except activity
+	 * @param SimpleSocket[] $readSockets Array of \QXS\WorkerPool\SimpleSocket Objects, that should be monitored for read activity
+	 * @param SimpleSocket[] $writeSockets Array of \QXS\WorkerPool\SimpleSocket Objects, that should be monitored for write activity
+	 * @param SimpleSocket[] $exceptSockets Array of \QXS\WorkerPool\SimpleSocket Objects, that should be monitored for except activity
 	 * @param int $sec seconds to wait until a timeout is reached
 	 * @param int $usec microseconds to wait a timeout is reached
 	 * @return array Associative Array of \QXS\WorkerPool\SimpleSocket Objects, that matched the monitoring, with the following keys 'read', 'write', 'except'
@@ -53,19 +54,19 @@ class SimpleSocket {
 		$writeTbl = array();
 		$exceptTbl = array();
 		foreach ($readSockets as $val) {
-			if ($val instanceof \QXS\WorkerPool\SimpleSocket) {
+			if ($val instanceof SimpleSocket) {
 				$read[] = $val->getSocket();
 				$readTbl[$val->getResourceId()] = $val;
 			}
 		}
 		foreach ($writeSockets as $val) {
-			if ($val instanceof \QXS\WorkerPool\SimpleSocket) {
+			if ($val instanceof SimpleSocket) {
 				$write[] = $val->getSocket();
 				$writeTbl[$val->getResourceId()] = $val;
 			}
 		}
 		foreach ($exceptSockets as $val) {
-			if ($val instanceof \QXS\WorkerPool\SimpleSocket) {
+			if ($val instanceof SimpleSocket) {
 				$except[] = $val->getSocket();
 				$exceptTbl[$val->getResourceId()] = $val;
 			}
@@ -96,7 +97,7 @@ class SimpleSocket {
 
 	/**
 	 * Get the id of the socket resource
-	 * @param int the id of the socket resource
+	 * @return int the id of the socket resource
 	 */
 	public function getResourceId() {
 		return intval($this->socket);
@@ -104,7 +105,7 @@ class SimpleSocket {
 
 	/**
 	 * Get the socket resource
-	 * @param resource the socket resource
+	 * @return resource the socket resource
 	 */
 	public function getSocket() {
 		return $this->socket;
@@ -147,7 +148,6 @@ class SimpleSocket {
 		unset($serialized);
 		unset($hdr);
 		$total = strlen($buffer);
-		$sent = 0;
 		while ($total > 0) {
 			$sent = @socket_write($this->socket, $buffer);
 			if ($sent === FALSE) {

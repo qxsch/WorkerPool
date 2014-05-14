@@ -27,10 +27,13 @@ class Semaphore {
 
 	/** generate a random key */
 	const SEM_RAND_KEY = 'rand';
+
 	/** generate a key based on ftok */
 	const SEM_FTOK_KEY = 'ftok';
+
 	/** @var resource the semaphore resource */
 	protected $semaphore = NULL;
+
 	/** @var int the key that is used to access the semaphore */
 	protected $semKey = NULL;
 
@@ -44,9 +47,9 @@ class Semaphore {
 
 	/**
 	 * Create a semaphore
-	 * @param int $semKey the key of the semaphore - use a specific number or Semaphore::SEM_RAND_KEY or Semaphore::SEM_FTOK_KEY
-	 * @param $maxAcquire the maximum number of processes, that can acquire the semaphore
-	 * @throws \QXS\WorkerPool\SemaphoreException in case of an error
+	 * @param string $semKey the key of the semaphore - use a specific number or Semaphore::SEM_RAND_KEY or Semaphore::SEM_FTOK_KEY
+	 * @param int $maxAcquire the maximum number of processes, that can acquire the semaphore
+	 * @throws SemaphoreException
 	 * @return \QXS\WorkerPool\Semaphore the current object
 	 */
 	public function create($semKey = Semaphore::SEM_FTOK_KEY, $maxAcquire = 1) {
@@ -90,7 +93,7 @@ class Semaphore {
 
 	/**
 	 * Acquire the semaphore
-	 * @throws \QXS\WorkerPool\SemaphoreException in case of an error
+	 * @throws SemaphoreException in case of an error
 	 * @return \QXS\WorkerPool\Semaphore the current object
 	 */
 	public function acquire() {
@@ -102,7 +105,7 @@ class Semaphore {
 
 	/**
 	 * Releases the semaphore
-	 * @throws \QXS\WorkerPool\SemaphoreException in case of an error
+	 * @throws SemaphoreException in case of an error
 	 * @return \QXS\WorkerPool\Semaphore the current object
 	 */
 	public function release() {
@@ -114,7 +117,7 @@ class Semaphore {
 
 	/**
 	 * Acquire the semaphore
-	 * @throws \QXS\WorkerPool\SemaphoreException in case of an error
+	 * @throws SemaphoreException in case of an error
 	 * @return \QXS\WorkerPool\Semaphore the current object
 	 * @see \QXS\WorkerPool\Semaphore::acquire()
 	 */
@@ -124,7 +127,7 @@ class Semaphore {
 
 	/**
 	 * Releases the semaphore
-	 * @throws \QXS\WorkerPool\SemaphoreException in case of an error
+	 * @throws SemaphoreException in case of an error
 	 * @return \QXS\WorkerPool\Semaphore the current object
 	 * @see \QXS\WorkerPool\Semaphore::release()
 	 */
@@ -135,19 +138,19 @@ class Semaphore {
 	/**
 	 * Run something synchronized
 	 * @param \Closure $closure the closure, that should be run synchronized
-	 * @throws \QXS\WorkerPool\SemaphoreException in case of an error
+	 * @throws SemaphoreException in case of an error
 	 * @return \QXS\WorkerPool\Semaphore the current object
 	 */
 	public function synchronize(\Closure $closure) {
 		$this->acquire();
-		$closure->__invoke();
+		call_user_func($closure);
 		$this->release();
 		return $this;
 	}
 
 	/**
 	 * Destroys the semaphore
-	 * @throws \QXS\WorkerPool\SemaphoreException in case of an error
+	 * @throws SemaphoreException in case of an error
 	 * @return \QXS\WorkerPool\Semaphore the current object
 	 */
 	public function destroy() {

@@ -28,8 +28,8 @@ interface Worker {
 	/**
 	 * run the work
 	 *
-	 * @param Serializeable $input the data, that the worker should process
-	 * @return Serializeable Returns the result
+	 * @param \Serializable $input the data, that the worker should process
+	 * @return \Serializable Returns the result
 	 * @throws \Exception in case of a processing Error an Exception will be thrown
 	 */
 	public function run($input);
