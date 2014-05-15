@@ -54,7 +54,7 @@ class ClosureWorker implements Worker {
 	 */
 	public function onProcessCreate(Semaphore $semaphore) {
 		$this->semaphore = $semaphore;
-		call_user_func($this->create, $this->semaphore, $this->storage);
+		$this->create->__invoke($this->semaphore, $this->storage);
 	}
 
 	/**
@@ -63,7 +63,7 @@ class ClosureWorker implements Worker {
 	 * @throws \Exception in case of a processing Error an Exception will be thrown
 	 */
 	public function onProcessDestroy() {
-		call_user_func($this->destroy, $this->semaphore, $this->storage);
+		$this->destroy->__invoke($this->semaphore, $this->storage);
 	}
 
 	/**
@@ -74,7 +74,7 @@ class ClosureWorker implements Worker {
 	 * @throws \Exception in case of a processing Error an Exception will be thrown
 	 */
 	public function run($input) {
-		call_user_func($this->run, $input, $this->semaphore, $this->storage);
+		return $this->run->->__invoke($input, $this->semaphore, $this->storage);
 	}
 }
 
