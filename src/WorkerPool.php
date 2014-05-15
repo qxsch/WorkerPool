@@ -235,10 +235,11 @@ class WorkerPool implements \Iterator, \Countable {
 		}
 		$this->created = TRUE;
 		// when adding signals use pcntl_signal_dispatch(); or declare ticks
-		pcntl_signal(SIGCHLD, array($this, 'signalHandler'));
-		pcntl_signal(SIGTERM, array($this, 'signalHandler'));
-		pcntl_signal(SIGHUP, array($this, 'signalHandler'));
-		pcntl_signal(SIGUSR1, array($this, 'signalHandler'));
+		foreach (array(
+			SIGCHLD, SIGTERM, SIGHUP, SIGUSR1
+		) as $signo) {
+			pcntl_signal($signo, array($this, 'signalHandler'));
+		}
 
 		$this->semaphore = new Semaphore();
 		$this->semaphore->create(Semaphore::SEM_RAND_KEY);
@@ -266,8 +267,6 @@ class WorkerPool implements \Iterator, \Countable {
 				break;
 			} elseif ($processId == 0) {
 				// WE ARE IN THE CHILD
-				$this->processDetails = array(); // we do not have any children
-				$this->workerPoolSize = 0; // we do not have any children
 				socket_close($sockets[1]); // close the parent socket
 				$this->runWorkerProcess(
 					$worker,
@@ -385,6 +384,7 @@ class WorkerPool implements \Iterator, \Countable {
 			foreach ($this->processDetails as $processDetails) {
 				$processDetails->killProcess();
 			}
+
 			usleep(500000); // 0.5 seconds
 			// reap the remaining signals
 			$this->reaper();
