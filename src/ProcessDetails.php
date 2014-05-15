@@ -29,6 +29,10 @@ class ProcessDetails {
 		$this->isFree = TRUE;
 	}
 
+	public function __destruct() {
+		$this->killProcess();
+	}
+
 	/**
 	 * @return boolean
 	 */
