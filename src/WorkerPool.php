@@ -522,10 +522,12 @@ class WorkerPool implements \Iterator, \Countable {
 	protected function getNextFreeWorker() {
 		$sec = 0;
 		while (TRUE) {
-			$freeProcessDetails = $this->getDetailsOfFreeProcesses($sec);
-			$freeOne = array_shift($freeProcessDetails);
-			if ($freeOne instanceof ProcessDetails) {
-				return $freeOne;
+			$freeProcessDetails = NULL;
+			$this->collectWorkerResults($sec);
+			foreach($this->processDetails as $processDetails){
+				if($processDetails->isFree()){
+					return $processDetails;
+				}
 			}
 
 			$sec = self::CHILD_TIMEOUT_SEC;
