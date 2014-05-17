@@ -31,7 +31,7 @@ class Semaphore {
 	/** generate a key based on ftok */
 	const SEM_FTOK_KEY = 'ftok';
 
-	/** gmaximum semaphore int */
+	/** maximum semaphore int */
 	const MAX_SEM_INT=2147483647;
 
 	/** @var resource the semaphore resource */
