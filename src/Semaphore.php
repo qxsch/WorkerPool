@@ -31,6 +31,9 @@ class Semaphore {
 	/** generate a key based on ftok */
 	const SEM_FTOK_KEY = 'ftok';
 
+	/** gmaximum semaphore int */
+	const MAX_SEM_INT=2147483647;
+
 	/** @var resource the semaphore resource */
 	protected $semaphore = NULL;
 
@@ -64,6 +67,7 @@ class Semaphore {
 		// randomly generate semaphore, without collision
 		if ($semKey == Semaphore::SEM_RAND_KEY) {
 			$retries = 5;
+			mt_srand((int)(microtime(true)*10000));
 		} else {
 			$retries = 1;
 		}
@@ -73,7 +77,7 @@ class Semaphore {
 			// generate a semKey
 			if (!is_int($semKey)) {
 				if ($semKey == Semaphore::SEM_RAND_KEY) {
-					$this->semKey = mt_rand(1, PHP_INT_MAX);
+					$this->semKey = mt_rand(1, Semaphore::MAX_SEM_INT);
 				} else {
 					$this->semKey = ftok(__FILE__, 's');
 				}
@@ -81,6 +85,9 @@ class Semaphore {
 				$this->semKey = $semKey;
 			}
 			$this->semaphore = sem_get($this->semKey, $maxAcquire, 0666, 0);
+		}
+		if($this->semKey <= 0 || $this->semKey > Semaphore::MAX_SEM_INT) {
+			$this->semKey = ftok(__FILE__, 's');
 		}
 		if (!is_resource($this->semaphore)) {
 			$this->semaphore = NULL;
