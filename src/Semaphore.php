@@ -84,10 +84,11 @@ class Semaphore {
 			} else {
 				$this->semKey = $semKey;
 			}
+			// check the range
+			if($this->semKey <= 0 || $this->semKey > Semaphore::MAX_SEM_INT) {
+				$this->semKey = ftok(__FILE__, 's');
+			}
 			$this->semaphore = sem_get($this->semKey, $maxAcquire, 0666, 0);
-		}
-		if($this->semKey <= 0 || $this->semKey > Semaphore::MAX_SEM_INT) {
-			$this->semKey = ftok(__FILE__, 's');
 		}
 		if (!is_resource($this->semaphore)) {
 			$this->semaphore = NULL;
