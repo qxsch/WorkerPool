@@ -275,6 +275,7 @@ class WorkerPool implements \Iterator, \Countable {
 				break;
 			} elseif ($processId == 0) {
 				// WE ARE IN THE CHILD
+				$this->processDetails=array(); // we do not have any children
 				socket_close($sockets[1]); // close the parent socket
 				$this->runWorkerProcess(
 					$worker,
