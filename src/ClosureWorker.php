@@ -74,7 +74,7 @@ class ClosureWorker implements Worker {
 	 * @throws \Exception in case of a processing Error an Exception will be thrown
 	 */
 	public function run($input) {
-		call_user_func($this->run, $input, $this->semaphore, $this->storage);
+		return call_user_func($this->run, $input, $this->semaphore, $this->storage);
 	}
 }
 
