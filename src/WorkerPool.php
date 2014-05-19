@@ -438,6 +438,7 @@ class WorkerPool implements \Iterator, \Countable {
 		while ($childpid > 0) {
 			if (isset($this->processDetails[$childpid])) {
 				$this->workerPoolSize--;
+				$this->processDetails[$childpid]->killProcess();
 				unset($this->processDetails[$childpid]);
 			}
 			$childpid = pcntl_waitpid($pid, $status, WNOHANG);
