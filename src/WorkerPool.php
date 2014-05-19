@@ -524,10 +524,8 @@ class WorkerPool implements \Iterator, \Countable {
 		while (TRUE) {
 			$freeProcessDetails = NULL;
 			$this->collectWorkerResults($sec);
-			foreach($this->processDetails as $processDetails){
-				if($processDetails->isFree()){
-					return $processDetails;
-				}
+			if(($freeProcessId = ProcessDetails::getFreeProcessId()) !== NULL){
+				return $this->processDetails[$freeProcessId];
 			}
 
 			$sec = self::CHILD_TIMEOUT_SEC;
