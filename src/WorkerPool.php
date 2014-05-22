@@ -188,6 +188,14 @@ class WorkerPool implements \Iterator, \Countable {
 		return $this;
 	}
 
+
+	/**
+	 * The constructor
+	 */
+	public function __construct() {
+		$this->processes = new ProcessDetailsCollection();
+	}
+
 	/**
 	 * The destructor
 	 */
@@ -264,7 +272,6 @@ class WorkerPool implements \Iterator, \Countable {
 		if ($this->created) {
 			throw new WorkerPoolException('The pool has already been created.');
 		}
-		$this->processes = new ProcessDetailsCollection();
 
 		$this->created = TRUE;
 		// when adding signals use pcntl_signal_dispatch(); or declare ticks
