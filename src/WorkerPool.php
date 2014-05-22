@@ -81,9 +81,6 @@ class WorkerPool implements \Iterator, \Countable {
 	 */
 	protected $childProcessTitleFormat = '%basename%: Worker %i% of %class% [%state%]';
 
-	public function __construct() {
-		$this->processes = new ProcessDetailsCollection();
-	}
 
 	/**
 	 * Sanitizes the process title format string
@@ -267,6 +264,8 @@ class WorkerPool implements \Iterator, \Countable {
 		if ($this->created) {
 			throw new WorkerPoolException('The pool has already been created.');
 		}
+		$this->processes = new ProcessDetailsCollection();
+
 		$this->created = TRUE;
 		// when adding signals use pcntl_signal_dispatch(); or declare ticks
 		foreach ($this->signals as $signo) {
