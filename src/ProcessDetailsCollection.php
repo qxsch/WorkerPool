@@ -39,7 +39,7 @@ class ProcessDetailsCollection implements \IteratorAggregate {
 		$pid = $processDetails->getPid();
 
 		if ($this->hasProcess($pid) === FALSE) {
-			throw new \InvalidArgumentException('Could not remove process. Process (%s) not in list.', 1400761297);
+			throw new \InvalidArgumentException(sprintf('Could not remove process. Process (%d) not in list.', $processDetails->getPid()), 1400761297);
 		}
 
 		if (isset($this->freeProcessIds[$pid])) {
@@ -70,7 +70,7 @@ class ProcessDetailsCollection implements \IteratorAggregate {
 	public function registerFreeProcess(ProcessDetails $processDetails) {
 		$pid = $processDetails->getPid();
 		if ($this->hasProcess($pid) === FALSE) {
-			throw new \InvalidArgumentException('Could not register free process. Process (%s) not in list.', 1400761296);
+			throw new \InvalidArgumentException(sprintf('Could not register free process. Process (%d) not in list.', $processDetails->getPid()), 1400761296);
 		}
 		$this->freeProcessIds[$pid] = $pid;
 
