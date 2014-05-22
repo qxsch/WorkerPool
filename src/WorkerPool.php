@@ -24,35 +24,66 @@ class WorkerPool implements \Iterator, \Countable {
 	/** Default child timeout in seconds */
 	const CHILD_TIMEOUT_SEC = 10;
 
-	/** @var bool has the pool already been created? */
+	/**
+	 * @var array
+	 */
+	protected $signals = array(
+		SIGCHLD, SIGTERM, SIGHUP, SIGUSR1
+	);
+
+	/**
+	 * @var bool
+	 */
 	private $created = FALSE;
 
-	/** @var int the current worker pool size */
+	/**
+	 * @var int
+	 */
 	private $workerPoolSize = 2;
 
-	/** @var int the id of the parent */
+	/**
+	 * @var int
+	 */
 	protected $parentPid = 0;
 
-	/** @var \QXS\WorkerPool\Worker the worker class, that is used to run the tasks */
+	/**
+	 * @var \QXS\WorkerPool\Worker the worker class, that is used to run the tasks
+	 */
 	protected $worker = NULL;
 
-	/** @var \QXS\WorkerPool\Semaphore the semaphore, that is used to synchronizd tasks across all processes */
+	/**
+	 * @var \QXS\WorkerPool\Semaphore the semaphore, that is used to synchronizd tasks across all processes
+	 */
 	protected $semaphore = NULL;
 
-	/** @var ProcessDetails[] forked processes with their pids and sockets */
-	protected $processDetails = array();
+	/**
+	 * @var ProcessDetailsCollection|ProcessDetails[]
+	 */
+	protected $processes;
 
-	/** @var array received results from the workers */
+	/**
+	 * @var array received results from the workers
+	 */
 	protected $results = array();
 
-	/** @var int number of received results */
+	/**
+	 * @var int number of received results
+	 */
 	protected $resultPosition = 0;
 
-	/** @var string process title of the parent */
+	/**
+	 * @var string process title of the parent
+	 */
 	protected $parentProcessTitleFormat = '%basename%: Parent';
 
-	/** @var string process title of the children */
+	/**
+	 * @var string process title of the children
+	 */
 	protected $childProcessTitleFormat = '%basename%: Worker %i% of %class% [%state%]';
+
+	public function __construct() {
+		$this->processes = new ProcessDetailsCollection();
+	}
 
 	/**
 	 * Sanitizes the process title format string
@@ -61,12 +92,12 @@ class WorkerPool implements \Iterator, \Countable {
 	 * @throws \DomainException in case the $string value is not within the permitted range
 	 */
 	public static function sanitizeProcessTitleFormat($string) {
-		$string=preg_replace(
+		$string = preg_replace(
 			'/[^a-z0-9-_.:% \\\\\\]\\[]/i',
 			'',
 			$string
 		);
-		$string=trim($string);
+		$string = trim($string);
 		return $string;
 	}
 
@@ -161,12 +192,6 @@ class WorkerPool implements \Iterator, \Countable {
 	}
 
 	/**
-	 * The constructor
-	 */
-	public function __construct() {
-	}
-
-	/**
 	 * The destructor
 	 */
 	public function __destruct() {
@@ -190,11 +215,12 @@ class WorkerPool implements \Iterator, \Countable {
 	 * Empty title strings won't be set.
 	 * @param string $title the new process title
 	 * @param array $replacements an associative array of replacment values
+	 * @return void
 	 */
-	protected function setProcessTitle($title, array $replacements=array()) {
+	protected function setProcessTitle($title, array $replacements = array()) {
 		// skip empty title names
-		if(trim($title)=='') {
-			return null;
+		if (trim($title) == '') {
+			return;
 		}
 		// 1. replace the values
 		$title = preg_replace_callback(
@@ -243,9 +269,7 @@ class WorkerPool implements \Iterator, \Countable {
 		}
 		$this->created = TRUE;
 		// when adding signals use pcntl_signal_dispatch(); or declare ticks
-		foreach (array(
-			SIGCHLD, SIGTERM, SIGHUP, SIGUSR1
-		) as $signo) {
+		foreach ($this->signals as $signo) {
 			pcntl_signal($signo, array($this, 'signalHandler'));
 		}
 
@@ -273,20 +297,17 @@ class WorkerPool implements \Iterator, \Countable {
 				// cleanup using posix_kill & pcntl_wait
 				throw new \RuntimeException('pcntl_fork failed.');
 				break;
-			} elseif ($processId == 0) {
+			} elseif ($processId === 0) {
 				// WE ARE IN THE CHILD
-				$this->processDetails=array(); // we do not have any children
+				$this->processes = new ProcessDetailsCollection(); // we do not have any children
+				$this->workerPoolSize = 0; // we do not have any children
 				socket_close($sockets[1]); // close the parent socket
-				$this->runWorkerProcess(
-					$worker,
-					new SimpleSocket($sockets[0]),
-					$i
-				);
+				$this->runWorkerProcess($worker, new SimpleSocket($sockets[0]), $i);
 			} else {
 				// WE ARE IN THE PARENT
 				socket_close($sockets[0]); // close child socket
 				// create the child
-				$this->processDetails[$processId] = new ProcessDetails($processId, new SimpleSocket($sockets[1]));
+				$this->processes->addFree(new ProcessDetails($processId, new SimpleSocket($sockets[1])));
 			}
 		}
 
@@ -358,19 +379,19 @@ class WorkerPool implements \Iterator, \Countable {
 	 * @throws WorkerPoolException
 	 * @return WorkerPool
 	 */
-	public function destroy($maxWaitSecs = 10) {
+	public function destroy($maxWaitSecs = self::CHILD_TIMEOUT_SEC) {
 		if (!$this->created) {
 			throw new WorkerPoolException('The pool hasn\'t yet been created.');
 		}
 		$this->created = FALSE;
 
-		if ($this->parentPid == getmypid()) {
+		if ($this->parentPid === getmypid()) {
 			$maxWaitSecs = ((int)$maxWaitSecs) * 2;
 			if ($maxWaitSecs <= 1) {
 				$maxWaitSecs = 2;
 			}
 			// send the exit instruction
-			foreach ($this->processDetails as $processDetails) {
+			foreach ($this->processes as $processDetails) {
 				try {
 					$processDetails->getSocket()->send(array('cmd' => 'exit'));
 				} catch (\Exception $e) {
@@ -384,15 +405,16 @@ class WorkerPool implements \Iterator, \Countable {
 					break;
 				}
 			}
-			// reset the handlers
-			pcntl_signal(SIGCHLD, SIG_DFL);
-			pcntl_signal(SIGTERM, SIG_DFL);
-			pcntl_signal(SIGHUP, SIG_DFL);
-			pcntl_signal(SIGUSR1, SIG_DFL);
-			// kill all remaining processes
-			foreach ($this->processDetails as $processDetails) {
-				$processDetails->killProcess();
+
+			// reset signals
+			foreach ($this->signals as $signo) {
+				pcntl_signal($signo, SIG_DFL);
 			}
+
+			// kill all remaining processes
+			$this->processes->killAllProcesses();
+
+			unset($this->processes);
 
 			usleep(500000); // 0.5 seconds
 			// reap the remaining signals
@@ -445,9 +467,11 @@ class WorkerPool implements \Iterator, \Countable {
 		}
 		$childpid = pcntl_waitpid($pid, $status, WNOHANG);
 		while ($childpid > 0) {
-			if (isset($this->processDetails[$childpid])) {
+			$processDetails = $this->processes->getProcessDetails($childpid);
+			if ($processDetails !== NULL) {
 				$this->workerPoolSize--;
-				unset($this->processDetails[$childpid]);
+				$this->processes->remove($processDetails);
+				unset($processDetails);
 			}
 			$childpid = pcntl_waitpid($pid, $status, WNOHANG);
 		}
@@ -489,23 +513,8 @@ class WorkerPool implements \Iterator, \Countable {
 	 * @return int number of free workers
 	 */
 	public function getFreeWorkers() {
-		$processDetails = $this->getDetailsOfFreeProcesses();
-		return count($processDetails);
-	}
-
-	/**
-	 * @param int $sec
-	 * @return ProcessDetails[]
-	 */
-	protected function getDetailsOfFreeProcesses($sec = 0) {
-		$this->collectWorkerResults($sec);
-		$freeOnes = array();
-		foreach ($this->processDetails as $pid => $processDetails) {
-			if ($processDetails->isFree()) {
-				$freeOnes[$pid] = $processDetails;
-			}
-		}
-		return $freeOnes;
+		$this->collectWorkerResults();
+		return $this->processes->getFreeProcessesCount();
 	}
 
 	/**
@@ -531,12 +540,11 @@ class WorkerPool implements \Iterator, \Countable {
 	protected function getNextFreeWorker() {
 		$sec = 0;
 		while (TRUE) {
-			$freeProcessDetails = NULL;
 			$this->collectWorkerResults($sec);
-			foreach($this->processDetails as $processDetails) {
-				if($processDetails->isFree()){
-					return $processDetails;
-				}
+
+			$freeProcess = $this->processes->takeFreeProcess();
+			if ($freeProcess !== NULL) {
+				return $freeProcess;
 			}
 
 			$sec = self::CHILD_TIMEOUT_SEC;
@@ -555,26 +563,23 @@ class WorkerPool implements \Iterator, \Countable {
 	protected function collectWorkerResults($sec = 0) {
 		// dispatch signals
 		pcntl_signal_dispatch();
-		// let's collect the information
-		$read = array();
-		foreach ($this->processDetails as $processDetails) {
-			$read[] = $processDetails->getSocket();
-		}
-		if (!empty($read)) {
-			$result = SimpleSocket::select($read, array(), array(), $sec);
-			foreach ($result['read'] as $socket) {
-				$processId = $socket->annotation['pid'];
-				$this->processDetails[$processId]->setIsFree(TRUE);
-				$result = $socket->receive();
-				$result['pid'] = $processId;
-				if (isset($result['data'])) {
-					// null values won't be stored
-					if (!is_null($result['data'])) {
-						array_push($this->results, $result);
-					}
-				} elseif (isset($result['workerException']) || isset($result['poolException'])) {
+
+		$sockets =& $this->processes->getSockets();
+
+		$result = SimpleSocket::select($this->processes->getSockets(), array(), array(), $sec);
+		foreach ($result['read'] as $socket) {
+			/** @var $socket SimpleSocket */
+			$processId = $socket->annotation['pid'];
+			$this->processes->registerFreeProcessId($processId);
+			$result = $socket->receive();
+			$result['pid'] = $processId;
+			if (isset($result['data'])) {
+				// null values won't be stored
+				if (!is_null($result['data'])) {
 					array_push($this->results, $result);
 				}
+			} elseif (isset($result['workerException']) || isset($result['poolException'])) {
+				array_push($this->results, $result);
 			}
 		}
 		// dispatch signals
@@ -594,7 +599,6 @@ class WorkerPool implements \Iterator, \Countable {
 		while ($this->workerPoolSize > 0) {
 			try {
 				$processDetailsOfFreeWorker = $this->getNextFreeWorker();
-				$processDetailsOfFreeWorker->setIsFree(FALSE);
 				$processDetailsOfFreeWorker->getSocket()->send(array('cmd' => 'run', 'data' => $input));
 				return $this;
 			} catch (\Exception $e) {

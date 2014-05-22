@@ -123,7 +123,9 @@ class SimpleSocket {
 		if ($sec < 0) {
 			$sec = 0;
 		}
-		if ($usec < 0) $usec = 0;
+		if ($usec < 0) {
+			$usec = 0;
+		}
 
 		$read = array($this->socket);
 		$write = array();

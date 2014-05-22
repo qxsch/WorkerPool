@@ -16,6 +16,7 @@ Class PingWorker implements \QXS\WorkerPool\Worker {
 	}
 
 	public function run($input) {
+		usleep(rand(500000,700000));
 		return $input;
 	}
 }
@@ -71,13 +72,13 @@ class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
 		}
 		$this->assertInstanceOf('QXS\WorkerPool\WorkerPoolException', $exception);
 		$this->assertEquals(
-			'Unable to run the task.', 
+			'Unable to run the task.',
 			$exceptionMsg,
 			'We have a wrong Exception Message.'
 		);
 		$wp->destroy();
-	} 
- 
+	}
+
 	public function testGetters() {
 		$wp=new \QXS\WorkerPool\WorkerPool();
 		$wp->create(new PingWorker());
@@ -140,7 +141,7 @@ class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
                         $wp->getParentProcessTitleFormat(),
                         'getParentProcessTitleFormat should return a string'
                 );
-	
+
 		$wp->create(new PingWorker());
 
 		try {
@@ -174,7 +175,7 @@ class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
 		$wp->destroy();
 
 	}
- 
+
 	public function testDestroyException() {
 		$wp=new \QXS\WorkerPool\WorkerPool();
 		$wp->setWorkerPoolSize(50);
@@ -188,7 +189,7 @@ class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
 		}
 		catch(\Exception $e) {
 			$this->assertTrue(
-				false, 
+				false,
 				'An unexpected exception was thrown.'
 			);
 		}
@@ -200,12 +201,12 @@ class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
 			$result=false;
 		}
 		$this->assertTrue(
-			$result, 
+			$result,
 			'WorkerPool::Destroy shouldn\t throw an exception.'
 		);
 
-	} 
- 
+	}
+
 	public function testPingWorkers() {
 		try {
 			$wp=new \QXS\WorkerPool\WorkerPool();
@@ -221,12 +222,12 @@ class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
 			}
 			$wp->waitForAllWorkers();
 			$this->assertLessThanOrEqual(
-				0, 
+				0,
 				$failCount,
 				'Sometimes the sum of free and busy workers does not equal to the pool size.'
 			);
 			$this->assertEquals(
-				500, 
+				500,
 				count($wp),
 				'The result count should be 500.'
 			);
@@ -235,12 +236,12 @@ class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
 				$i++;
 			}
 			$this->assertEquals(
-				500, 
+				500,
 				$i,
 				'We should have 500 results in the pool.'
 			);
 			$this->assertEquals(
-				0, 
+				0,
 				count($wp),
 				'The result count should be 0 now.'
 			);
@@ -248,7 +249,7 @@ class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
 		}
 		catch(\Exception $e) {
 			$this->assertTrue(
-				false, 
+				false,
 				'An unexpected exception was thrown.'
 			);
 		}
@@ -258,11 +259,11 @@ class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
 		}
 		catch(\Exception $e) {
 			$this->assertTrue(
-				false, 
+				false,
 				'WorkerPool::Destroy shouldn\t throw an exception.'
 			);
 		}
-	} 
- 
+	}
+
 }
 

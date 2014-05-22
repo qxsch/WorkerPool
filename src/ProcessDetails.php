@@ -14,11 +14,6 @@ class ProcessDetails {
 	protected $socket;
 
 	/**
-	 * @var bool
-	 */
-	protected $isFree;
-
-	/**
 	 * @param int $pid
 	 * @param SimpleSocket $socket
 	 */
@@ -26,14 +21,6 @@ class ProcessDetails {
 		$this->pid = $pid;
 		$this->socket = $socket;
 		$this->socket->annotation['pid'] = $pid;
-		$this->isFree = TRUE;
-	}
-
-	/**
-	 * @return boolean
-	 */
-	public function isFree() {
-		return $this->isFree;
 	}
 
 	/**
@@ -48,17 +35,5 @@ class ProcessDetails {
 	 */
 	public function getSocket() {
 		return $this->socket;
-	}
-
-	/**
-	 * @param boolean $isFree
-	 */
-	public function setIsFree($isFree) {
-		$this->isFree = $isFree;
-	}
-
-	public function killProcess() {
-		@socket_close($this->socket->getSocket());
-		@posix_kill($this->pid, 9);
 	}
 }
