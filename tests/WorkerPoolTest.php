@@ -260,7 +260,7 @@ class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
 		catch(\Exception $e) {
 			$this->assertTrue(
 				false,
-				'WorkerPool::Destroy shouldn\t throw an exception.'
+				'WorkerPool::Destroy shouldn\t throw an exception of type '.get_class($e).' with message:'.$e->getMessage()
 			);
 		}
 	}
