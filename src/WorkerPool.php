@@ -663,7 +663,6 @@ class WorkerPool implements \Iterator, \Countable {
 	 * @return string returns the current key
 	 */
 	public function key() {
-		$this->resultPosition++;
 		return $this->resultPosition;
 	}
 
@@ -672,6 +671,9 @@ class WorkerPool implements \Iterator, \Countable {
 	 */
 	public function next() {
 		$this->collectWorkerResults();
+		if(!empty($this->results)) {
+			$this->resultPosition++;
+		}
 		array_shift($this->results);
 	}
 

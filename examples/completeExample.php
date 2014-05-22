@@ -1,6 +1,6 @@
 <?php
 
-require_once(__DIR__.'/require_once.php');
+require_once(dirname(__DIR__).'/require_once.php');
 
 
 use QXS\WorkerPool\WorkerPool;
