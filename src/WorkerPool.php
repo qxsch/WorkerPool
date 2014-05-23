@@ -82,6 +82,22 @@ class WorkerPool implements \Iterator, \Countable {
 	protected $childProcessTitleFormat = '%basename%: Worker %i% of %class% [%state%]';
 
 	/**
+	 * The constructor
+	 */
+	public function __construct() {
+		$this->workerProcesses = new ProcessDetailsCollection();
+	}
+
+	/**
+	 * The destructor
+	 */
+	public function __destruct() {
+		if ($this->created) {
+			$this->destroy();
+		}
+	}
+
+	/**
 	 * Returns the process title of the child
 	 * @return string the process title of the child
 	 */
@@ -169,23 +185,6 @@ class WorkerPool implements \Iterator, \Countable {
 		}
 		$this->workerPoolSize = $size;
 		return $this;
-	}
-
-
-	/**
-	 * The constructor
-	 */
-	public function __construct() {
-		$this->workerProcesses = new ProcessDetailsCollection();
-	}
-
-	/**
-	 * The destructor
-	 */
-	public function __destruct() {
-		if ($this->created) {
-			$this->destroy();
-		}
 	}
 
 	/**
@@ -623,7 +622,7 @@ class WorkerPool implements \Iterator, \Countable {
 	 */
 	public function next() {
 		$this->collectWorkerResults();
-		if(!empty($this->results)) {
+		if (!empty($this->results)) {
 			$this->resultPosition++;
 		}
 		array_shift($this->results);
