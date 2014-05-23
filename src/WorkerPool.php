@@ -49,12 +49,12 @@ class WorkerPool implements \Iterator, \Countable {
 	/**
 	 * @var \QXS\WorkerPool\Worker the worker class, that is used to run the tasks
 	 */
-	protected $worker = NULL;
+	protected $worker;
 
 	/**
 	 * @var \QXS\WorkerPool\Semaphore the semaphore, that is used to synchronizd tasks across all processes
 	 */
-	protected $semaphore = NULL;
+	protected $semaphore;
 
 	/**
 	 * @var ProcessDetailsCollection|ProcessDetails[] Collection of the worker processes.
