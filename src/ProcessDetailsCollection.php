@@ -68,7 +68,7 @@ class ProcessDetailsCollection implements \IteratorAggregate {
 	public function killAllProcesses() {
 		foreach ($this->processDetails as $pid => $processDetails) {
 			$this->remove($processDetails);
-			posix_kill($pid, 9);
+			posix_kill($pid, SIGKILL);
 		}
 	}
 
