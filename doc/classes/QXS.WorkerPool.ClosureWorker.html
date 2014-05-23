@@ -114,12 +114,12 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">0</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">1</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="../reports/markers.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
                                 </a>
                             </li>
                             <li>
@@ -144,34 +144,36 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1365110897"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-801200918"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1365110897" class="accordion-body collapse in">
+            <div id="namespace-801200918" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-598927645"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1897424225"></a>
                                 <a href="../namespaces/QXS.html" style="margin-left: 30px; padding-left: 0">QXS</a>
             </div>
-            <div id="namespace-598927645" class="accordion-body collapse ">
+            <div id="namespace-1897424225" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1488243553"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1386112442"></a>
                                 <a href="../namespaces/QXS.WorkerPool.html" style="margin-left: 30px; padding-left: 0">WorkerPool</a>
             </div>
-            <div id="namespace-1488243553" class="accordion-body collapse ">
+            <div id="namespace-1386112442" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
                     <ul>
                                                     <li class="interface"><a href="../classes/QXS.WorkerPool.Worker.html">Worker</a></li>
                                                                                                     <li class="class"><a href="../classes/QXS.WorkerPool.ClosureWorker.html">ClosureWorker</a></li>
+                                                    <li class="class"><a href="../classes/QXS.WorkerPool.ProcessDetails.html">ProcessDetails</a></li>
+                                                    <li class="class"><a href="../classes/QXS.WorkerPool.ProcessDetailsCollection.html">ProcessDetailsCollection</a></li>
                                                     <li class="class"><a href="../classes/QXS.WorkerPool.Semaphore.html">Semaphore</a></li>
                                                     <li class="class"><a href="../classes/QXS.WorkerPool.SemaphoreException.html">SemaphoreException</a></li>
                                                     <li class="class"><a href="../classes/QXS.WorkerPool.SimpleSocket.html">SimpleSocket</a></li>
@@ -602,14 +604,14 @@
             <article class="method">
                 <h3 class="public ">run()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">run(\QXS\WorkerPool\Serializeable <span class="argument">$input</span>) : \QXS\WorkerPool\Serializeable</pre>
+                <pre class="signature" style="margin-right: 54px;">run(\Serializable <span class="argument">$input</span>) : \Serializable</pre>
                 <p><em>run the work</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td>\QXS\WorkerPool\Serializeable</td>
+                                <td>\Serializable</td>
                                 <td>$input</td>
                                 <td><p>the data, that the worker should process</p></td>
                             </tr>
@@ -622,7 +624,7 @@
                                                                     </dl>
                 
                                     <h4>Returns</h4>
-                    \QXS\WorkerPool\Serializeable
+                    \Serializable
                                             &mdash; <p>Returns the result</p>
                                                 </article>
         </div>
@@ -687,7 +689,7 @@
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on May 9th, 2014 at 23:17.
+                    on May 23rd, 2014 at 19:35.
                 </section>
             </section>
         </section>

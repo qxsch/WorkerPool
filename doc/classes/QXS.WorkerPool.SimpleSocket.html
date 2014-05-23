@@ -114,12 +114,12 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">0</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">1</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="../reports/markers.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
                                 </a>
                             </li>
                             <li>
@@ -144,34 +144,36 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1054040891"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-809607422"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1054040891" class="accordion-body collapse in">
+            <div id="namespace-809607422" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-707436082"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1508776794"></a>
                                 <a href="../namespaces/QXS.html" style="margin-left: 30px; padding-left: 0">QXS</a>
             </div>
-            <div id="namespace-707436082" class="accordion-body collapse ">
+            <div id="namespace-1508776794" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1360279400"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1987126842"></a>
                                 <a href="../namespaces/QXS.WorkerPool.html" style="margin-left: 30px; padding-left: 0">WorkerPool</a>
             </div>
-            <div id="namespace-1360279400" class="accordion-body collapse ">
+            <div id="namespace-1987126842" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
                     <ul>
                                                     <li class="interface"><a href="../classes/QXS.WorkerPool.Worker.html">Worker</a></li>
                                                                                                     <li class="class"><a href="../classes/QXS.WorkerPool.ClosureWorker.html">ClosureWorker</a></li>
+                                                    <li class="class"><a href="../classes/QXS.WorkerPool.ProcessDetails.html">ProcessDetails</a></li>
+                                                    <li class="class"><a href="../classes/QXS.WorkerPool.ProcessDetailsCollection.html">ProcessDetailsCollection</a></li>
                                                     <li class="class"><a href="../classes/QXS.WorkerPool.Semaphore.html">Semaphore</a></li>
                                                     <li class="class"><a href="../classes/QXS.WorkerPool.SemaphoreException.html">SemaphoreException</a></li>
                                                     <li class="class"><a href="../classes/QXS.WorkerPool.SimpleSocket.html">SimpleSocket</a></li>
@@ -394,6 +396,11 @@
                             </tr>
                                             </table>
                 
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd></dd>
+                                                                    </dl>
                 
                             </article>
         </div>
@@ -451,24 +458,24 @@
             <article class="method">
                 <h3 class="public ">select()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">select(array <span class="argument">$readSockets</span>, array <span class="argument">$writeSockets</span>, array <span class="argument">$exceptSockets</span>, int <span class="argument">$sec</span>, int <span class="argument">$usec</span>) : array</pre>
+                <pre class="signature" style="margin-right: 54px;">select(\QXS\WorkerPool\SimpleSocket[] <span class="argument">$readSockets</span>, \QXS\WorkerPool\SimpleSocket[] <span class="argument">$writeSockets</span>, \QXS\WorkerPool\SimpleSocket[] <span class="argument">$exceptSockets</span>, int <span class="argument">$sec</span>, int <span class="argument">$usec</span>) : array</pre>
                 <p><em>Selects active sockets with a timeout</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td>array</td>
+                                <td>\QXS\WorkerPool\SimpleSocket[]</td>
                                 <td>$readSockets</td>
                                 <td><p>Array of \QXS\WorkerPool\SimpleSocket Objects, that should be monitored for read activity</p></td>
                             </tr>
                                                     <tr>
-                                <td>array</td>
+                                <td>\QXS\WorkerPool\SimpleSocket[]</td>
                                 <td>$writeSockets</td>
                                 <td><p>Array of \QXS\WorkerPool\SimpleSocket Objects, that should be monitored for write activity</p></td>
                             </tr>
                                                     <tr>
-                                <td>array</td>
+                                <td>\QXS\WorkerPool\SimpleSocket[]</td>
                                 <td>$exceptSockets</td>
                                 <td><p>Array of \QXS\WorkerPool\SimpleSocket Objects, that should be monitored for except activity</p></td>
                             </tr>
@@ -514,13 +521,16 @@
             <article class="method">
                 <h3 class="public ">getResourceId()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getResourceId()</pre>
+                <pre class="signature" style="margin-right: 54px;">getResourceId() : int</pre>
                 <p><em>Get the id of the socket resource</em></p>
                 
 
                 
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    int
+                                            &mdash; <p>the id of the socket resource</p>
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -545,13 +555,16 @@
             <article class="method">
                 <h3 class="public ">getSocket()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getSocket()</pre>
+                <pre class="signature" style="margin-right: 54px;">getSocket() : resource</pre>
                 <p><em>Get the socket resource</em></p>
                 
 
                 
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    resource
+                                            &mdash; <p>the socket resource</p>
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -750,7 +763,7 @@
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on May 9th, 2014 at 23:17.
+                    on May 23rd, 2014 at 19:35.
                 </section>
             </section>
         </section>
