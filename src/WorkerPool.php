@@ -570,8 +570,6 @@ class WorkerPool implements \Iterator, \Countable {
 		// dispatch signals
 		pcntl_signal_dispatch();
 
-		$sockets =& $this->workerProcesses->getSockets();
-
 		$result = SimpleSocket::select($this->workerProcesses->getSockets(), array(), array(), $sec);
 		foreach ($result['read'] as $socket) {
 			/** @var $socket SimpleSocket */
