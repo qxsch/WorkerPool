@@ -2,7 +2,7 @@
 
 namespace QXS\Tests\WorkerPool;
 
-require_once(__DIR__.'/require_once.php');
+require_once(dirname(__DIR__).'/require_once.php');
 
 
 
@@ -260,7 +260,7 @@ class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
 		catch(\Exception $e) {
 			$this->assertTrue(
 				false,
-				'WorkerPool::Destroy shouldn\t throw an exception.'
+				'WorkerPool::Destroy shouldn\t throw an exception of type '.get_class($e).' with message:'.$e->getMessage()."\n".$e->getTraceAsString()
 			);
 		}
 	}

@@ -33,6 +33,12 @@ class ClosureWorker implements Worker {
 	 */
 	public function __construct(\Closure $run, \Closure $create = NULL, \Closure $destroy = NULL) {
 		$this->storage = new \ArrayObject();
+		if(is_null($create)) {
+			$create=function($semaphore, $storage) { };
+		}
+		if(is_null($destroy)) {
+			$destroy=function($semaphore, $storage) { };
+		}
 		$this->create = $create;
 		$this->run = $run;
 		$this->destroy = $destroy;
@@ -46,9 +52,7 @@ class ClosureWorker implements Worker {
 	 */
 	public function onProcessCreate(Semaphore $semaphore) {
 		$this->semaphore = $semaphore;
-		if($this->create !== NULL){
-			$this->create->__invoke($this->semaphore, $this->storage);
-		}
+		$this->create->__invoke($this->semaphore, $this->storage);
 	}
 
 	/**
@@ -57,9 +61,7 @@ class ClosureWorker implements Worker {
 	 * @throws \Exception in case of a processing Error an Exception will be thrown
 	 */
 	public function onProcessDestroy() {
-		if($this->destroy !== NULL){
-			$this->destroy->__invoke($this->semaphore, $this->storage);
-		}
+		$this->destroy->__invoke($this->semaphore, $this->storage);
 	}
 
 	/**

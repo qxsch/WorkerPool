@@ -21,6 +21,7 @@ namespace QXS\WorkerPool;
  */
 class WorkerPool implements \Iterator, \Countable {
 
+	/** Default child timeout in seconds */
 	const CHILD_TIMEOUT_SEC = 10;
 
 	/**
@@ -80,9 +81,6 @@ class WorkerPool implements \Iterator, \Countable {
 	 */
 	protected $childProcessTitleFormat = '%basename%: Worker %i% of %class% [%state%]';
 
-	public function __construct() {
-		$this->processes = new ProcessDetailsCollection();
-	}
 
 	/**
 	 * Sanitizes the process title format string
@@ -190,6 +188,14 @@ class WorkerPool implements \Iterator, \Countable {
 		return $this;
 	}
 
+
+	/**
+	 * The constructor
+	 */
+	public function __construct() {
+		$this->processes = new ProcessDetailsCollection();
+	}
+
 	/**
 	 * The destructor
 	 */
@@ -210,7 +216,8 @@ class WorkerPool implements \Iterator, \Countable {
 	/**
 	 * Sets the proccess title
 	 *
-	 * This function call requires the proctitle extension!
+	 * This function call requires php5.5+ or the proctitle extension!
+	 * Empty title strings won't be set.
 	 * @param string $title the new process title
 	 * @param array $replacements an associative array of replacment values
 	 * @return void
@@ -265,6 +272,7 @@ class WorkerPool implements \Iterator, \Countable {
 		if ($this->created) {
 			throw new WorkerPoolException('The pool has already been created.');
 		}
+
 		$this->created = TRUE;
 		// when adding signals use pcntl_signal_dispatch(); or declare ticks
 		foreach ($this->signals as $signo) {
@@ -297,6 +305,7 @@ class WorkerPool implements \Iterator, \Countable {
 				break;
 			} elseif ($processId === 0) {
 				// WE ARE IN THE CHILD
+				$this->processes = new ProcessDetailsCollection(); // we do not have any children
 				$this->workerPoolSize = 0; // we do not have any children
 				socket_close($sockets[1]); // close the parent socket
 				$this->runWorkerProcess($worker, new SimpleSocket($sockets[0]), $i);

@@ -1,19 +1,23 @@
 <?php
+/**
+ * The Process Details
+ */
+
 namespace QXS\WorkerPool;
 
+/**
+ * The Process Details Class
+ */
 class ProcessDetails {
 
-	/**
-	 * @var int
-	 */
+	/** @var int */
 	protected $pid;
 
-	/**
-	 * @var SimpleSocket
-	 */
+	/** @var SimpleSocket */
 	protected $socket;
 
 	/**
+	 * The constructor
 	 * @param int $pid
 	 * @param SimpleSocket $socket
 	 */
@@ -24,6 +28,7 @@ class ProcessDetails {
 	}
 
 	/**
+	 * Get the pid
 	 * @return int
 	 */
 	public function getPid() {
@@ -31,6 +36,7 @@ class ProcessDetails {
 	}
 
 	/**
+	 * Get the socket 
 	 * @return \QXS\WorkerPool\SimpleSocket
 	 */
 	public function getSocket() {

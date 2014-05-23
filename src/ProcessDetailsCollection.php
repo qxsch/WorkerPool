@@ -1,25 +1,26 @@
 <?php
+/**
+ * The Process Details Collection
+ */
+
 namespace QXS\WorkerPool;
 
+/**
+ * The Process Details Collection Class
+ */
 class ProcessDetailsCollection implements \IteratorAggregate {
 
-	/**
-	 * @var ProcessDetails[]
-	 */
+	/** @var ProcessDetails[] the details */
 	public $processDetails = array();
 
-	/**
-	 * @var array
-	 */
+	/** @var array the free process ids */
 	protected $freeProcessIds = array();
 
-	/**
-	 * @var SimpleSocket[]
-	 */
+	/** @var SimpleSocket[] all sockets */
 	protected $sockets = array();
 
 	/**
-	 * Adds a process to the list and registers it as a free one.
+	 * Adds the ProcessDetails to the list and registers it as a free one.
 	 *
 	 * @param ProcessDetails $processDetails
 	 * @return ProcessDetailsCollection
@@ -33,7 +34,7 @@ class ProcessDetailsCollection implements \IteratorAggregate {
 	}
 
 	/**
-	 * Removes the process from the list.
+	 * Removes the ProcessDetails from the list.
 	 *
 	 * @param ProcessDetails $processDetails
 	 * @throws \InvalidArgumentException
@@ -72,6 +73,8 @@ class ProcessDetailsCollection implements \IteratorAggregate {
 	}
 
 	/**
+	 * Register a ProcessDetails as free
+	 *
 	 * @param ProcessDetails $processDetails
 	 * @throws \InvalidArgumentException
 	 * @return ProcessDetailsCollection
@@ -87,6 +90,8 @@ class ProcessDetailsCollection implements \IteratorAggregate {
 	}
 
 	/**
+	 * Register the ProcessDetails with the given PID as free.
+	 *
 	 * @param int $pid
 	 * @return ProcessDetailsCollection
 	 */
@@ -100,6 +105,8 @@ class ProcessDetailsCollection implements \IteratorAggregate {
 	}
 
 	/**
+	 * Get all ProcessDetails by reference
+	 *
 	 * @return ProcessDetails[]
 	 */
 	public function &getAllProcesssDetails() {
@@ -107,7 +114,7 @@ class ProcessDetailsCollection implements \IteratorAggregate {
 	}
 
 	/**
-	 * Takes a process from the list of free processes. Returns NULL if no free process is available.
+	 * Takes one ProcessDetails from the list of free ProcessDetails. Returns NULL if no free process is available.
 	 *
 	 * @return ProcessDetails
 	 */
@@ -123,7 +130,7 @@ class ProcessDetailsCollection implements \IteratorAggregate {
 	}
 
 	/**
-	 * Checks if process with given $pid is in the list.
+	 * Checks if the ProcessDetails with given PID is in the list.
 	 *
 	 * @param int $pid
 	 * @return bool
@@ -133,6 +140,8 @@ class ProcessDetailsCollection implements \IteratorAggregate {
 	}
 
 	/**
+	 * Get the count of free processes
+	 *
 	 * @return int
 	 */
 	public function getFreeProcessesCount() {
@@ -149,6 +158,8 @@ class ProcessDetailsCollection implements \IteratorAggregate {
 	}
 
 	/**
+	 * Get a ProcessDetails of the given PID
+	 *
 	 * @param int $pid
 	 * @return ProcessDetails
 	 */
