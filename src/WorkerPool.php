@@ -25,24 +25,24 @@ class WorkerPool implements \Iterator, \Countable {
 	const CHILD_TIMEOUT_SEC = 10;
 
 	/**
-	 * @var array
+	 * @var array signals, that should be watched
 	 */
 	protected $signals = array(
 		SIGCHLD, SIGTERM, SIGHUP, SIGUSR1
 	);
 
 	/**
-	 * @var bool
+	 * @var bool is the pool created? (children forked)
 	 */
 	private $created = FALSE;
 
 	/**
-	 * @var int
+	 * @var int number of children in the pool
 	 */
 	private $workerPoolSize = 2;
 
 	/**
-	 * @var int
+	 * @var int id of the parent
 	 */
 	protected $parentPid = 0;
 
