@@ -81,23 +81,6 @@ class WorkerPool implements \Iterator, \Countable {
 	 */
 	protected $childProcessTitleFormat = '%basename%: Worker %i% of %class% [%state%]';
 
-
-	/**
-	 * Sanitizes the process title format string
-	 * @param string $string the process title
-	 * @return string the process sanitized title
-	 * @throws \DomainException in case the $string value is not within the permitted range
-	 */
-	public static function sanitizeProcessTitleFormat($string) {
-		$string = preg_replace(
-			'/[^a-z0-9-_.:% \\\\\\]\\[]/i',
-			'',
-			$string
-		);
-		$string = trim($string);
-		return $string;
-	}
-
 	/**
 	 * Returns the process title of the child
 	 * @return string the process title of the child
@@ -125,7 +108,7 @@ class WorkerPool implements \Iterator, \Countable {
 		if ($this->created) {
 			throw new WorkerPoolException('Cannot set the Parent\'s Process Title Format for a created pool.');
 		}
-		$this->childProcessTitleFormat = self::sanitizeProcessTitleFormat($string);
+		$this->childProcessTitleFormat = ProcessDetails::sanitizeProcessTitleFormat($string);
 		return $this;
 	}
 
@@ -154,7 +137,7 @@ class WorkerPool implements \Iterator, \Countable {
 		if ($this->created) {
 			throw new WorkerPoolException('Cannot set the Children\'s Process Title Format for a created pool.');
 		}
-		$this->parentProcessTitleFormat = self::sanitizeProcessTitleFormat($string);
+		$this->parentProcessTitleFormat = ProcessDetails::sanitizeProcessTitleFormat($string);
 		return $this;
 	}
 
@@ -214,45 +197,6 @@ class WorkerPool implements \Iterator, \Countable {
 	}
 
 	/**
-	 * Sets the proccess title
-	 *
-	 * This function call requires php5.5+ or the proctitle extension!
-	 * Empty title strings won't be set.
-	 * @param string $title the new process title
-	 * @param array $replacements an associative array of replacment values
-	 * @return void
-	 */
-	protected function setProcessTitle($title, array $replacements = array()) {
-		// skip empty title names
-		if (trim($title) == '') {
-			return;
-		}
-		// 1. replace the values
-		$title = preg_replace_callback(
-			'/\%([a-z0-9]+)\%/i',
-			function ($match) use ($replacements) {
-				if (isset($replacements[$match[1]])) {
-					return $replacements[$match[1]];
-				}
-				return $match[0];
-			},
-			$title
-		);
-		// 2. remove forbidden chars
-		$title = preg_replace(
-			'/[^a-z0-9-_.: \\\\\\]\\[]/i',
-			'',
-			$title
-		);
-		// 3. set the title
-		if (function_exists('cli_set_process_title')) {
-			cli_set_process_title($title); // PHP 5.5+ has a builtin function
-		} elseif (function_exists('setproctitle')) {
-			setproctitle($title); // pecl proctitle extension
-		}
-	}
-
-	/**
 	 * Creates the worker pool (forks the children)
 	 *
 	 * Please close all open resources before running this function.
@@ -282,7 +226,7 @@ class WorkerPool implements \Iterator, \Countable {
 		$this->semaphore = new Semaphore();
 		$this->semaphore->create(Semaphore::SEM_RAND_KEY);
 
-		$this->setProcessTitle(
+		ProcessDetails::setProcessTitle(
 			$this->parentProcessTitleFormat,
 			array(
 				'basename' => basename($_SERVER['PHP_SELF']),
@@ -334,20 +278,20 @@ class WorkerPool implements \Iterator, \Countable {
 			'i' => $i,
 			'state' => 'free'
 		);
-		$this->setProcessTitle($this->childProcessTitleFormat, $replacements);
+		ProcessDetails::setProcessTitle($this->childProcessTitleFormat, $replacements);
 		$this->worker->onProcessCreate($this->semaphore);
 		while (TRUE) {
 			$output = array('pid' => getmypid());
 			try {
 				$replacements['state'] = 'free';
-				$this->setProcessTitle($this->childProcessTitleFormat, $replacements);
+				ProcessDetails::setProcessTitle($this->childProcessTitleFormat, $replacements);
 				$cmd = $simpleSocket->receive();
 				// invalid response from parent?
 				if (!isset($cmd['cmd'])) {
 					break;
 				}
 				$replacements['state'] = 'busy';
-				$this->setProcessTitle($this->childProcessTitleFormat, $replacements);
+				ProcessDetails::setProcessTitle($this->childProcessTitleFormat, $replacements);
 				if ($cmd['cmd'] == 'run') {
 					try {
 						$output['data'] = $this->worker->run($cmd['data']);
@@ -699,5 +643,3 @@ class WorkerPool implements \Iterator, \Countable {
 		return !empty($this->results);
 	}
 }
-
-
