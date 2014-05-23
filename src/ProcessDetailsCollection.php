@@ -158,6 +158,15 @@ class ProcessDetailsCollection implements \IteratorAggregate {
 	}
 
 	/**
+	 * Get the count of busy processes
+	 *
+	 * @return int
+	 */
+	public function getBusyProcessesCount() {
+		return $this->getProcessesCount() - $this->getFreeProcessesCount();
+	}
+
+	/**
 	 * Returns the associated sockets of all processes in the list.
 	 *
 	 * @return \QXS\WorkerPool\SimpleSocket[]

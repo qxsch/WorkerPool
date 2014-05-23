@@ -259,8 +259,6 @@ class WorkerPool implements \Iterator, \Countable {
 
 		if ($processId === 0) {
 			// WE ARE IN THE CHILD
-			$this->workerProcesses = new ProcessDetailsCollection(); // we do not have any children
-			$this->workerPoolSize = 0; // we do not have any children
 			socket_close($parentSocket);
 			$this->runWorkerProcess($this->worker, new SimpleSocket($childSocket));
 		} else {
@@ -357,7 +355,7 @@ class WorkerPool implements \Iterator, \Countable {
 			for ($i = 0; $i < $maxWaitSecs; $i++) {
 				usleep(500000); // 0.5 seconds
 				pcntl_signal_dispatch();
-				if ($this->workerPoolSize == 0) {
+				if ($this->workerProcesses->getProcessesCount() == 0) {
 					break;
 				}
 			}
@@ -451,11 +449,11 @@ class WorkerPool implements \Iterator, \Countable {
 	 * @return array with the keys 'free', 'busy', 'total'
 	 */
 	public function getFreeAndBusyWorkers() {
-		$free = $this->getFreeWorkers();
+		$this->collectWorkerResults();
 		return array(
-			'free' => $free,
-			'busy' => $this->workerPoolSize - $free,
-			'total' => $this->workerPoolSize
+			'free' => $this->workerProcesses->getFreeProcessesCount(),
+			'busy' => $this->workerProcesses->getBusyProcessesCount(),
+			'total' => $this->workerProcesses->getProcessesCount()
 		);
 	}
 
@@ -481,7 +479,8 @@ class WorkerPool implements \Iterator, \Countable {
 	 * @return int number of free workers
 	 */
 	public function getBusyWorkers() {
-		return $this->workerPoolSize - $this->getFreeWorkers();
+		$this->collectWorkerResults();
+		return $this->workerProcesses->getBusyProcessesCount();
 	}
 
 	/**
@@ -499,6 +498,7 @@ class WorkerPool implements \Iterator, \Countable {
 				$this->workerProcesses->getFreeProcessesCount() === 0 &&
 				$this->workerPoolSize > $this->workerProcesses->getProcessesCount()
 			) {
+				// fork children on demand
 				$this->forkChildren();
 			}
 
@@ -509,7 +509,8 @@ class WorkerPool implements \Iterator, \Countable {
 			}
 
 			$sec = self::CHILD_TIMEOUT_SEC;
-			if ($this->workerPoolSize <= 0) {
+
+			if ($this->workerProcesses->getProcessesCount() <= 0) {
 				throw new WorkerPoolException('All workers were gone.');
 			}
 		}
@@ -550,21 +551,25 @@ class WorkerPool implements \Iterator, \Countable {
 	 *
 	 * This function blocks until a worker has finished its work.
 	 * You can kill all child processes, so that the parent will be unblocked.
-	 * @param mixed $input any serializeable value
+	 *
 	 * @throws WorkerPoolException
+	 * @param mixed $input any serializeable value
 	 * @return WorkerPool
 	 */
 	public function run($input) {
-		while ($this->workerPoolSize > 0) {
+		while (TRUE) {
 			try {
 				$processDetailsOfFreeWorker = $this->getNextFreeWorker();
 				$processDetailsOfFreeWorker->getSocket()->send(array('cmd' => 'run', 'data' => $input));
 				return $this;
+			} catch (SimpleSocketException $e) {
+				continue;
 			} catch (\Exception $e) {
 				pcntl_signal_dispatch();
+				return NULL;
 			}
 		}
-		throw new WorkerPoolException('Unable to run the task.');
+		throw new WorkerPoolException('Could not run worker in ' . getmypid(), 1400838906);
 	}
 
 	/**
