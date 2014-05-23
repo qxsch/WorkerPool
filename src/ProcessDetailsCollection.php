@@ -19,6 +19,8 @@ class ProcessDetailsCollection implements \IteratorAggregate {
 	protected $sockets = array();
 
 	/**
+	 * Adds a process to the list and registers it as a free one.
+	 *
 	 * @param ProcessDetails $processDetails
 	 * @return ProcessDetailsCollection
 	 */
@@ -31,6 +33,8 @@ class ProcessDetailsCollection implements \IteratorAggregate {
 	}
 
 	/**
+	 * Removes the process from the list.
+	 *
 	 * @param ProcessDetails $processDetails
 	 * @throws \InvalidArgumentException
 	 * @return ProcessDetailsCollection
@@ -55,8 +59,13 @@ class ProcessDetailsCollection implements \IteratorAggregate {
 		return $this;
 	}
 
+	/**
+	 * Sends the kill signal to all processes and removes them from the list.
+	 *
+	 * @return void
+	 */
 	public function killAllProcesses() {
-		foreach($this->processDetails as $pid => $processDetails){
+		foreach ($this->processDetails as $pid => $processDetails) {
 			$this->remove($processDetails);
 			posix_kill($pid, 9);
 		}
@@ -98,6 +107,8 @@ class ProcessDetailsCollection implements \IteratorAggregate {
 	}
 
 	/**
+	 * Takes a process from the list of free processes. Returns NULL if no free process is available.
+	 *
 	 * @return ProcessDetails
 	 */
 	public function takeFreeProcess() {
@@ -112,6 +123,8 @@ class ProcessDetailsCollection implements \IteratorAggregate {
 	}
 
 	/**
+	 * Checks if process with given $pid is in the list.
+	 *
 	 * @param int $pid
 	 * @return bool
 	 */
@@ -119,11 +132,16 @@ class ProcessDetailsCollection implements \IteratorAggregate {
 		return isset($this->processDetails[$pid]);
 	}
 
+	/**
+	 * @return int
+	 */
 	public function getFreeProcessesCount() {
 		return count($this->freeProcessIds);
 	}
 
 	/**
+	 * Returns the associated sockets of all processes in the list.
+	 *
 	 * @return \QXS\WorkerPool\SimpleSocket[]
 	 */
 	public function &getSockets() {

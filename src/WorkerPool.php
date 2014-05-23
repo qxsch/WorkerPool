@@ -56,7 +56,7 @@ class WorkerPool implements \Iterator, \Countable {
 	protected $semaphore = NULL;
 
 	/**
-	 * @var ProcessDetailsCollection|ProcessDetails[]
+	 * @var ProcessDetailsCollection|ProcessDetails[] Collection of the worker processes.
 	 */
 	protected $processes;
 
@@ -176,7 +176,7 @@ class WorkerPool implements \Iterator, \Countable {
 	 * @param int $size the new worker pool size
 	 * @return WorkerPool
 	 * @throws \QXS\WorkerPool\WorkerPoolException in case the WorkerPool has already been created
-	 * @throws \DomainException in case the $size value is not within the permitted range
+	 * @throws \InvalidArgumentException in case the $size value is not within the permitted range
 	 */
 	public function setWorkerPoolSize($size) {
 		if ($this->created) {
@@ -184,7 +184,7 @@ class WorkerPool implements \Iterator, \Countable {
 		}
 		$size = (int)$size;
 		if ($size <= 0) {
-			throw new \DomainException('"' . $size . '" is not an integer greater than 0.');
+			throw new \InvalidArgumentException('"' . $size . '" is not an integer greater than 0.');
 		}
 		$this->workerPoolSize = $size;
 		return $this;
