@@ -59,7 +59,7 @@ class WorkerPool implements \Iterator, \Countable {
 	/**
 	 * @var ProcessDetailsCollection|ProcessDetails[] Collection of the worker processes.
 	 */
-	protected $processes;
+	protected $workerProcesses;
 
 	/**
 	 * @var array received results from the workers
@@ -193,7 +193,7 @@ class WorkerPool implements \Iterator, \Countable {
 	 * The constructor
 	 */
 	public function __construct() {
-		$this->processes = new ProcessDetailsCollection();
+		$this->workerProcesses = new ProcessDetailsCollection();
 	}
 
 	/**
@@ -305,7 +305,7 @@ class WorkerPool implements \Iterator, \Countable {
 				break;
 			} elseif ($processId === 0) {
 				// WE ARE IN THE CHILD
-				$this->processes = new ProcessDetailsCollection(); // we do not have any children
+				$this->workerProcesses = new ProcessDetailsCollection(); // we do not have any children
 				$this->workerPoolSize = 0; // we do not have any children
 				socket_close($sockets[1]); // close the parent socket
 				$this->runWorkerProcess($worker, new SimpleSocket($sockets[0]), $i);
@@ -313,7 +313,7 @@ class WorkerPool implements \Iterator, \Countable {
 				// WE ARE IN THE PARENT
 				socket_close($sockets[0]); // close child socket
 				// create the child
-				$this->processes->addFree(new ProcessDetails($processId, new SimpleSocket($sockets[1])));
+				$this->workerProcesses->addFree(new ProcessDetails($processId, new SimpleSocket($sockets[1])));
 			}
 		}
 
@@ -397,7 +397,7 @@ class WorkerPool implements \Iterator, \Countable {
 				$maxWaitSecs = 2;
 			}
 			// send the exit instruction
-			foreach ($this->processes as $processDetails) {
+			foreach ($this->workerProcesses as $processDetails) {
 				try {
 					$processDetails->getSocket()->send(array('cmd' => 'exit'));
 				} catch (\Exception $e) {
@@ -418,7 +418,7 @@ class WorkerPool implements \Iterator, \Countable {
 			}
 
 			// kill all remaining processes
-			$this->processes->killAllProcesses();
+			$this->workerProcesses->killAllProcesses();
 
 			usleep(500000); // 0.5 seconds
 			// reap the remaining signals
@@ -426,7 +426,7 @@ class WorkerPool implements \Iterator, \Countable {
 			// destroy the semaphore
 			$this->semaphore->destroy();
 
-			unset($this->processes);
+			unset($this->workerProcesses);
 		}
 
 		return $this;
@@ -473,10 +473,10 @@ class WorkerPool implements \Iterator, \Countable {
 		}
 		$childpid = pcntl_waitpid($pid, $status, WNOHANG);
 		while ($childpid > 0) {
-			$processDetails = $this->processes->getProcessDetails($childpid);
+			$processDetails = $this->workerProcesses->getProcessDetails($childpid);
 			if ($processDetails !== NULL) {
 				$this->workerPoolSize--;
-				$this->processes->remove($processDetails);
+				$this->workerProcesses->remove($processDetails);
 				unset($processDetails);
 			}
 			$childpid = pcntl_waitpid($pid, $status, WNOHANG);
@@ -520,7 +520,7 @@ class WorkerPool implements \Iterator, \Countable {
 	 */
 	public function getFreeWorkers() {
 		$this->collectWorkerResults();
-		return $this->processes->getFreeProcessesCount();
+		return $this->workerProcesses->getFreeProcessesCount();
 	}
 
 	/**
@@ -548,7 +548,7 @@ class WorkerPool implements \Iterator, \Countable {
 		while (TRUE) {
 			$this->collectWorkerResults($sec);
 
-			$freeProcess = $this->processes->takeFreeProcess();
+			$freeProcess = $this->workerProcesses->takeFreeProcess();
 			if ($freeProcess !== NULL) {
 				return $freeProcess;
 			}
@@ -570,13 +570,13 @@ class WorkerPool implements \Iterator, \Countable {
 		// dispatch signals
 		pcntl_signal_dispatch();
 
-		$sockets =& $this->processes->getSockets();
+		$sockets =& $this->workerProcesses->getSockets();
 
-		$result = SimpleSocket::select($this->processes->getSockets(), array(), array(), $sec);
+		$result = SimpleSocket::select($this->workerProcesses->getSockets(), array(), array(), $sec);
 		foreach ($result['read'] as $socket) {
 			/** @var $socket SimpleSocket */
 			$processId = $socket->annotation['pid'];
-			$this->processes->registerFreeProcessId($processId);
+			$this->workerProcesses->registerFreeProcessId($processId);
 			$result = $socket->receive();
 			$result['pid'] = $processId;
 			if (isset($result['data'])) {
