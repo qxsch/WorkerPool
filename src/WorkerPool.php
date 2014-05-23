@@ -420,13 +420,13 @@ class WorkerPool implements \Iterator, \Countable {
 			// kill all remaining processes
 			$this->processes->killAllProcesses();
 
-			unset($this->processes);
-
 			usleep(500000); // 0.5 seconds
 			// reap the remaining signals
 			$this->reaper();
 			// destroy the semaphore
 			$this->semaphore->destroy();
+
+			unset($this->processes);
 		}
 
 		return $this;
