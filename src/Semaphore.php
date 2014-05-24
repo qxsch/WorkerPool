@@ -165,6 +165,14 @@ class Semaphore {
 	}
 
 	/**
+	 * Has the semaphore been created?
+	 * @return bool true in case the semaphore has been created
+	 */
+	public function isCreated() {
+		return is_resource($this->semaphore);
+	}
+
+	/**
 	 * Destroys the semaphore
 	 * @throws SemaphoreException in case of an error
 	 * @return \QXS\WorkerPool\Semaphore the current object
