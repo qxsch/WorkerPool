@@ -166,7 +166,7 @@ class WorkerPool implements \Iterator, \Countable {
 	}
 
 	/**
-	 * Sets the current size of the worker pool
+	 * Sets the Semaphore, that will be used within the worker processes
 	 * @param \QXS\WorkerPool\Semaphore $semaphore the Semaphore, that should be used for the workers
 	 * @return WorkerPool
 	 * @throws \QXS\WorkerPool\WorkerPoolException in case the WorkerPool has already been created
