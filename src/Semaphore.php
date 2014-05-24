@@ -31,6 +31,9 @@ class Semaphore {
 	/** generate a key based on ftok */
 	const SEM_FTOK_KEY = 'ftok';
 
+	/** minimum semaphore int */
+	const MIN_SEM_INT=-2147483647;
+
 	/** maximum semaphore int */
 	const MAX_SEM_INT=2147483647;
 
@@ -77,7 +80,7 @@ class Semaphore {
 			// generate a semKey
 			if (!is_int($semKey)) {
 				if ($semKey == Semaphore::SEM_RAND_KEY) {
-					$this->semKey = mt_rand(1, Semaphore::MAX_SEM_INT);
+					$this->semKey = mt_rand(Semaphore::MIN_SEM_INT, Semaphore::MAX_SEM_INT);
 				} else {
 					$this->semKey = ftok(__FILE__, 's');
 				}
@@ -85,7 +88,7 @@ class Semaphore {
 				$this->semKey = $semKey;
 			}
 			// check the range
-			if($this->semKey <= 0 || $this->semKey > Semaphore::MAX_SEM_INT) {
+			if($this->semKey < Semaphore::MIN_SEM_INT || $this->semKey > Semaphore::MAX_SEM_INT) {
 				$this->semKey = ftok(__FILE__, 's');
 			}
 			$this->semaphore = sem_get($this->semKey, $maxAcquire, 0666, 0);
