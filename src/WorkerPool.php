@@ -24,10 +24,19 @@ class WorkerPool implements \Iterator, \Countable {
 	/** Default child timeout in seconds */
 	const CHILD_TIMEOUT_SEC = 10;
 
+	/** Fork child processes on pool creation */
+	const FORK_METHOD_ON_CREATE = 1;
+
+	/** Fork child processes when run method is called */
+	const FORK_METHOD_ON_DEMAND = 2;
+
 	/** @var array signals, that should be watched */
 	protected $signals = array(
 		SIGCHLD, SIGTERM, SIGHUP, SIGUSR1
 	);
+
+	/** @var  string */
+	private $forkMethod;
 
 	/** @var bool is the pool created? (children forked) */
 	private $created = FALSE;
@@ -64,6 +73,7 @@ class WorkerPool implements \Iterator, \Countable {
 	 */
 	public function __construct() {
 		$this->workerProcesses = new ProcessDetailsCollection();
+		$this->forkMethod = self::FORK_METHOD_ON_CREATE;
 	}
 
 	/**
@@ -166,6 +176,18 @@ class WorkerPool implements \Iterator, \Countable {
 	}
 
 	/**
+	 * @param string $forkMethod
+	 * @throws WorkerPoolException
+	 */
+	public function setForkMethod($forkMethod) {
+		if ($this->created) {
+			throw new WorkerPoolException('Cannot set fork method for a created pool.', 1401103141);
+		}
+		$this->forkMethod = $forkMethod;
+	}
+
+
+	/**
 	 * Sets the Semaphore, that will be used within the worker processes
 	 * @param \QXS\WorkerPool\Semaphore $semaphore the Semaphore, that should be used for the workers
 	 * @return WorkerPool
@@ -233,13 +255,19 @@ class WorkerPool implements \Iterator, \Countable {
 			)
 		);
 
+		if ($this->forkMethod === self::FORK_METHOD_ON_CREATE) {
+			for ($i = 0; $i < $this->workerPoolSize; $i++) {
+				$this->forkChildren();
+			}
+		}
+
 		return $this;
 	}
 
 	/**
 	 * @throws \RuntimeException
 	 */
-	protected function forkChildren() {
+	private function forkChildren() {
 		$sockets = array();
 		if (socket_create_pair(AF_UNIX, SOCK_STREAM, 0, $sockets) === FALSE) {
 			// clean_up using posix_kill & pcntl_wait
@@ -502,6 +530,7 @@ class WorkerPool implements \Iterator, \Countable {
 		$sec = 0;
 		while (TRUE) {
 			if (
+				$this->forkMethod === self::FORK_METHOD_ON_DEMAND &&
 				$this->workerProcesses->getFreeProcessesCount() === 0 &&
 				$this->workerPoolSize > $this->workerProcesses->getProcessesCount()
 			) {
@@ -568,12 +597,15 @@ class WorkerPool implements \Iterator, \Countable {
 				return $processDetailsOfFreeWorker->getPid();
 			} catch (SimpleSocketException $e) {
 				continue;
+			} catch (WorkerPoolException $e) {
+				throw $e;
 			} catch (\Exception $e) {
 				pcntl_signal_dispatch();
 				return NULL;
 			}
 		}
-		throw new WorkerPoolException('Could not run worker in ' . getmypid(), 1400838906);
+		// Should never be reached
+		throw new WorkerPoolException('Could not run worker', 1400838906);
 	}
 
 	/**
