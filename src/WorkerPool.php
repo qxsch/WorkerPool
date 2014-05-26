@@ -421,6 +421,14 @@ class WorkerPool implements \Iterator, \Countable {
 		}
 		$childpid = pcntl_waitpid($pid, $status, WNOHANG);
 		while ($childpid > 0) {
+			$stopSignal = pcntl_wstopsig($status);
+			if (pcntl_wifexited($stopSignal) === FALSE) {
+				array_push($this->results, array(
+					'pid' => $childpid,
+					'abnormalChildReturnCode' => $stopSignal
+				));
+			}
+
 			$processDetails = $this->workerProcesses->getProcessDetails($childpid);
 			if ($processDetails !== NULL) {
 				$this->workerProcesses->remove($processDetails);
