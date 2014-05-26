@@ -24,61 +24,39 @@ class WorkerPool implements \Iterator, \Countable {
 	/** Default child timeout in seconds */
 	const CHILD_TIMEOUT_SEC = 10;
 
-	/**
-	 * @var array
-	 */
+	/** @var array signals, that should be watched */
 	protected $signals = array(
 		SIGCHLD, SIGTERM, SIGHUP, SIGUSR1
 	);
 
-	/**
-	 * @var bool
-	 */
+	/** @var bool is the pool created? (children forked) */
 	private $created = FALSE;
 
-	/**
-	 * @var int
-	 */
+	/** @var int number of children in the pool */
 	private $workerPoolSize = 2;
 
-	/**
-	 * @var int
-	 */
+	/** @var int id of the parent */
 	protected $parentPid = 0;
 
-	/**
-	 * @var \QXS\WorkerPool\Worker the worker class, that is used to run the tasks
-	 */
+	/** @var \QXS\WorkerPool\Worker the worker class, that is used to run the tasks */
 	protected $worker;
 
-	/**
-	 * @var \QXS\WorkerPool\Semaphore the semaphore, that is used to synchronizd tasks across all processes
-	 */
+	/** @var \QXS\WorkerPool\Semaphore the semaphore, that is used to synchronizd tasks across all processes */
 	protected $semaphore;
 
-	/**
-	 * @var ProcessDetailsCollection|ProcessDetails[] Collection of the worker processes.
-	 */
+	/** @var ProcessDetailsCollection|ProcessDetails[] Collection of the worker processes */
 	protected $workerProcesses;
 
-	/**
-	 * @var array received results from the workers
-	 */
+	/** @var array received results from the workers */
 	protected $results = array();
 
-	/**
-	 * @var int number of received results
-	 */
+	/** @var int number of received results */
 	protected $resultPosition = 0;
 
-	/**
-	 * @var string process title of the parent
-	 */
+	/** @var string process title of the parent */
 	protected $parentProcessTitleFormat = '%basename%: Parent';
 
-	/**
-	 * @var string process title of the children
-	 */
+	/** @var string process title of the children */
 	protected $childProcessTitleFormat = '%basename%: Worker %i% of %class% [%state%]';
 
 	/**
@@ -188,6 +166,24 @@ class WorkerPool implements \Iterator, \Countable {
 	}
 
 	/**
+	 * Sets the Semaphore, that will be used within the worker processes
+	 * @param \QXS\WorkerPool\Semaphore $semaphore the Semaphore, that should be used for the workers
+	 * @return WorkerPool
+	 * @throws \QXS\WorkerPool\WorkerPoolException in case the WorkerPool has already been created
+	 * @throws \InvalidArgumentException in case the semaphre hasn't been created
+	 */
+	public function setSemaphore(Semaphore $semaphore) {
+		if ($this->created) {
+			throw new WorkerPoolException('Cannot set the Worker Pool Size for a created pool.');
+		}
+		if (!$semaphore->isCreated()) {
+			throw new \InvalidArgumentException('The Semaphore hasn\'t yet been created.');
+		}
+		$this->semaphore = $semaphore;
+		return $this;
+	}
+
+	/**
 	 * Terminates the current process
 	 * @param int $code the exit code
 	 */
@@ -222,8 +218,11 @@ class WorkerPool implements \Iterator, \Countable {
 			pcntl_signal($signo, array($this, 'signalHandler'));
 		}
 
-		$this->semaphore = new Semaphore();
-		$this->semaphore->create(Semaphore::SEM_RAND_KEY);
+		// no Semaphore attached? -> create one
+		if (!($this->semaphore instanceof Semaphore)) {
+			$this->semaphore = new Semaphore();
+			$this->semaphore->create(Semaphore::SEM_RAND_KEY);
+		}
 
 		ProcessDetails::setProcessTitle(
 			$this->parentProcessTitleFormat,

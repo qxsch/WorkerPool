@@ -10,10 +10,10 @@ namespace QXS\WorkerPool;
  */
 class ProcessDetails {
 
-	/** @var int */
+	/** @var int process id pid */
 	protected $pid;
 
-	/** @var SimpleSocket */
+	/** @var SimpleSocket the socket */
 	protected $socket;
 
 	/**

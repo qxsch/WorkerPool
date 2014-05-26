@@ -31,8 +31,11 @@ class Semaphore {
 	/** generate a key based on ftok */
 	const SEM_FTOK_KEY = 'ftok';
 
+	/** minimum semaphore int */
+	const SEM_MIN_INT=-2147483647;
+
 	/** maximum semaphore int */
-	const MAX_SEM_INT=2147483647;
+	const SEM_MAX_INT=2147483647;
 
 	/** @var resource the semaphore resource */
 	protected $semaphore = NULL;
@@ -52,16 +55,21 @@ class Semaphore {
 	 * Create a semaphore
 	 * @param string $semKey the key of the semaphore - use a specific number or Semaphore::SEM_RAND_KEY or Semaphore::SEM_FTOK_KEY
 	 * @param int $maxAcquire the maximum number of processes, that can acquire the semaphore
+	 * @param int $perms the unix permissions for (user,group,others) - valid range from 0 to 0777
 	 * @throws SemaphoreException
 	 * @return \QXS\WorkerPool\Semaphore the current object
 	 */
-	public function create($semKey = Semaphore::SEM_FTOK_KEY, $maxAcquire = 1) {
+	public function create($semKey = Semaphore::SEM_FTOK_KEY, $maxAcquire = 1, $perms=0666) {
 		if (is_resource($this->semaphore)) {
 			throw new SemaphoreException('Semaphore has already been created.');
 		}
 
 		if (!is_int($maxAcquire)) {
 			$maxAcquire = 1;
+		}
+		$perms=(int)$perms;
+		if ($perms < 0 || $perms > 0777) {
+			$perms = 0666;
 		}
 
 		// randomly generate semaphore, without collision
@@ -77,7 +85,7 @@ class Semaphore {
 			// generate a semKey
 			if (!is_int($semKey)) {
 				if ($semKey == Semaphore::SEM_RAND_KEY) {
-					$this->semKey = mt_rand(1, Semaphore::MAX_SEM_INT);
+					$this->semKey = mt_rand(Semaphore::SEM_MIN_INT, Semaphore::SEM_MAX_INT);
 				} else {
 					$this->semKey = ftok(__FILE__, 's');
 				}
@@ -85,10 +93,10 @@ class Semaphore {
 				$this->semKey = $semKey;
 			}
 			// check the range
-			if($this->semKey <= 0 || $this->semKey > Semaphore::MAX_SEM_INT) {
+			if($this->semKey < Semaphore::SEM_MIN_INT || $this->semKey > Semaphore::SEM_MAX_INT) {
 				$this->semKey = ftok(__FILE__, 's');
 			}
-			$this->semaphore = sem_get($this->semKey, $maxAcquire, 0666, 0);
+			$this->semaphore = sem_get($this->semKey, $maxAcquire, $perms, 0);
 		}
 		if (!is_resource($this->semaphore)) {
 			$this->semaphore = NULL;
@@ -154,6 +162,14 @@ class Semaphore {
 		call_user_func($closure);
 		$this->release();
 		return $this;
+	}
+
+	/**
+	 * Has the semaphore been created?
+	 * @return bool true in case the semaphore has been created
+	 */
+	public function isCreated() {
+		return is_resource($this->semaphore);
 	}
 
 	/**
