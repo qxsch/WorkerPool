@@ -558,14 +558,14 @@ class WorkerPool implements \Iterator, \Countable {
 	 *
 	 * @throws WorkerPoolException
 	 * @param mixed $input any serializeable value
-	 * @return WorkerPool
+	 * @return int The PID of the processing worker process
 	 */
 	public function run($input) {
 		while (TRUE) {
 			try {
 				$processDetailsOfFreeWorker = $this->getNextFreeWorker();
 				$processDetailsOfFreeWorker->getSocket()->send(array('cmd' => 'run', 'data' => $input));
-				return $this;
+				return $processDetailsOfFreeWorker->getPid();
 			} catch (SimpleSocketException $e) {
 				continue;
 			} catch (\Exception $e) {
