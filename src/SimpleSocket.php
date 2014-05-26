@@ -47,52 +47,57 @@ class SimpleSocket {
 	 * @return array Associative Array of \QXS\WorkerPool\SimpleSocket Objects, that matched the monitoring, with the following keys 'read', 'write', 'except'
 	 */
 	public static function select(array $readSockets = array(), array $writeSockets = array(), array $exceptSockets = array(), $sec = 0, $usec = 0) {
-		$read = array();
-		$write = array();
-		$except = array();
-		$readTbl = array();
-		$writeTbl = array();
-		$exceptTbl = array();
-		foreach ($readSockets as $val) {
-			if ($val instanceof SimpleSocket) {
-				$read[] = $val->getSocket();
-				$readTbl[$val->getResourceId()] = $val;
-			}
-		}
-		foreach ($writeSockets as $val) {
-			if ($val instanceof SimpleSocket) {
-				$write[] = $val->getSocket();
-				$writeTbl[$val->getResourceId()] = $val;
-			}
-		}
-		foreach ($exceptSockets as $val) {
-			if ($val instanceof SimpleSocket) {
-				$except[] = $val->getSocket();
-				$exceptTbl[$val->getResourceId()] = $val;
-			}
-		}
-
 		$out = array();
 		$out['read'] = array();
 		$out['write'] = array();
 		$out['except'] = array();
 
-		$sockets = socket_select($read, $write, $except, $sec, $usec);
-		if ($sockets === FALSE) {
+		if(count($readSockets) === 0){
 			return $out;
 		}
 
-		foreach ($read as $val) {
-			$out['read'][] = $readTbl[intval($val)];
+		$readSocketsResources = array();
+		$writeSocketsResources = array();
+		$exceptSocketsResources = array();
+		$readSockets = self::createSocketsIndex($readSockets, $readSocketsResources);
+		$writeSockets = self::createSocketsIndex($writeSockets, $writeSocketsResources);
+		$exceptSockets = self::createSocketsIndex($exceptSockets, $exceptSocketsResources);
+
+		$socketsSelected = socket_select($readSocketsResources, $writeSocketsResources, $exceptSocketsResources, $sec, $usec);
+		if ($socketsSelected === FALSE) {
+			return $out;
 		}
-		foreach ($write as $val) {
-			$out['write'][] = $writeTbl[intval($val)];
+
+		foreach ($readSocketsResources as $socketResource) {
+			$out['read'][] = $readSockets[intval($socketResource)];
 		}
-		foreach ($except as $val) {
-			$out['except'][] = $exceptTbl[intval($val)];
+		foreach ($writeSocketsResources as $socketResource) {
+			$out['write'][] = $writeSockets[intval($socketResource)];
+		}
+		foreach ($exceptSocketsResources as $socketResource) {
+			$out['except'][] = $exceptSockets[intval($socketResource)];
 		}
 
 		return $out;
+	}
+
+	/**
+	 * @param SimpleSocket[] $sockets
+	 * @param array $socketsResources
+	 * @return SimpleSocket[]
+	 */
+	protected static function createSocketsIndex($sockets, &$socketsResources) {
+		$socketsIndex = array();
+		foreach ($sockets as $socket) {
+			if (!$socket instanceof SimpleSocket) {
+				continue;
+			}
+			$resourceId = $socket->getResourceId();
+			$socketsIndex[$resourceId] = $socket;
+			$socketsResources[$resourceId] = $socket->getSocket();
+		}
+
+		return $socketsIndex;
 	}
 
 	/**
