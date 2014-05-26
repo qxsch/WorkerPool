@@ -540,11 +540,8 @@ class WorkerPool implements \Iterator, \Countable {
 			$this->workerProcesses->registerFreeProcessId($processId);
 			$result = $socket->receive();
 			$result['pid'] = $processId;
-			if (isset($result['data'])) {
-				// null values won't be stored
-				if (!is_null($result['data'])) {
-					array_push($this->results, $result);
-				}
+			if (array_key_exists('data', $result)) {
+				array_push($this->results, $result);
 			} elseif (isset($result['workerException']) || isset($result['poolException'])) {
 				array_push($this->results, $result);
 			}
