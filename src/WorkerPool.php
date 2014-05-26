@@ -415,6 +415,14 @@ class WorkerPool implements \Iterator, \Countable {
 		}
 		$childpid = pcntl_waitpid($pid, $status, WNOHANG);
 		while ($childpid > 0) {
+			$stopSignal = pcntl_wstopsig($status);
+			if (pcntl_wifexited($stopSignal) === FALSE) {
+				array_push($this->results, array(
+					'pid' => $childpid,
+					'abnormalChildReturnCode' => $stopSignal
+				));
+			}
+
 			$processDetails = $this->workerProcesses->getProcessDetails($childpid);
 			if ($processDetails !== NULL) {
 				$this->workerPoolSize--;
@@ -519,11 +527,8 @@ class WorkerPool implements \Iterator, \Countable {
 			$this->workerProcesses->registerFreeProcessId($processId);
 			$result = $socket->receive();
 			$result['pid'] = $processId;
-			if (isset($result['data'])) {
-				// null values won't be stored
-				if (!is_null($result['data'])) {
-					array_push($this->results, $result);
-				}
+			if (array_key_exists('data', $result)) {
+				array_push($this->results, $result);
 			} elseif (isset($result['workerException']) || isset($result['poolException'])) {
 				array_push($this->results, $result);
 			}
@@ -539,14 +544,14 @@ class WorkerPool implements \Iterator, \Countable {
 	 * You can kill all child processes, so that the parent will be unblocked.
 	 * @param mixed $input any serializeable value
 	 * @throws WorkerPoolException
-	 * @return WorkerPool
+	 * @return int The PID of the processing worker process
 	 */
 	public function run($input) {
 		while ($this->workerPoolSize > 0) {
 			try {
 				$processDetailsOfFreeWorker = $this->getNextFreeWorker();
 				$processDetailsOfFreeWorker->getSocket()->send(array('cmd' => 'run', 'data' => $input));
-				return $this;
+				return $processDetailsOfFreeWorker->getPid();
 			} catch (\Exception $e) {
 				pcntl_signal_dispatch();
 			}
