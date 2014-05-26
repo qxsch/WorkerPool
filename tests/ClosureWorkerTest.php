@@ -2,8 +2,8 @@
 
 namespace QXS\Tests\WorkerPool;
 
-require_once(dirname(__DIR__).'/require_once.php');
-
+use QXS\WorkerPool\ClosureWorker;
+use QXS\WorkerPool\Semaphore;
 
 /**
  * @requires extension pcntl
@@ -12,31 +12,31 @@ require_once(dirname(__DIR__).'/require_once.php');
  * @requires extension sockets
  */
 class ClosureWorkerTest extends \PHPUnit_Framework_TestCase {
+
 	public function testClosureMethods() {
-		$semaphore=new \QXS\WorkerPool\Semaphore();
-		$that=$this;
-		$createRun=false;
-		$runRun=false;
-		$destroyRun=false;
-		$worker=new \QXS\WorkerPool\ClosureWorker(
-			function($input, $semaphore, $storage) use ($that,  &$runRun) {
-				$runRun=true;
+		$semaphore = new Semaphore();
+		$that = $this;
+		$createRun = FALSE;
+		$runRun = FALSE;
+		$destroyRun = FALSE;
+		$worker = new ClosureWorker(
+			function ($input, $semaphore, $storage) use ($that, &$runRun) {
+				$runRun = TRUE;
 				$that->assertInstanceOf('QXS\WorkerPool\Semaphore', $semaphore);
 				$that->assertInstanceOf('ArrayObject', $storage);
 				return $input;
 			},
-			function($semaphore, $storage) use ($that, &$createRun) {
-				$createRun=true;
+			function ($semaphore, $storage) use ($that, &$createRun) {
+				$createRun = TRUE;
 				$that->assertInstanceOf('QXS\WorkerPool\Semaphore', $semaphore);
 				$that->assertInstanceOf('ArrayObject', $storage);
 			},
-			function($semaphore, $storage) use ($that, &$destroyRun) {
-				$destroyRun=true;
+			function ($semaphore, $storage) use ($that, &$destroyRun) {
+				$destroyRun = TRUE;
 				$that->assertInstanceOf('QXS\WorkerPool\Semaphore', $semaphore);
 				$that->assertInstanceOf('ArrayObject', $storage);
 			}
 		);
-
 
 		$worker->onProcessCreate($semaphore);
 		$this->assertTrue(
@@ -57,8 +57,6 @@ class ClosureWorkerTest extends \PHPUnit_Framework_TestCase {
 			$destroyRun,
 			'Worker::onProcessDestroy should call the destroy Closure.'
 		);
-		
-	} 
- 
+	}
 }
 
