@@ -1,31 +1,34 @@
 {
-    "name": "qxsch/worker-pool",
-    "description": "Runs tasks in a parallel processing workerpool.",
-    "keywords": ["fork", "parallel", "worker", "workerpool", "task"],
-    "homepage": "https://github.com/qxsch/WorkerPool",
-    "type": "library",
-    "license": "GPL-3.0+",
-    "authors": [
-        {
-            "name": "Marco Weber",
-            "email": "marco.weber@gmail.com"
-        }
-    ],
-    "require": {
-        "php": ">=5.3.0",
-        "ext-pcntl": "*",
-        "ext-posix": "*",
-        "ext-sysvsem": "*",
-        "ext-sockets": "*"
-    },
-    "require-dev": {
-        "phpunit/phpunit": ">=4.0.0"
-    },
-    "suggest": {
-	"php": ">=5.5.0"
-    },
-    "autoload": {
-        "psr-4": {"QXS\\WorkerPool\\": "src/"}
-    }
+	"name": "qxsch/worker-pool",
+	"description": "Runs tasks in a parallel processing workerpool.",
+	"keywords": ["fork", "parallel", "worker", "workerpool", "task"],
+	"homepage": "https://github.com/qxsch/WorkerPool",
+	"type": "library",
+	"license": "GPL-3.0+",
+	"authors": [
+		{
+			"name": "Marco Weber",
+			"email": "marco.weber@gmail.com"
+		}
+	],
+	"require": {
+		"php": ">=5.3.0",
+		"ext-pcntl": "*",
+		"ext-posix": "*",
+		"ext-sysvsem": "*",
+		"ext-sockets": "*"
+	},
+	"require-dev": {
+		"phpunit/phpunit": ">=4.0.0"
+	},
+	"suggest": {
+		"php": ">=5.5.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"QXS\\WorkerPool\\": "src/",
+			"QXS\\Tests\\WorkerPool\\": "tests/"
+		}
+	}
 }
 

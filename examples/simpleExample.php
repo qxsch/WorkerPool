@@ -1,6 +1,6 @@
 <?php
 
-require_once(dirname(__DIR__).'/require_once.php');
+require_once(__DIR__.'/../vendor/autoload.php');
 
 
 $wp=new \QXS\WorkerPool\WorkerPool();
