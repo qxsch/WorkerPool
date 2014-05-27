@@ -2,6 +2,7 @@
 
 namespace QXS\Tests\WorkerPool;
 
+use QXS\WorkerPool\ClosureWorker;
 use QXS\WorkerPool\WorkerPool;
 
 /**
@@ -11,11 +12,6 @@ use QXS\WorkerPool\WorkerPool;
  * @requires extension sockets
  */
 class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
-
-	/**
-	 * @var WorkerPool
-	 */
-	protected $sut;
 
 	public function setUp() {
 		$missingExtensions = array();
@@ -27,31 +23,298 @@ class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
 		if (!empty($missingExtensions)) {
 			$this->markTestSkipped('The following extension are missing: ' . implode(', ', $missingExtensions));
 		}
-		$this->sut = new WorkerPool();
 	}
 
-	public function testFatalFailingWorker() {
-		$this->markTestSkipped('Failing workers get respawned now.');
-		$exceptionMsg = NULL;
-		$exception = NULL;
+	/**
+	 * @test
+	 */
+	public function poolHasPoolSizeOfFreeWorkersIfCreationIsSetTo_OnCreate() {
+		$wp = $this->createClosureWorkerPool(WorkerPool::FORK_METHOD_ON_CREATE);
+
+		$this->assertEquals(5, $wp->getFreeWorkers());
+		$this->assertEquals(0, $wp->getBusyWorkers());
+		$wp->destroy(0);
+	}
+
+	/**
+	 * @test
+	 */
+	public function poolHasNoWorkersAtAllIfCreationIsSetTo_OnDemand() {
+		$wp = $this->createClosureWorkerPool(WorkerPool::FORK_METHOD_ON_DEMAND);
+
+		$this->assertEquals(0, $wp->getFreeWorkers());
+		$this->assertEquals(0, $wp->getBusyWorkers());
+
+		$wp->destroy(0);
+	}
+
+	/**
+	 * @test
+	 */
+	public function poolCreatesWorkersOnDemand() {
+		$wp = $this->createClosureWorkerPool(WorkerPool::FORK_METHOD_ON_DEMAND);
+
+		$this->assertEquals(0, $wp->getFreeWorkers());
+		$this->assertEquals(0, $wp->getBusyWorkers());
+
+		for ($i = 0; $i < 5; $i++) {
+			$this->assertEquals(0, $wp->getFreeWorkers());
+			$this->assertEquals($i, $wp->getBusyWorkers());
+			$wp->run($i);
+			$this->assertEquals(0, $wp->getFreeWorkers());
+			$this->assertEquals($i + 1, $wp->getBusyWorkers());
+		}
+
+		$wp->destroy(0);
+	}
+
+	/**
+	 * @test
+	 */
+	public function runMethodReturnsARunningProcessId() {
+		$wp = $this->createClosureWorkerPool(WorkerPool::FORK_METHOD_ON_DEMAND);
+
+		for ($i = 0; $i < 5; $i++) {
+			$pid = $wp->run($i);
+			$this->assertTrue(is_int(posix_getpgid($pid)), 'Process ' . $pid . ' is not running');
+		}
+
+		$wp->destroy(0);
+	}
+
+	/**
+	 * Data provider for different worker and their pool results
+	 *
+	 * @return array
+	 */
+	public function workerResultsOfClosuresProvider() {
+		return array(
+			array(
+				function ($data) {
+					exit(42);
+				},
+				array('abnormalChildReturnCode' => 42)
+			),
+			array(
+				function ($data) {
+					iDoNotExist();
+				},
+				array('abnormalChildReturnCode' => 255)
+			),
+			array(
+				function ($data) {
+					// I don't return anything
+				},
+				array('data' => NULL)
+			),
+			array(
+				function ($data) {
+					throw new \Exception('Foo! Nooo!');
+				},
+				array('workerException' => array(
+					'class' => 'Exception',
+					'message' => 'Foo! Nooo!'
+				))
+			),
+			array(
+				function ($data) {
+					return 42;
+				},
+				array('data' => 42)
+			)
+		);
+	}
+
+	/**
+	 * @test
+	 * @dataProvider workerResultsOfClosuresProvider
+	 */
+	public function resultsAreAsExpected($closure, array $expectedResult) {
 		$wp = new WorkerPool();
-		$wp->setWorkerPoolSize(10);
+		$wp->setWorkerPoolSize(5);
+		$wp->create(new ClosureWorker($closure));
+
+		$wp->run('foo bar');
+		$wp->waitForAllWorkers();
+
+		$this->assertCount(1, $wp);
+		$onlyResult = $wp->getNextResult();
+		unset($onlyResult['pid']);
+		unset($onlyResult['workerException']['trace']);
+		$this->assertSame($expectedResult, $onlyResult);
+
+		$wp->destroy(0);
+	}
+
+	/**
+	 * @param int $forkMethod
+	 * @return \PHPUnit_Framework_MockObject_MockObject|WorkerPool
+	 */
+	protected function createMockedClosureWorkerPool($forkMethod) {
+		/** @var \QXS\WorkerPool\WorkerPool|\PHPUnit_Framework_MockObject_MockObject $wp */
+		$wp = $this->getMockBuilder('\QXS\WorkerPool\WorkerPool')->setMethods(NULL)->getMock();
+		$wp->setWorkerPoolSize(5);
+		$wp->setForkMethod($forkMethod);
+		$wp->create(new ClosureWorker(function ($data) {
+			usleep(500000);
+			return TRUE;
+		}));
+		return $wp;
+	}
+
+	/**
+	 * @param int $forkMethod
+	 * @return WorkerPool
+	 */
+	protected function createClosureWorkerPool($forkMethod) {
+		$wp = new WorkerPool();
+		$wp->setWorkerPoolSize(5);
+		$wp->setForkMethod($forkMethod);
+		$wp->create(new ClosureWorker(function ($data) {
+			usleep(500000);
+			return TRUE;
+		}));
+		return $wp;
+	}
+
+	/**
+	 * @test
+	 */
+	public function failedWorkersAreRecreatedInOnDemandMode() {
+		$wp = new WorkerPool();
+		$wp->setWorkerPoolSize(3);
+		$wp->setForkMethod(WorkerPool::FORK_METHOD_ON_DEMAND);
+		$wp->create(new Fixtures\FatalFailingWorker());
+
+		for ($i = 0; $i < 5; $i++) {
+			$wp->run('foo bar');
+		};
+
+		$wp->waitForAllWorkers();
+		$this->assertEquals(5, count($wp));
+
+		$wp->destroy(0);
+	}
+
+	/**
+	 * @test
+	 */
+	public function callingRunThrowsExceptionIfAllWorkersAreGone() {
+		$wp = new WorkerPool();
+		$wp->setWorkerPoolSize(3);
 		$wp->create(new Fixtures\FatalFailingWorker());
 		try {
-			for ($i = 0; $i < 20; $i++) {
-				$wp->run($i);
-			}
+			for ($i = 0; $i < 5; $i++) {
+				$wp->run('foo bar');
+			};
+			$this->fail('An expected exception has not been raised.');
 		} catch (\Exception $e) {
-			$exceptionMsg = $e->getMessage();
-			$exception = $e;
+			$this->assertInstanceOf('\QXS\WorkerPool\WorkerPoolException', $e);
+			$this->assertEquals(1401118326, $e->getCode());
 		}
-		$this->assertInstanceOf('QXS\WorkerPool\WorkerPoolException', $exception);
-		$this->assertEquals(
-			'Unable to run the task.',
-			$exceptionMsg,
-			'We have a wrong Exception Message.'
-		);
-		$wp->destroy();
+		$wp->destroy(0);
+	}
+
+	/**
+	 * @test
+	 */
+	public function destroyShouldNotThrowAnExceptionIfAllWorkersAreGone() {
+		$wp = new WorkerPool();
+		$wp->setWorkerPoolSize(3);
+		$wp->create(new Fixtures\FatalFailingWorker());
+
+		for ($i = 0; $i < 2; $i++) {
+			$wp->run('foo bar');
+		};
+
+		$wp->waitForAllWorkers();
+
+		$wp->destroy(0);
+	}
+
+	/**
+	 * @test
+	 */
+	public function resultCountShouldBeZeroAfterIteratingOverTheResults() {
+		$wp = $this->createClosureWorkerPool(WorkerPool::FORK_METHOD_ON_CREATE);
+		for ($i = 0; $i < 5; $i++) {
+			$wp->run('foo bar');
+		};
+		$wp->waitForAllWorkers();
+
+		$this->assertEquals(5, count($wp));
+		while (($result = $wp->getNextResult()) !== NULL) {
+			// Foo
+		}
+		$this->assertEquals(0, count($wp));
+
+		$wp->destroy(0);
+	}
+
+	/**
+	 * @test
+	 */
+	public function thereShouldBeNoBusyWorkersAfterCallingWaitForAllWorkers() {
+		$wp = $this->createClosureWorkerPool(WorkerPool::FORK_METHOD_ON_CREATE);
+		for ($i = 0; $i < 6; $i++) {
+			$wp->run('foo bar');
+		};
+		$wp->waitForAllWorkers();
+
+		$this->assertEquals(0, $wp->getBusyWorkers());
+
+		$wp->destroy(0);
+	}
+
+	/**
+	 * @test
+	 */
+	public function thereShouldBeNFreeWorkersAfterCallingWaitForAllWorkers() {
+		$wp = $this->createClosureWorkerPool(WorkerPool::FORK_METHOD_ON_CREATE);
+		for ($i = 0; $i < 6; $i++) {
+			$wp->run('foo bar');
+		};
+		$wp->waitForAllWorkers();
+
+		$this->assertEquals(5, $wp->getFreeWorkers());
+
+		$wp->destroy(0);
+	}
+
+	/**
+	 * @test
+	 */
+	public function waitForAllWorkersShouldBeCallableMultipleTimes() {
+		$wp = $this->createClosureWorkerPool(WorkerPool::FORK_METHOD_ON_CREATE);
+		for ($j = 1; $j <= 3; $j++) {
+			for ($i = 0; $i < 6; $i++) {
+				$wp->run($j);
+			};
+			$wp->waitForAllWorkers();
+			$this->assertEquals(5, $wp->getFreeWorkers());
+			$this->assertEquals(6 * $j, count($wp));
+		}
+
+		$wp->destroy(0);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getNextResultShouldReturnNResultsForNJobs() {
+		$wp = $this->createClosureWorkerPool(WorkerPool::FORK_METHOD_ON_CREATE);
+		for ($i = 0; $i < 5; $i++) {
+			$wp->run('foo bar');
+		};
+		$wp->waitForAllWorkers();
+
+		$counter = 0;
+		while (($result = $wp->getNextResult()) !== NULL) {
+			$counter++;
+		}
+		$this->assertEquals(5, $counter);
+
+		$wp->destroy(0);
 	}
 
 	public function testGetters() {
@@ -69,7 +332,7 @@ class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
 			is_string($wp->getParentProcessTitleFormat()),
 			'getParentProcessTitleFormat should return a string'
 		);
-		$wp->destroy();
+		$wp->destroy(0);
 	}
 
 	public function testSetters() {
@@ -141,7 +404,7 @@ class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
 		} catch (\Exception $e) {
 		}
 
-		$wp->destroy();
+		$wp->destroy(0);
 	}
 
 	public function testDestroyException() {
