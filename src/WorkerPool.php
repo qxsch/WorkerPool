@@ -434,7 +434,7 @@ class WorkerPool implements \Iterator, \Countable {
 	}
 
 	/**
-	 * Waits for all children to finish their worka
+	 * Waits for all children to finish their worker
 	 *
 	 * This function blocks until every worker has finished its work.
 	 * You can kill hanging child processes, so that the parent will be unblocked.
@@ -553,7 +553,7 @@ class WorkerPool implements \Iterator, \Countable {
 	 *
 	 * This function blocks until a worker has finished its work.
 	 * You can kill all child processes, so that the parent will be unblocked.
-	 * @param mixed $input any serializeable value
+	 * @param mixed $input any serializable value
 	 * @throws WorkerPoolException
 	 * @return int The PID of the processing worker process
 	 */
