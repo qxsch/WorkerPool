@@ -93,19 +93,19 @@ class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
 				function ($data) {
 					exit(42);
 				},
-				array('abnormalChildReturnCode' => 42)
+				array('abnormalChildReturnCode' => 42), 1
 			),
 			array(
 				function ($data) {
 					iDoNotExist();
 				},
-				array('abnormalChildReturnCode' => 255)
+				array('abnormalChildReturnCode' => 255), 1
 			),
 			array(
 				function ($data) {
 					// I don't return anything
 				},
-				array('data' => NULL)
+				NULL, 0
 			),
 			array(
 				function ($data) {
@@ -114,13 +114,18 @@ class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
 				array('workerException' => array(
 					'class' => 'Exception',
 					'message' => 'Foo! Nooo!'
-				))
+				)), 1
 			),
 			array(
 				function ($data) {
 					return 42;
 				},
-				array('data' => 42)
+				array('data' => 42), 1
+			),
+			array(
+				function ($data) {
+					return NULL;
+				}, NULL, 0
 			)
 		);
 	}
@@ -129,7 +134,7 @@ class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
 	 * @test
 	 * @dataProvider workerResultsOfClosuresProvider
 	 */
-	public function resultsAreAsExpected($closure, array $expectedResult) {
+	public function resultsAreAsExpected($closure, $expectedResult, $expectedResultCount) {
 		$wp = new WorkerPool();
 		$wp->setWorkerPoolSize(5);
 		$wp->create(new ClosureWorker($closure));
@@ -137,7 +142,7 @@ class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
 		$wp->run('foo bar');
 		$wp->waitForAllWorkers();
 
-		$this->assertCount(1, $wp);
+		$this->assertCount($expectedResultCount, $wp);
 		$onlyResult = $wp->getNextResult();
 		unset($onlyResult['pid']);
 		unset($onlyResult['workerException']['trace']);

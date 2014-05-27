@@ -574,13 +574,17 @@ class WorkerPool implements \Iterator, \Countable {
 			$result = $socket->receive();
 
 			$possibleArrayKeys = array('data', 'poolException', 'workerException');
-			if (is_array($result) && count(array_intersect(array_keys($result), $possibleArrayKeys)) === 1) {
+			if (is_array($result) && count(($resultTypes = array_intersect(array_keys($result), $possibleArrayKeys))) === 1) {
 				// If the result has the expected format, free the worker and store the result.
 				// Otherwise, the worker may be abnormally terminated (fatal error, exit(), ...) and will
 				// fall in the reapers arms.
 				$this->workerProcesses->registerFreeProcessId($processId);
 				$result['pid'] = $processId;
-				array_push($this->results, $result);
+				$resultType = reset($resultTypes);
+				// Do not store NULL
+				if ($resultType !== 'data' || $result['data'] !== NULL) {
+					array_push($this->results, $result);
+				}
 			}
 		}
 		// dispatch signals
