@@ -556,11 +556,15 @@ class WorkerPool implements \Iterator, \Countable {
 	/**
 	 * Collects the results form the workers and processes any pending signals
 	 * @param int $sec timeout to wait for new results from the workers
+	 * @throws WorkerPoolException
 	 */
 	protected function collectWorkerResults($sec = 0) {
 		// dispatch signals
 		pcntl_signal_dispatch();
 
+		if (isset($this->workerProcesses) === FALSE) {
+			throw new WorkerPoolException('There is no list of worker processes. Maybe you destroyed the worker pool?', 1401179881);
+		}
 		$result = SimpleSocket::select($this->workerProcesses->getSockets(), array(), array(), $sec);
 		foreach ($result['read'] as $socket) {
 			/** @var $socket SimpleSocket */
