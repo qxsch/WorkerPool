@@ -177,6 +177,7 @@ class WorkerPool implements \Iterator, \Countable {
 
 	/**
 	 * @param string $forkMethod
+	 * @return WorkerPool
 	 * @throws WorkerPoolException
 	 */
 	public function setForkMethod($forkMethod) {
@@ -184,6 +185,7 @@ class WorkerPool implements \Iterator, \Countable {
 			throw new WorkerPoolException('Cannot set fork method for a created pool.', 1401103141);
 		}
 		$this->forkMethod = $forkMethod;
+		return $this;
 	}
 
 	/**
