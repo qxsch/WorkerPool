@@ -186,7 +186,6 @@ class WorkerPool implements \Iterator, \Countable {
 		$this->forkMethod = $forkMethod;
 	}
 
-
 	/**
 	 * Sets the Semaphore, that will be used within the worker processes
 	 * @param \QXS\WorkerPool\Semaphore $semaphore the Semaphore, that should be used for the workers
@@ -546,8 +545,8 @@ class WorkerPool implements \Iterator, \Countable {
 
 			$sec = self::CHILD_TIMEOUT_SEC;
 
-			if ($this->workerProcesses->getProcessesCount() <= 0) {
-				throw new WorkerPoolException('All workers were gone.');
+			if ($this->forkMethod === self::FORK_METHOD_ON_CREATE && $this->workerProcesses->getProcessesCount() <= 0) {
+				throw new WorkerPoolException('All workers were gone.', 1401118326);
 			}
 		}
 
