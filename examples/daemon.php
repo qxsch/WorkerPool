@@ -30,15 +30,20 @@ class Daemon {
 		$this->initializeSignals();
 		$this->workerPool = new WorkerPool();
 		$this->workerPool
-			->setForkMethod(WorkerPool::FORK_METHOD_ON_DEMAND)
-			->setWorkerPoolSize(5)
+			->setMaximumRunningWorkers(10)
+			->setMinimumRunningWorkers(2)
+			->setMaximumWorkersIdleTime(10)
 			->create(new \QXS\WorkerPool\ClosureWorker(
 				function ($input, $semaphore, $storage) {
-					sleep(rand(1, 2));
-					if (rand(0, 5) === 0) {
+					$load = rand(2, 7);
+					$time = time();
+					while (time() - $time < $load) {
+						sqrt(9999999);
+					}
+					if (rand(0, 500) === 0) {
 						whoops();
 					}
-					return sqrt($input);
+					return 42;
 				}
 			));
 	}
@@ -64,7 +69,6 @@ class Daemon {
 			echo "Run\t\t$newRunnedJobs/$runningJobs (new/running)\n";
 			$this->collectResults();
 
-			pcntl_signal_dispatch();
 			sleep(1);
 		}
 	}
@@ -73,7 +77,7 @@ class Daemon {
 	 * @return array
 	 */
 	protected function createDummyJobs() {
-		for ($i = 0; $i < 50; $i++) {
+		for ($i = 0; $i < 500; $i++) {
 			$this->jobs[rand(50000, 70000)] = array(
 				'data' => rand(10000, 100000),
 				'result' => NULL,
@@ -86,20 +90,28 @@ class Daemon {
 		$erroneous = 0;
 		$done = 0;
 		while (($nextResult = $this->workerPool->getNextResult()) !== NULL) {
+			$jobId = NULL;
 			$pid = $nextResult['pid'];
-			$jobId = $this->runningJobs[$pid];
+			// Find job id
+			foreach ($this->runningJobs as $runningJobId => $runningPid) {
+				if ($pid === $runningPid) {
+					$jobId = $runningJobId;
+					break;
+				}
+			}
+
 			$job =& $this->jobs[$jobId];
 
 			if (array_key_exists('data', $nextResult) && $nextResult['data'] !== NULL) {
 				$job['result'] = $nextResult['data'];
 				$job['state'] = 'done';
 				$done++;
-			}else{
+			} else {
 				$job['state'] = 'error';
 				$erroneous++;
 			}
 
-			unset($this->runningJobs[$pid]);
+			unset($this->runningJobs[$jobId]);
 		}
 
 		echo "Collect\t\t$done/$erroneous (done/erroneous)\n";
@@ -111,7 +123,7 @@ class Daemon {
 	 */
 	protected function runJob(array $job, $jobId) {
 		$pid = $this->workerPool->run($job['data']);
-		$this->runningJobs[$pid] = $jobId;
+		$this->runningJobs[$jobId] = $pid;
 	}
 
 	/**
@@ -119,8 +131,7 @@ class Daemon {
 	 * @return bool
 	 */
 	protected function isJobRunning($jobId) {
-		$runnningJobs = array_values($this->runningJobs);
-		return in_array($jobId, $runnningJobs);
+		return array_key_exists($jobId, $this->runningJobs);
 	}
 
 	/**
@@ -130,7 +141,10 @@ class Daemon {
 	 */
 	protected function loadJobs() {
 		$jobs = array();
-		$maxJobs = rand(0, 4);
+		$maxJobs = rand(1, 7);
+		if (rand(0, 6) < 6) {
+			return array();
+		}
 		foreach ($this->jobs as $jobId => $job) {
 			if (count($jobs) >= $maxJobs) {
 				break;
