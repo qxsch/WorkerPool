@@ -28,19 +28,42 @@ class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * @test
 	 */
-	public function poolHasPoolSizeOfFreeWorkersIfCreationIsSetTo_OnCreate() {
-		$wp = $this->createClosureWorkerPool(WorkerPool::FORK_METHOD_ON_CREATE);
+	public function poolHasMinimumAmountOfWorkersAfterCreate() {
+		$wp = $this->createDefaultPool();
 
-		$this->assertEquals(5, $wp->getFreeWorkers());
+		$this->assertEquals(1, $wp->getFreeWorkers());
 		$this->assertEquals(0, $wp->getBusyWorkers());
 		$wp->destroy(0);
 	}
 
 	/**
+	 * @param int $min
+	 * @param int $max
+	 * @param bool $failing
+	 * @return WorkerPool
+	 */
+	protected function createDefaultPool($min = 1, $max = 5, $failing = FALSE) {
+		$wp = new WorkerPool();
+		$wp
+			->setMaximumRunningWorkers($max)
+			->setMinimumRunningWorkers($min);
+		if ($failing) {
+			$wp->create(new Fixtures\FatalFailingWorker());
+		} else {
+			$wp->create(new ClosureWorker(function ($data) {
+				usleep(500000);
+				return TRUE;
+			}));
+		}
+
+		return $wp;
+	}
+
+	/**
 	 * @test
 	 */
-	public function poolHasNoWorkersAtAllIfCreationIsSetTo_OnDemand() {
-		$wp = $this->createClosureWorkerPool(WorkerPool::FORK_METHOD_ON_DEMAND);
+	public function poolHasNoWorkersAtAllIfMinimumIsSetToZero() {
+		$wp = $this->createDefaultPool(0, 5);
 
 		$this->assertEquals(0, $wp->getFreeWorkers());
 		$this->assertEquals(0, $wp->getBusyWorkers());
@@ -52,7 +75,7 @@ class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
 	 * @test
 	 */
 	public function poolCreatesWorkersOnDemand() {
-		$wp = $this->createClosureWorkerPool(WorkerPool::FORK_METHOD_ON_DEMAND);
+		$wp = $this->createDefaultPool(0);
 
 		$this->assertEquals(0, $wp->getFreeWorkers());
 		$this->assertEquals(0, $wp->getBusyWorkers());
@@ -72,11 +95,35 @@ class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
 	 * @test
 	 */
 	public function runMethodReturnsARunningProcessId() {
-		$wp = $this->createClosureWorkerPool(WorkerPool::FORK_METHOD_ON_DEMAND);
+		$wp = $this->createDefaultPool();
 
 		for ($i = 0; $i < 5; $i++) {
 			$pid = $wp->run($i);
 			$this->assertTrue(is_int(posix_getpgid($pid)), 'Process ' . $pid . ' is not running');
+		}
+
+		$wp->destroy(0);
+	}
+
+	/**
+	 * @test
+	 */
+	public function idleWorkerProcessesGetsTerminated() {
+		$wp = $this->createDefaultPool(0, 5);
+		$wp->setMaximumWorkersIdleTime(1);
+
+		$pids = array();
+		for ($i = 0; $i < 5; $i++) {
+			$pids[] = $wp->run($i);
+		}
+		$wp->waitForAllWorkers();
+		sleep(2);
+		$wp->terminateIdleWorkers();
+
+		$workersInfo = $wp->getFreeAndBusyWorkers();
+		$this->assertEquals(0, $workersInfo['total']);
+		foreach ($pids as $pid) {
+			$this->assertFalse(posix_getpgid($pid), 'Process ' . $pid . ' is still running');
 		}
 
 		$wp->destroy(0);
@@ -131,8 +178,9 @@ class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function resultsAreAsExpected($closure, array $expectedResult) {
 		$wp = new WorkerPool();
-		$wp->setWorkerPoolSize(5);
-		$wp->create(new ClosureWorker($closure));
+		$wp
+			->setMaximumRunningWorkers(5)
+			->create(new ClosureWorker($closure));
 
 		$wp->run('foo bar');
 		$wp->waitForAllWorkers();
@@ -147,44 +195,10 @@ class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @param int $forkMethod
-	 * @return \PHPUnit_Framework_MockObject_MockObject|WorkerPool
-	 */
-	protected function createMockedClosureWorkerPool($forkMethod) {
-		/** @var \QXS\WorkerPool\WorkerPool|\PHPUnit_Framework_MockObject_MockObject $wp */
-		$wp = $this->getMockBuilder('\QXS\WorkerPool\WorkerPool')->setMethods(NULL)->getMock();
-		$wp->setWorkerPoolSize(5);
-		$wp->setForkMethod($forkMethod);
-		$wp->create(new ClosureWorker(function ($data) {
-			usleep(500000);
-			return TRUE;
-		}));
-		return $wp;
-	}
-
-	/**
-	 * @param int $forkMethod
-	 * @return WorkerPool
-	 */
-	protected function createClosureWorkerPool($forkMethod) {
-		$wp = new WorkerPool();
-		$wp->setWorkerPoolSize(5);
-		$wp->setForkMethod($forkMethod);
-		$wp->create(new ClosureWorker(function ($data) {
-			usleep(500000);
-			return TRUE;
-		}));
-		return $wp;
-	}
-
-	/**
 	 * @test
 	 */
 	public function failedWorkersAreRecreatedInOnDemandMode() {
-		$wp = new WorkerPool();
-		$wp->setWorkerPoolSize(3);
-		$wp->setForkMethod(WorkerPool::FORK_METHOD_ON_DEMAND);
-		$wp->create(new Fixtures\FatalFailingWorker());
+		$wp = $this->createDefaultPool(2, 2, TRUE);
 
 		for ($i = 0; $i < 5; $i++) {
 			$wp->run('foo bar');
@@ -199,44 +213,8 @@ class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * @test
 	 */
-	public function callingRunThrowsExceptionIfAllWorkersAreGone() {
-		$wp = new WorkerPool();
-		$wp->setWorkerPoolSize(3);
-		$wp->create(new Fixtures\FatalFailingWorker());
-		try {
-			for ($i = 0; $i < 5; $i++) {
-				$wp->run('foo bar');
-			};
-			$this->fail('An expected exception has not been raised.');
-		} catch (\Exception $e) {
-			$this->assertInstanceOf('\QXS\WorkerPool\WorkerPoolException', $e);
-			$this->assertEquals(1401118326, $e->getCode());
-		}
-		$wp->destroy(0);
-	}
-
-	/**
-	 * @test
-	 */
-	public function destroyShouldNotThrowAnExceptionIfAllWorkersAreGone() {
-		$wp = new WorkerPool();
-		$wp->setWorkerPoolSize(3);
-		$wp->create(new Fixtures\FatalFailingWorker());
-
-		for ($i = 0; $i < 2; $i++) {
-			$wp->run('foo bar');
-		};
-
-		$wp->waitForAllWorkers();
-
-		$wp->destroy(0);
-	}
-
-	/**
-	 * @test
-	 */
 	public function resultCountShouldBeZeroAfterIteratingOverTheResults() {
-		$wp = $this->createClosureWorkerPool(WorkerPool::FORK_METHOD_ON_CREATE);
+		$wp = $this->createDefaultPool();
 		for ($i = 0; $i < 5; $i++) {
 			$wp->run('foo bar');
 		};
@@ -255,7 +233,7 @@ class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
 	 * @test
 	 */
 	public function thereShouldBeNoBusyWorkersAfterCallingWaitForAllWorkers() {
-		$wp = $this->createClosureWorkerPool(WorkerPool::FORK_METHOD_ON_CREATE);
+		$wp = $this->createDefaultPool();
 		for ($i = 0; $i < 6; $i++) {
 			$wp->run('foo bar');
 		};
@@ -270,7 +248,7 @@ class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
 	 * @test
 	 */
 	public function thereShouldBeNFreeWorkersAfterCallingWaitForAllWorkers() {
-		$wp = $this->createClosureWorkerPool(WorkerPool::FORK_METHOD_ON_CREATE);
+		$wp = $this->createDefaultPool(5);
 		for ($i = 0; $i < 6; $i++) {
 			$wp->run('foo bar');
 		};
@@ -285,7 +263,7 @@ class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
 	 * @test
 	 */
 	public function waitForAllWorkersShouldBeCallableMultipleTimes() {
-		$wp = $this->createClosureWorkerPool(WorkerPool::FORK_METHOD_ON_CREATE);
+		$wp = $this->createDefaultPool();
 		for ($j = 1; $j <= 3; $j++) {
 			for ($i = 0; $i < 6; $i++) {
 				$wp->run($j);
@@ -302,7 +280,7 @@ class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
 	 * @test
 	 */
 	public function getNextResultShouldReturnNResultsForNJobs() {
-		$wp = $this->createClosureWorkerPool(WorkerPool::FORK_METHOD_ON_CREATE);
+		$wp = $this->createDefaultPool();
 		for ($i = 0; $i < 5; $i++) {
 			$wp->run('foo bar');
 		};
