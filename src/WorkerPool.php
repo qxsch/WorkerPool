@@ -33,7 +33,7 @@ class WorkerPool implements \Iterator, \Countable {
 	private $created = FALSE;
 
 	/** @var int number of minimum running children in the pool */
-	private $minimumRunningWorkers = 1;
+	private $minimumRunningWorkers = 0;
 
 	/** @var int number of maximum running children in the pool */
 	private $maximumRunningWorkers = 1;
