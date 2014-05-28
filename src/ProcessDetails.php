@@ -17,6 +17,11 @@ class ProcessDetails {
 	protected $socket;
 
 	/**
+	 * @var int
+	 */
+	protected $idleSince = 0;
+
+	/**
 	 * The constructor
 	 * @param int $pid
 	 * @param SimpleSocket $socket
@@ -96,5 +101,22 @@ class ProcessDetails {
 	 */
 	public function getSocket() {
 		return $this->socket;
+	}
+
+	/**
+	 * @param int $idleSince
+	 */
+	public function setIdleSince($idleSince) {
+		$this->idleSince = $idleSince;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getIdleTime() {
+		if ($this->idleSince === 0) {
+			return 0;
+		}
+		return time() - $this->idleSince;
 	}
 }

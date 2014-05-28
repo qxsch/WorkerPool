@@ -24,25 +24,22 @@ class WorkerPool implements \Iterator, \Countable {
 	/** Default child timeout in seconds */
 	const CHILD_TIMEOUT_SEC = 10;
 
-	/** Fork child processes on pool creation */
-	const FORK_METHOD_ON_CREATE = 1;
-
-	/** Fork child processes when run method is called */
-	const FORK_METHOD_ON_DEMAND = 2;
-
 	/** @var array signals, that should be watched */
 	protected $signals = array(
 		SIGCHLD, SIGTERM, SIGHUP, SIGUSR1
 	);
 
-	/** @var  string */
-	private $forkMethod;
-
 	/** @var bool is the pool created? (children forked) */
 	private $created = FALSE;
 
-	/** @var int number of children in the pool */
-	private $workerPoolSize = 2;
+	/** @var int number of minimum running children in the pool */
+	private $minimumRunningWorkers = 1;
+
+	/** @var int number of maximum running children in the pool */
+	private $maximumRunningWorkers = 1;
+
+	/** @var int Maximum time (in seconds) a process could stay in idle status. */
+	private $maximumWorkersIdleTime = 0;
 
 	/** @var int id of the parent */
 	protected $parentPid = 0;
@@ -73,7 +70,6 @@ class WorkerPool implements \Iterator, \Countable {
 	 */
 	public function __construct() {
 		$this->workerProcesses = new ProcessDetailsCollection();
-		$this->forkMethod = self::FORK_METHOD_ON_CREATE;
 	}
 
 	/**
@@ -151,9 +147,11 @@ class WorkerPool implements \Iterator, \Countable {
 	 * In case the pool hasn't yet been created, this method returns the value of the currently set pool size.
 	 * In case of a created pool, this method reports the real pool size (number of alive worker processes).
 	 * @return int the number of processes
+	 *
+	 * @deprecated
 	 */
 	public function getWorkerPoolSize() {
-		return $this->workerPoolSize;
+		return $this->getMaximumRunningWorkers();
 	}
 
 	/**
@@ -162,30 +160,97 @@ class WorkerPool implements \Iterator, \Countable {
 	 * @return WorkerPool
 	 * @throws \QXS\WorkerPool\WorkerPoolException in case the WorkerPool has already been created
 	 * @throws \InvalidArgumentException in case the $size value is not within the permitted range
+	 *
+	 * @deprecated
 	 */
 	public function setWorkerPoolSize($size) {
-		if ($this->created) {
-			throw new WorkerPoolException('Cannot set the Worker Pool Size for a created pool.');
-		}
-		$size = (int)$size;
-		if ($size <= 0) {
-			throw new \InvalidArgumentException('"' . $size . '" is not an integer greater than 0.');
-		}
-		$this->workerPoolSize = $size;
+		$this->setMaximumRunningWorkers($size);
+		$this->setMinimumRunningWorkers($size);
 		return $this;
 	}
 
 	/**
-	 * @param string $forkMethod
+	 * Sets the minimum number of running worker processes
+	 *
+	 * @param int $minimumRunningWorkers
 	 * @return WorkerPool
-	 * @throws WorkerPoolException
+	 * @throws \InvalidArgumentException
 	 */
-	public function setForkMethod($forkMethod) {
-		if ($this->created) {
-			throw new WorkerPoolException('Cannot set fork method for a created pool.', 1401103141);
+	public function setMinimumRunningWorkers($minimumRunningWorkers) {
+		$minimumRunningWorkers = (int)$minimumRunningWorkers;
+		if ($minimumRunningWorkers < 0) {
+			throw new \InvalidArgumentException('$minimumRunningWorkers must not be negative.', 1401261542);
 		}
-		$this->forkMethod = $forkMethod;
+		$this->minimumRunningWorkers = $minimumRunningWorkers;
+		$this->checkWorkerCountBoundaries();
 		return $this;
+	}
+
+	/**
+	 * Gets the minimum number of running worker processes
+	 *
+	 * @return int
+	 */
+	public function getMinimumRunningWorkers() {
+		return $this->minimumRunningWorkers;
+	}
+
+	/**
+	 * Sets the maximum number of running worker processes
+	 *
+	 * @param int $maximumRunningWorkers
+	 * @throws \InvalidArgumentException
+	 * @return WorkerPool
+	 */
+	public function setMaximumRunningWorkers($maximumRunningWorkers) {
+		$maximumRunningWorkers = (int)$maximumRunningWorkers;
+		if ($maximumRunningWorkers <= 0) {
+			throw new \InvalidArgumentException('$maximumRunningWorkers must be greater than 0.', 1401261541);
+		}
+		$this->maximumRunningWorkers = $maximumRunningWorkers;
+		$this->checkWorkerCountBoundaries();
+		return $this;
+	}
+
+	/**
+	 * Gets the maximum number of running worker processes
+	 *
+	 * @return int
+	 */
+	public function getMaximumRunningWorkers() {
+		return $this->maximumRunningWorkers;
+	}
+
+	protected function checkWorkerCountBoundaries() {
+		if ($this->minimumRunningWorkers > $this->maximumRunningWorkers) {
+			throw new \InvalidArgumentException('The boundary for the minimum running workers must be less or equal than the maximum.', 1401261539);
+		}
+	}
+
+	/**
+	 * Sets the maximum time (in seconds) a process could stay in idle status. Set to 0 if no idle processes should be
+	 * automatically terminated.
+	 *
+	 * @param int $maximumWorkersIdleTime
+	 * @throws \InvalidArgumentException
+	 * @return WorkerPool
+	 */
+	public function setMaximumWorkersIdleTime($maximumWorkersIdleTime) {
+		$maximumWorkersIdleTime = (int)$maximumWorkersIdleTime;
+		if ($maximumWorkersIdleTime <= 0) {
+			throw new \InvalidArgumentException('$maximumWorkersIdleTime must be greater than 0.', 1401261540);
+		}
+		$this->maximumWorkersIdleTime = $maximumWorkersIdleTime;
+		return $this;
+	}
+
+	/**
+	 * Gets the maximum time (in seconds) a process could stay in idle status.
+	 *
+	 * @return int
+	 */
+	public function getMaximumWorkersIdleTime() {
+		return $this->maximumWorkersIdleTime;
 	}
 
 	/**
@@ -226,9 +291,6 @@ class WorkerPool implements \Iterator, \Countable {
 	 * @return WorkerPool
 	 */
 	public function create(Worker $worker) {
-		if ($this->workerPoolSize <= 1) {
-			$this->workerPoolSize = 2;
-		}
 		$this->parentPid = getmypid();
 		$this->worker = $worker;
 		if ($this->created) {
@@ -256,10 +318,8 @@ class WorkerPool implements \Iterator, \Countable {
 			)
 		);
 
-		if ($this->forkMethod === self::FORK_METHOD_ON_CREATE) {
-			for ($i = 0; $i < $this->workerPoolSize; $i++) {
-				$this->forkChildren();
-			}
+		for ($i = 0; $i < $this->minimumRunningWorkers; $i++) {
+			$this->forkChildren();
 		}
 
 		return $this;
@@ -530,12 +590,14 @@ class WorkerPool implements \Iterator, \Countable {
 	protected function getNextFreeWorker() {
 		$sec = 0;
 		while (TRUE) {
+			while ($this->workerProcesses->getProcessesCount() < $this->minimumRunningWorkers) {
+				$this->forkChildren();
+			}
+
 			if (
-				$this->forkMethod === self::FORK_METHOD_ON_DEMAND &&
 				$this->workerProcesses->getFreeProcessesCount() === 0 &&
-				$this->workerPoolSize > $this->workerProcesses->getProcessesCount()
+				$this->workerProcesses->getProcessesCount() < $this->maximumRunningWorkers
 			) {
-				// fork children on demand
 				$this->forkChildren();
 			}
 
@@ -546,10 +608,6 @@ class WorkerPool implements \Iterator, \Countable {
 			}
 
 			$sec = self::CHILD_TIMEOUT_SEC;
-
-			if ($this->forkMethod === self::FORK_METHOD_ON_CREATE && $this->workerProcesses->getProcessesCount() <= 0) {
-				throw new WorkerPoolException('All workers were gone.', 1401118326);
-			}
 		}
 
 		return NULL;
@@ -585,6 +643,8 @@ class WorkerPool implements \Iterator, \Countable {
 		}
 		// dispatch signals
 		pcntl_signal_dispatch();
+
+		$this->terminateIdleWorkers();
 	}
 
 	/**
@@ -614,6 +674,25 @@ class WorkerPool implements \Iterator, \Countable {
 		}
 		// Should never be reached
 		throw new WorkerPoolException('Could not run worker', 1400838906);
+	}
+
+	/**
+	 * Terminates all worker processes which are idle for longer than the defined maximum idle time. You usually do not
+	 * have to call this method explicitly.
+	 */
+	public function terminateIdleWorkers() {
+		if ($this->getMaximumWorkersIdleTime() === 0) {
+			return;
+		}
+
+		foreach ($this->workerProcesses as $workerProcess) {
+			if (
+				$workerProcess->getIdleTime() >= $this->getMaximumWorkersIdleTime() &&
+				$this->workerProcesses->getProcessesCount() > $this->getMinimumRunningWorkers()
+			) {
+				$this->workerProcesses->terminateProcess($workerProcess);
+			}
+		}
 	}
 
 	/**
