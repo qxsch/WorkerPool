@@ -237,8 +237,8 @@ class WorkerPool implements \Iterator, \Countable {
 	 */
 	public function setMaximumWorkersIdleTime($maximumWorkersIdleTime) {
 		$maximumWorkersIdleTime = (int)$maximumWorkersIdleTime;
-		if ($maximumWorkersIdleTime <= 0) {
-			throw new \InvalidArgumentException('$maximumWorkersIdleTime must be greater than 0.', 1401261540);
+		if ($maximumWorkersIdleTime < 0) {
+			throw new \InvalidArgumentException('$maximumWorkersIdleTime must be not negative.', 1401261540);
 		}
 		$this->maximumWorkersIdleTime = $maximumWorkersIdleTime;
 		return $this;
