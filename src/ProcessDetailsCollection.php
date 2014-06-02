@@ -61,6 +61,14 @@ class ProcessDetailsCollection implements \IteratorAggregate {
 	}
 
 	/**
+	 * @param int $pid
+	 * @return bool
+	 */
+	public function isFreeProcessId($pid) {
+		return in_array($pid, $this->freeProcessIds);
+	}
+
+	/**
 	 * Sends the kill signal to all processes and removes them from the list.
 	 *
 	 * @return void
@@ -70,6 +78,17 @@ class ProcessDetailsCollection implements \IteratorAggregate {
 			$this->remove($processDetails);
 			posix_kill($pid, SIGKILL);
 		}
+	}
+
+	/**
+	 * @param ProcessDetails $processDetails
+	 */
+	public function terminateProcess(ProcessDetails $processDetails) {
+		$pid = $processDetails->getPid();
+		$this->remove($processDetails);
+		posix_kill($pid, SIGKILL);
+		$status = 0;
+		pcntl_waitpid($pid, $status);
 	}
 
 	/**
@@ -85,6 +104,7 @@ class ProcessDetailsCollection implements \IteratorAggregate {
 			throw new \InvalidArgumentException(sprintf('Could not register free process. Process (%d) not in list.', $processDetails->getPid()), 1400761296);
 		}
 		$this->freeProcessIds[$pid] = $pid;
+		$processDetails->setIdleSince(time());
 
 		return $this;
 	}
@@ -122,11 +142,15 @@ class ProcessDetailsCollection implements \IteratorAggregate {
 		if ($this->getFreeProcessesCount() === 0) {
 			return NULL;
 		}
-		$freePid = array_shift($this->freeProcessIds);
+
+		$freePid = array_pop($this->freeProcessIds);
+
 		if ($freePid === NULL) {
 			return NULL;
 		}
-		return $this->getProcessDetails($freePid);
+		$processDetails = $this->getProcessDetails($freePid);
+		$processDetails->setIdleSince(0);
+		return $processDetails;
 	}
 
 	/**
@@ -155,6 +179,15 @@ class ProcessDetailsCollection implements \IteratorAggregate {
 	 */
 	public function getProcessesCount() {
 		return count($this->processDetails);
+	}
+
+	/**
+	 * Get the count of busy processes
+	 *
+	 * @return int
+	 */
+	public function getBusyProcessesCount() {
+		return $this->getProcessesCount() - $this->getFreeProcessesCount();
 	}
 
 	/**
