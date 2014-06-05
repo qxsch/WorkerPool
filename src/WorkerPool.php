@@ -727,8 +727,10 @@ class WorkerPool implements \Iterator, \Countable {
 		pcntl_signal_dispatch();
 
 		if($this->realParentPid == getmypid()) {
-			while($this->fenceSocket->hasData($sec)) {
-				$this->results[]=$this->fenceSocket->receive();
+			if($this->fenceSocket instanceof SimpleSocket) {
+				while($this->fenceSocket->hasData($sec)) {
+					$this->results[]=$this->fenceSocket->receive();
+				}
 			}
 		}
 		else {
@@ -773,10 +775,12 @@ class WorkerPool implements \Iterator, \Countable {
 	 */
 	public function run($input) {
 		if($this->realParentPid == getmypid()) {
-			while($this->fenceSocket->hasData(0, 200)) {
-				$this->results[]=$this->fenceSocket->receive();
+			if($this->fenceSocket instanceof SimpleSocket) {
+				while($this->fenceSocket->hasData(0, 200)) {
+					$this->results[]=$this->fenceSocket->receive();
+				}
+				$this->fenceSocket->send(array('cmd' => 'run', 'data' => $input));
 			}
-			$this->fenceSocket->send(array('cmd' => 'run', 'data' => $input));
 		}
 		return $this;
 	}
