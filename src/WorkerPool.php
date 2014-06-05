@@ -44,6 +44,12 @@ class WorkerPool implements \Iterator, \Countable {
 	/** @var int id of the parent */
 	protected $parentPid = 0;
 
+    /** @var int id of the real parent */
+    protected $realParentPid = 0;
+
+	/** @var \QXS\WorkerPool\SimpleSocket the socket that is used by the real parent to communicate with the fence process */
+	protected $fenceSocket;
+
 	/** @var \QXS\WorkerPool\Worker the worker class, that is used to run the tasks */
 	protected $worker;
 
@@ -291,24 +297,74 @@ class WorkerPool implements \Iterator, \Countable {
 	 * @return WorkerPool
 	 */
 	public function create(Worker $worker) {
-		$this->parentPid = getmypid();
-		$this->worker = $worker;
-		if ($this->created) {
-			throw new WorkerPoolException('The pool has already been created.');
-		}
+        if ($this->created) {
+            throw new WorkerPoolException('The pool has already been created.');
+        }
 
-		$this->created = TRUE;
-		// when adding signals use pcntl_signal_dispatch(); or declare ticks
-		foreach ($this->signals as $signo) {
-			pcntl_signal($signo, array($this, 'signalHandler'));
-		}
+        // when adding signals use pcntl_signal_dispatch(); or declare ticks
+        foreach ($this->signals as $signo) {
+            pcntl_signal($signo, array($this, 'signalHandler'));
+        }
 
-		// no Semaphore attached? -> create one
-		if (!($this->semaphore instanceof Semaphore)) {
-			$this->semaphore = new Semaphore();
-			$this->semaphore->create(Semaphore::SEM_RAND_KEY);
-		}
+        $this->created = TRUE;
 
+        $this->worker = $worker;
+
+        // no Semaphore attached? -> create one
+        if (!($this->semaphore instanceof Semaphore)) {
+            $this->semaphore = new Semaphore();
+            $this->semaphore->create(Semaphore::SEM_RAND_KEY);
+        }
+
+        $this->realParentPid = getmypid();
+
+        // have we already created our fencing process?
+        if ($this->realParentPid == 0) {
+            $sockets = array();
+            if (socket_create_pair(AF_UNIX, SOCK_STREAM, 0, $sockets) === FALSE) {
+                // clean_up using posix_kill & pcntl_wait
+                throw new \RuntimeException('socket_create_pair failed.');
+            }
+
+            // fork
+            $processId = pcntl_fork();
+            if ($processId < 0) {
+                // cleanup using posix_kill & pcntl_wait
+                throw new \RuntimeException('pcntl_fork failed.');
+            }
+
+            $childSocket = $sockets[0];
+            $parentSocket = $sockets[1];
+
+			if ($processId === 0) {
+				// WE ARE IN THE CHILD
+				socket_close($parentSocket);
+				unset($parentSocket);
+				// fence is up - set the parent and fork the children
+				$this->parentPid = getmypid();
+				for ($i = 0; $i < $this->minimumRunningWorkers; $i++) {
+					$this->forkChildren();
+				}
+
+				$this->runFenceProcess(new SimpleSocket($childSocket));
+
+			} else {
+				// WE ARE IN THE PARENT
+				socket_close($childSocket);
+				unset($parentSocket);
+				// create the child
+				$this->fenceSocket=new SimpleSocket($parentSocket);
+			}
+        }
+
+		return $this;
+	}
+
+
+    /**
+     * @throws \RuntimeException
+     */
+    protected function runFenceProcess(SimpleSocket $simpleSocket) {
 		ProcessDetails::setProcessTitle(
 			$this->parentProcessTitleFormat,
 			array(
@@ -318,17 +374,65 @@ class WorkerPool implements \Iterator, \Countable {
 			)
 		);
 
-		for ($i = 0; $i < $this->minimumRunningWorkers; $i++) {
-			$this->forkChildren();
+		while(TRUE) {
+			try {
+				if($simpleSocket->hasData(1)) {
+					$cmd = $simpleSocket->receive();
+					// invalid response from parent?
+					if (!isset($cmd['cmd'])) {
+						break;
+					}
+					if ($cmd['cmd'] == 'run') {
+						// try to send the task
+						while (TRUE) {
+							try {
+								$processDetailsOfFreeWorker = $this->getNextFreeWorker();
+								$processDetailsOfFreeWorker->getSocket()->send(array('cmd' => 'run', 'data' => $cmd['input']));
+								break;
+							} catch (SimpleSocketException $e) {
+								pcntl_signal_dispatch();
+								continue;
+							}
+						}
+					}
+					elseif ($cmd['cmd'] == 'exit') {
+						break;
+					}
+				}
+				// send the values to the parent
+				foreach($this as $value) {
+					$simpleSocket->send($value);
+				}
+
+			}
+			catch (\Exception $e) {
+				// send Back the exception
+				$output['poolException'] = array(
+					'class' => get_class($e),
+					'message' => $e->getMessage(),
+					'trace' => $e->getTraceAsString()
+				);
+				$simpleSocket->send($output);
+			}
 		}
 
-		return $this;
-	}
+		// FIX: yes we need it this way! getBusyWorkers could be 0, so we must ask a second time for values
+		while($this->hasResults() || $this->getBusyWorkers()>0 || $this->hasResults()) {
+			// poll some data
+			foreach($this as $val) {
+				$simpleSocket->send($value);
+			}
+			usleep(1000);
+		}
+
+        $this->exitPhp(0);
+    }
+
 
 	/**
 	 * @throws \RuntimeException
 	 */
-	private function forkChildren() {
+	protected function forkChildren() {
 		$sockets = array();
 		if (socket_create_pair(AF_UNIX, SOCK_STREAM, 0, $sockets) === FALSE) {
 			// clean_up using posix_kill & pcntl_wait
@@ -622,33 +726,40 @@ class WorkerPool implements \Iterator, \Countable {
 		// dispatch signals
 		pcntl_signal_dispatch();
 
-		if (isset($this->workerProcesses) === FALSE) {
-			throw new WorkerPoolException('There is no list of worker processes. Maybe you destroyed the worker pool?', 1401179881);
-		}
-		$result = SimpleSocket::select($this->workerProcesses->getSockets(), array(), array(), $sec);
-		foreach ($result['read'] as $socket) {
-			/** @var $socket SimpleSocket */
-			$processId = $socket->annotation['pid'];
-			$result = $socket->receive();
-
-			$possibleArrayKeys = array('data', 'poolException', 'workerException');
-			if (is_array($result) && count(($resultTypes = array_intersect(array_keys($result), $possibleArrayKeys))) === 1) {
-				// If the result has the expected format, free the worker and store the result.
-				// Otherwise, the worker may be abnormally terminated (fatal error, exit(), ...) and will
-				// fall in the reapers arms.
-				$this->workerProcesses->registerFreeProcessId($processId);
-				$result['pid'] = $processId;
-				$resultType = reset($resultTypes);
-				// Do not store NULL
-				if ($resultType !== 'data' || $result['data'] !== NULL) {
-					array_push($this->results, $result);
-				}
+		if($this->realParentPid == getmypid()) {
+			while($this->fenceSocket->hasData($sec)) {
+				$this->results[]=$this->fenceSocket->receive();
 			}
 		}
-		// dispatch signals
-		pcntl_signal_dispatch();
+		else {
+			if (isset($this->workerProcesses) === FALSE) {
+				throw new WorkerPoolException('There is no list of worker processes. Maybe you destroyed the worker pool?', 1401179881);
+			}
+			$result = SimpleSocket::select($this->workerProcesses->getSockets(), array(), array(), $sec);
+			foreach ($result['read'] as $socket) {
+				/** @var $socket SimpleSocket */
+				$processId = $socket->annotation['pid'];
+				$result = $socket->receive();
 
-		$this->terminateIdleWorkers();
+				$possibleArrayKeys = array('data', 'poolException', 'workerException');
+				if (is_array($result) && count(($resultTypes = array_intersect(array_keys($result), $possibleArrayKeys))) === 1) {
+					// If the result has the expected format, free the worker and store the result.
+					// Otherwise, the worker may be abnormally terminated (fatal error, exit(), ...) and will
+					// fall in the reapers arms.
+					$this->workerProcesses->registerFreeProcessId($processId);
+					$result['pid'] = $processId;
+					$resultType = reset($resultTypes);
+					// Do not store NULL
+					if ($resultType !== 'data' || $result['data'] !== NULL) {
+						array_push($this->results, $result);
+					}
+				}
+			}
+			// dispatch signals
+			pcntl_signal_dispatch();
+
+			$this->terminateIdleWorkers();
+		}
 	}
 
 	/**
@@ -658,25 +769,16 @@ class WorkerPool implements \Iterator, \Countable {
 	 * You can kill all child processes, so that the parent will be unblocked.
 	 * @param mixed $input any serializable value
 	 * @throws WorkerPoolException
-	 * @return int The PID of the processing worker process
+	 * @throws SimpleSocketException
 	 */
 	public function run($input) {
-		while (TRUE) {
-			try {
-				$processDetailsOfFreeWorker = $this->getNextFreeWorker();
-				$processDetailsOfFreeWorker->getSocket()->send(array('cmd' => 'run', 'data' => $input));
-				return $processDetailsOfFreeWorker->getPid();
-			} catch (SimpleSocketException $e) {
-				continue;
-			} catch (WorkerPoolException $e) {
-				throw $e;
-			} catch (\Exception $e) {
-				pcntl_signal_dispatch();
-				return NULL;
+		if($this->realParentPid == getmypid()) {
+			while($this->fenceSocket->hasData(0, 200)) {
+				$this->results[]=$this->fenceSocket->receive();
 			}
+			$this->fenceSocket->send(array('cmd' => 'run', 'data' => $input));
 		}
-		// Should never be reached
-		throw new WorkerPoolException('Could not run worker', 1400838906);
+		return $this;
 	}
 
 	/**
