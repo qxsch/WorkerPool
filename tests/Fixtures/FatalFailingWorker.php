@@ -2,7 +2,7 @@
 namespace QXS\Tests\WorkerPool\Fixtures;
 
 use QXS\WorkerPool\Semaphore;
-use QXS\WorkerPool\Worker;
+use QXS\WorkerPool\Worker\Worker;
 
 Class FatalFailingWorker implements Worker {
 
@@ -13,7 +13,6 @@ Class FatalFailingWorker implements Worker {
 	}
 
 	public function run($input) {
-		@$x->abc(); // fatal error
-		return "Hi $input";
+		whoops();
 	}
 }

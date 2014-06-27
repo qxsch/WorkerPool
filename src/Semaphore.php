@@ -165,7 +165,6 @@ class Semaphore {
 	}
 
 	/**
-	 * Has the semaphore been created?
 	 * @return bool true in case the semaphore has been created
 	 */
 	public function isCreated() {
@@ -181,7 +180,7 @@ class Semaphore {
 		if (!is_resource($this->semaphore)) {
 			throw new SemaphoreException('Semaphore hasn\'t yet been created.');
 		}
-		if (!sem_remove($this->semaphore)) {
+		if (!@sem_remove($this->semaphore)) {
 			throw new SemaphoreException('Cannot remove the semaphore.');
 		}
 

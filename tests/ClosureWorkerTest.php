@@ -2,8 +2,8 @@
 
 namespace QXS\Tests\WorkerPool;
 
-use QXS\WorkerPool\ClosureWorker;
 use QXS\WorkerPool\Semaphore;
+use QXS\WorkerPool\Worker\ClosureWorker;
 
 /**
  * @requires extension pcntl

@@ -3,7 +3,7 @@
  * The SimpleSocketException
  */
 
-namespace QXS\WorkerPool;
+namespace QXS\WorkerPool\IPC;
 
 /**
  * Exception for the WorkerPool Class

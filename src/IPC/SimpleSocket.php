@@ -3,7 +3,7 @@
  * A simple object wrapper arround the socket functions
  */
 
-namespace QXS\WorkerPool;
+namespace QXS\WorkerPool\IPC;
 
 /**
  * Socket Class for IPC
@@ -14,13 +14,16 @@ class SimpleSocket {
 	protected $socket = NULL;
 	/**
 	 * This Variable can be used to attack custom information to the socket
+	 *
 	 * @var array of custom annotations
 	 */
 	public $annotation = array();
 
 	/**
 	 * The constructor
+	 *
 	 * @param resource $socket a valid socket resource
+	 *
 	 * @throws \InvalidArgumentException
 	 */
 	public function __construct($socket) {
@@ -39,11 +42,13 @@ class SimpleSocket {
 
 	/**
 	 * Selects active sockets with a timeout
-	 * @param SimpleSocket[] $readSockets Array of \QXS\WorkerPool\SimpleSocket Objects, that should be monitored for read activity
-	 * @param SimpleSocket[] $writeSockets Array of \QXS\WorkerPool\SimpleSocket Objects, that should be monitored for write activity
+	 *
+	 * @param SimpleSocket[] $readSockets   Array of \QXS\WorkerPool\SimpleSocket Objects, that should be monitored for read activity
+	 * @param SimpleSocket[] $writeSockets  Array of \QXS\WorkerPool\SimpleSocket Objects, that should be monitored for write activity
 	 * @param SimpleSocket[] $exceptSockets Array of \QXS\WorkerPool\SimpleSocket Objects, that should be monitored for except activity
-	 * @param int $sec seconds to wait until a timeout is reached
-	 * @param int $usec microseconds to wait a timeout is reached
+	 * @param int            $sec           seconds to wait until a timeout is reached
+	 * @param int            $usec          microseconds to wait a timeout is reached
+	 *
 	 * @return array Associative Array of \QXS\WorkerPool\SimpleSocket Objects, that matched the monitoring, with the following keys 'read', 'write', 'except'
 	 */
 	public static function select(array $readSockets = array(), array $writeSockets = array(), array $exceptSockets = array(), $sec = 0, $usec = 0) {
@@ -52,7 +57,7 @@ class SimpleSocket {
 		$out['write'] = array();
 		$out['except'] = array();
 
-		if(count($readSockets) === 0){
+		if (count($readSockets) === 0) {
 			return $out;
 		}
 
@@ -83,7 +88,8 @@ class SimpleSocket {
 
 	/**
 	 * @param SimpleSocket[] $sockets
-	 * @param array $socketsResources
+	 * @param array          $socketsResources
+	 *
 	 * @return SimpleSocket[]
 	 */
 	protected static function createSocketsIndex($sockets, &$socketsResources) {
@@ -102,6 +108,7 @@ class SimpleSocket {
 
 	/**
 	 * Get the id of the socket resource
+	 *
 	 * @return int the id of the socket resource
 	 */
 	public function getResourceId() {
@@ -110,6 +117,7 @@ class SimpleSocket {
 
 	/**
 	 * Get the socket resource
+	 *
 	 * @return resource the socket resource
 	 */
 	public function getSocket() {
@@ -118,8 +126,10 @@ class SimpleSocket {
 
 	/**
 	 * Check if there is any data available
-	 * @param int $sec seconds to wait until a timeout is reached
+	 *
+	 * @param int $sec  seconds to wait until a timeout is reached
 	 * @param int $usec microseconds to wait a timeout is reached
+	 *
 	 * @return bool true, in case there is data, that can be red
 	 */
 	public function hasData($sec = 0, $usec = 0) {
@@ -145,8 +155,10 @@ class SimpleSocket {
 
 	/**
 	 * Write the data to the socket in a predetermined format
-	 * @param mixed $data the data, that should be sent
-	 * @throws \QXS\WorkerPool\SimpleSocketException in case of an error
+	 *
+	 * @param \QXS\WorkerPool\IPC\Message $data the data, that should be sent
+	 *
+	 * @throws SimpleSocketException in case of an error
 	 */
 	public function send($data) {
 		$serialized = serialize($data);
@@ -168,17 +180,19 @@ class SimpleSocket {
 
 	/**
 	 * Read a data packet from the socket in a predetermined format.
-	 * @throws \QXS\WorkerPool\SimpleSocketException in case of an error
+	 *
+	 * @throws SimpleSocketException in case of an error
 	 * @return mixed the data, that has been received
 	 */
 	public function receive() {
 		// read 4 byte length first
 		$hdr = '';
 		do {
-			$read = socket_read($this->socket, 4 - strlen($hdr));
+			$read = @socket_read($this->socket, 4 - strlen($hdr));
 			if ($read === FALSE) {
 				throw new SimpleSocketException('Reception failed with: ' . socket_strerror(socket_last_error()));
-			} elseif ($read === '' || $read === NULL) {
+			}
+			if ($read === '' || $read === NULL) {
 				return NULL;
 			}
 			$hdr .= $read;
@@ -188,9 +202,13 @@ class SimpleSocket {
 
 		// read the full buffer
 		$buffer = '';
+
 		do {
-			$read = socket_read($this->socket, $len - strlen($buffer));
-			if ($read === FALSE || $read == '') {
+			$read = @socket_read($this->socket, $len - strlen($buffer));
+			if ($read === FALSE) {
+				throw new SimpleSocketException('Reception failed with: ' . socket_strerror(socket_last_error()));
+			}
+			if ($read == '') {
 				return NULL;
 			}
 			$buffer .= $read;
@@ -198,6 +216,10 @@ class SimpleSocket {
 
 		$data = unserialize($buffer);
 		return $data;
+	}
+
+	public function close() {
+		@socket_close($this->socket);
 	}
 }
 
