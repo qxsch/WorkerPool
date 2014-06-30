@@ -88,7 +88,7 @@ class WorkerPool extends Process {
 	/**
 	 * @inheritdoc
 	 */
-	protected function onDestroyed() {
+	protected function onChildExit() {
 		if ($this->semaphore->isCreated()) {
 			$this->semaphore->destroy();
 		}

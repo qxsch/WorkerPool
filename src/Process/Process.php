@@ -370,6 +370,7 @@ abstract class Process {
 			}
 		}
 
+		$this->onChildExit();
 		exit();
 	}
 
@@ -504,6 +505,10 @@ abstract class Process {
 	}
 
 	protected function onDestroy() {
+	}
+
+	protected function onChildExit(){
+
 	}
 
 	/**
