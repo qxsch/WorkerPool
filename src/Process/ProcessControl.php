@@ -4,6 +4,13 @@ namespace QXS\WorkerPool\Process;
 class ProcessControl {
 
 	/**
+	 * @var array
+	 */
+	protected $signals = array(
+		SIGCHLD, SIGTERM, SIGHUP, SIGUSR1, SIGINT
+	);
+
+	/**
 	 * @var Process[]
 	 */
 	protected $processes = array();
@@ -12,6 +19,11 @@ class ProcessControl {
 	 * @var array
 	 */
 	protected $onProcessReaped = array();
+
+	/**
+	 * @var array
+	 */
+	protected $onSignal = array();
 
 	/**
 	 * @var array
@@ -35,20 +47,38 @@ class ProcessControl {
 
 	private function __construct() {
 		$this->registerObject($this);
-		pcntl_signal(SIGCHLD, array($this, 'signalHandler'));
+		foreach ($this->signals as $signal) {
+			pcntl_signal($signal, array($this, 'signalHandler'));
+		}
 	}
 
 	public function __destruct() {
 		if ($this->isObjectRegistered($this)) {
-			pcntl_signal(SIGCHLD, SIG_DFL);
+			foreach ($this->signals as $signal) {
+				pcntl_signal($signal, SIG_DFL);
+			}
 		}
 	}
 
 	/**
 	 * @internal
 	 */
-	public function signalHandler() {
-		$this->reaper(FALSE);
+	public function signalHandler($signo) {
+		switch ($signo) {
+			case SIGCHLD:
+				$this->reaper(FALSE);
+				break;
+			default:
+				$myPid = getmypid();
+				if (array_key_exists($myPid, $this->onSignal)) {
+					foreach ($this->onSignal[$myPid] as $callable) {
+						if (is_callable($callable) === FALSE) {
+							continue;
+						}
+						call_user_func($callable, $signo);
+					}
+				}
+		}
 	}
 
 	/**
@@ -61,7 +91,7 @@ class ProcessControl {
 	/**
 	 * @param bool $wait
 	 */
-	public function reaper($wait = FALSE) {
+	public function reaper($wait = TRUE) {
 		if ($wait) {
 			self::sleepAndSignal(500000);
 		}
@@ -97,6 +127,18 @@ class ProcessControl {
 			$this->onProcessReaped[$pid] = array();
 		}
 		$this->onProcessReaped[$pid][] = $callable;
+	}
+
+	/**
+	 * @param callable $callable
+	 * @param int      $pid
+	 */
+	public function onSignal($callable, $pid = 0) {
+		$pid = $pid === 0 ? getmypid() : $pid;
+		if (isset($this->onSignal[$pid]) === FALSE) {
+			$this->onSignal[$pid] = array();
+		}
+		$this->onSignal[$pid][] = $callable;
 	}
 
 	/**
