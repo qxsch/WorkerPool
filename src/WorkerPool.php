@@ -60,17 +60,17 @@ class WorkerPool extends Process {
 	 */
 	protected function onStart() {
 		if ($this->context === self::CONTEXT_CHILD) {
-			// Create the minimum amount of workers
-			while (count($this->workerProcesses) < $this->getMinimumRunningWorkers()) {
-				$this->createWorkerProcess();
-			}
-		} else {
 			// no Semaphore attached? -> create one
 			if (!($this->semaphore instanceof Semaphore)) {
 				$this->semaphore = new Semaphore();
 				$this->semaphore->create(Semaphore::SEM_RAND_KEY);
 			}
 
+			// Create the minimum amount of workers
+			while (count($this->workerProcesses) < $this->getMinimumRunningWorkers()) {
+				$this->createWorkerProcess();
+			}
+		} else {
 			if (!$this->worker instanceof Worker) {
 				throw new WorkerPoolException('A worker must be set to start processing.', 1403611788);
 			}
