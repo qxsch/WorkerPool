@@ -107,6 +107,7 @@ class WorkerPool extends Process {
 			case 'terminateIdleWorkers':
 			case 'terminateWorkers':
 			case 'getFreeAndBusyWorkers':
+			case 'hasResults':
 			case 'getResults':
 			case 'getNextResult':
 				return $this->$procedure($parameters);
@@ -151,12 +152,23 @@ class WorkerPool extends Process {
 		}
 	}
 
+	public function hasResults() {
+		if ($this->context === self::CONTEXT_CHILD) {
+			$this->collectWorkerResults();
+			return count($this->workerResults) > 0;
+		} else {
+			return $this->process('hasResults');
+		}
+	}
+
 	/**
 	 * @return WorkerResult[]
 	 */
 	public function getResults() {
 		if ($this->context === self::CONTEXT_CHILD) {
-			return $this->workerResults;
+			$results = $this->workerResults;
+			$this->workerResults = array();
+			return $results;
 		} else {
 			return $this->process('getResults');
 		}
