@@ -31,22 +31,22 @@ abstract class Process {
 	/**
 	 * @var int
 	 */
-	private $logLevel = LOG_DEBUG;
+	protected $logLevel = LOG_DEBUG;
 
 	/**
 	 * @var SimpleSocket
 	 */
-	private $socket;
+	protected $socket;
 
 	/**
 	 * @var string
 	 */
-	private $status = self::STATUS_INITIALIZING;
+	protected $status = self::STATUS_INITIALIZING;
 
 	/**
 	 * @var int
 	 */
-	private $exitStatus = 0;
+	protected $exitStatus = 0;
 
 	/**
 	 * @var int
@@ -66,7 +66,7 @@ abstract class Process {
 	/**
 	 * @var int
 	 */
-	private $idleSince = 0;
+	protected $idleSince = 0;
 
 	/**
 	 * @var string process title of the parent
@@ -76,17 +76,17 @@ abstract class Process {
 	/**
 	 * @var string process title of the children
 	 */
-	protected $childProcessTitleFormat = '%basename%: Worker %i% of %class% [%state%]';
+	protected $childProcessTitleFormat = '%basename%: Worker %class% [%state%]';
 
 	/**
 	 * @var Message[]
 	 */
-	private $deferredMessages = array();
+	protected $deferredMessages = array();
 
 	/**
 	 * @var bool
 	 */
-	private $isDestroying = FALSE;
+	protected $isDestroying = FALSE;
 
 	public final function __construct() {
 		ProcessControl::instance()->registerObject($this);
@@ -342,7 +342,7 @@ abstract class Process {
 	 * 2. Process the request
 	 * 3. Send the response
 	 */
-	private function startProcessLoop() {
+	protected function startProcessLoop() {
 		while (TRUE) {
 			try {
 				ProcessControl::sleepAndSignal();
@@ -457,7 +457,7 @@ abstract class Process {
 	/**
 	 * @param Message $message
 	 */
-	private function addDeferredMessage(Message $message) {
+	protected function addDeferredMessage(Message $message) {
 		$this->deferredMessages[$message->getId()] = $message;
 	}
 
@@ -475,7 +475,7 @@ abstract class Process {
 	/**
 	 * @return Message
 	 */
-	private function waitForProcessExitAndCreateExceptionMessage() {
+	protected function waitForProcessExitAndCreateExceptionMessage() {
 		while ($this->isRunning()) {
 			ProcessControl::sleepAndSignal();
 		}
@@ -488,7 +488,7 @@ abstract class Process {
 	/**
 	 * @return bool
 	 */
-	private function processWithThisPidIsRunning() {
+	protected function processWithThisPidIsRunning() {
 		$pgid = posix_getpgid($this->pid);
 		return $pgid !== FALSE;
 	}
@@ -496,7 +496,7 @@ abstract class Process {
 	/**
 	 * @return SimpleSocket
 	 */
-	private function getSocket() {
+	protected function getSocket() {
 		return $this->socket;
 	}
 
@@ -599,13 +599,23 @@ abstract class Process {
 	/**
 	 * @param string $format
 	 */
-	private function setCurrentProcessTitle($format) {
+	protected function setCurrentProcessTitle($format) {
+		$status='Initializing';
+		switch($this->status) {
+			case self::STATUS_IDLE: $status='Idle'; break;
+			case self::STATUS_BUSY : $status='Busy'; break;
+			case self::STATUS_INITIALIZING: $status='Initializing'; break;
+			case self::STATUS_EXITING : $status='Exiting'; break;
+			case self::STATUS_EXITED : $status='Exited'; break;
+			case self::STATUS_ABORTED : $status='Aborted'; break;
+		}
 		self::setProcessTitle(
 			$format,
 			array(
 				'basename' => basename($_SERVER['PHP_SELF']),
 				'fullname' => $_SERVER['PHP_SELF'],
-				'class' => get_class($this)
+				'class' => get_class($this),
+				'state' => $status
 			)
 		);
 	}
@@ -618,7 +628,7 @@ abstract class Process {
 	 * @return string the process sanitized title
 	 * @throws \DomainException in case the $string value is not within the permitted range
 	 */
-	private static function sanitizeProcessTitleFormat($string) {
+	protected static function sanitizeProcessTitleFormat($string) {
 		$string = preg_replace(
 			'/[^a-z0-9-_.:% \\\\\\]\\[]/i',
 			'',
@@ -639,7 +649,7 @@ abstract class Process {
 	 *
 	 * @return void
 	 */
-	private static function setProcessTitle($title, array $replacements = array()) {
+	protected static function setProcessTitle($title, array $replacements = array()) {
 		// skip empty title names
 		if (trim($title) == '') {
 			return;

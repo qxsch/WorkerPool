@@ -32,13 +32,13 @@ class WorkerPool extends Process {
 	protected $semaphore;
 
 	/** @var int number of minimum running children in the pool */
-	private $minimumRunningWorkers = 0;
+	protected $minimumRunningWorkers = 0;
 
 	/** @var int number of maximum running children in the pool */
-	private $maximumRunningWorkers = 1;
+	protected $maximumRunningWorkers = 1;
 
 	/** @var int Maximum time (in seconds) a process could stay in idle status. */
-	private $maximumWorkersIdleTime = 0;
+	protected $maximumWorkersIdleTime = 0;
 
 	/** @var \QXS\WorkerPool\Worker\Worker the worker class, that is used to run the tasks */
 	protected $worker;
@@ -433,7 +433,7 @@ class WorkerPool extends Process {
 	/**
 	 * @throws \RuntimeException
 	 */
-	private function createWorkerProcess() {
+	protected function createWorkerProcess() {
 		$workerProcess = new WorkerProcess();
 		$workerProcess->setSemaphore($this->semaphore);
 		$workerProcess->setWorker($this->worker);

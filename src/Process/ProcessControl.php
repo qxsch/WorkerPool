@@ -28,12 +28,12 @@ class ProcessControl {
 	/**
 	 * @var array
 	 */
-	private $objectRegistry = array();
+	protected $objectRegistry = array();
 
 	/**
 	 * @var ProcessControl
 	 */
-	private static $instance;
+	protected static $instance;
 
 	/**
 	 * @return ProcessControl
@@ -45,7 +45,7 @@ class ProcessControl {
 		return self::$instance;
 	}
 
-	private function __construct() {
+	protected function __construct() {
 		$this->registerObject($this);
 		foreach ($this->signals as $signal) {
 			pcntl_signal($signal, array($this, 'signalHandler'));
