@@ -2,47 +2,42 @@
 
 require_once(__DIR__ . '/../autoload.php');
 
-
-$wp=new \QXS\WorkerPool\WorkerPool();
-$wp->setWorkerPoolSize(4)
-   ->create(new \QXS\WorkerPool\ClosureWorker(
-                        /**
-                          * @param mixed $input the input from the WorkerPool::run() Method
-                          * @param \QXS\WorkerPool\Semaphore $semaphore the semaphore to synchronize calls accross all workers
-                          * @param \ArrayObject $storage a persistent storge for the current child process
-                          */
-                        function($input, $semaphore, $storage) {
-                                sleep(rand(1,3)); // this is the working load!
-                                return $input;
-                        }
-                )
+$worker = new \QXS\WorkerPool\Worker\ClosureWorker(
+	function ($input) {
+		sleep(rand(1, 3)); // this is the working load!
+		return $input;
+	}
 );
 
-$i=20;
-while($i<40) {
+$wp = new \QXS\WorkerPool\WorkerPool();
+$wp->setMaximumRunningWorkers(4)
+	->setMinimumRunningWorkers(4)
+	->setWorker($worker)
+	->start();
+
+$i = 20;
+while ($i < 40) {
 	// is there a free worker?
-	if($wp->getFreeWorkers()>0) {
-        	$wp->run($i);
+	if ($wp->getFreeWorkers() > 0) {
+		$wp->run($i);
 		$i++;
-	}
-	else {
+	} else {
 		// poll some data
-		while($wp->hasResults() && $wp->getFreeWorkers()==0) {
-			$val=$wp->getNextResult();
-			echo "Received: ".$val['data']."    from pid ".$val['pid']."\n";
+		while ($wp->hasResults() && $wp->getFreeWorkers() == 0) {
+			$val = $wp->getNextResult();
+			echo "Received: " . $val->getData() . "    from pid " . $val->getWorkerPid() . "\n";
 		}
 		// still no free workers?
-		if($wp->getFreeWorkers()==0) {
+		if ($wp->getFreeWorkers() == 0) {
 			usleep(1000); // and sleep a bit
 		}
 	}
 }
 
-
-while($wp->hasResults() || $wp->getBusyWorkers()>0) {
+while ($wp->hasResults() || $wp->getBusyWorkers() > 0) {
 	// poll some data
-	foreach($wp as $val) {
-		echo "Received: ".$val['data']."    from pid ".$val['pid']."\n";
+	foreach ($wp->getResults() as $val) {
+		echo "Received: " . $val->getData() . "    from pid " . $val->getWorkerPid() . "\n";
 	}
 	usleep(1000);
 }

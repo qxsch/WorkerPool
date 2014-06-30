@@ -2,6 +2,7 @@
 
 require_once(__DIR__ . '/../autoload.php');
 
+use QXS\WorkerPool\Process\ProcessControl;
 use QXS\WorkerPool\WorkerPool;
 
 class Daemon {
@@ -27,25 +28,30 @@ class Daemon {
 	protected $runningJobs = array();
 
 	public function __construct() {
-		$this->initializeSignals();
+		ProcessControl::instance()->registerObject($this);
+		$worker = new \QXS\WorkerPool\Worker\ClosureWorker(
+			function () {
+				$load = rand(2, 7);
+				$time = time();
+				while (time() - $time < $load) {
+					sqrt(9999999);
+				}
+				if (rand(0, 5) === 0) {
+					whoops();
+				}
+				return 42;
+			}
+		);
+
 		$this->workerPool = new WorkerPool();
 		$this->workerPool
 			->setMaximumRunningWorkers(10)
 			->setMinimumRunningWorkers(2)
 			->setMaximumWorkersIdleTime(10)
-			->create(new \QXS\WorkerPool\ClosureWorker(
-				function ($input, $semaphore, $storage) {
-					$load = rand(2, 7);
-					$time = time();
-					while (time() - $time < $load) {
-						sqrt(9999999);
-					}
-					if (rand(0, 500) === 0) {
-						whoops();
-					}
-					return 42;
-				}
-			));
+			->setWorker($worker)
+			->start();
+
+		ProcessControl::instance()->onSignal(array($this, 'signal'));
 	}
 
 	public function run() {
@@ -89,9 +95,13 @@ class Daemon {
 	protected function collectResults() {
 		$erroneous = 0;
 		$done = 0;
-		while (($nextResult = $this->workerPool->getNextResult()) !== NULL) {
+		if ($this->workerPool->isRunning() === FALSE) {
+			return;
+		}
+		foreach ($this->workerPool->getResults() as $nextResult) {
 			$jobId = NULL;
-			$pid = $nextResult['pid'];
+			$pid = $nextResult->getWorkerPid();
+
 			// Find job id
 			foreach ($this->runningJobs as $runningJobId => $runningPid) {
 				if ($pid === $runningPid) {
@@ -102,13 +112,13 @@ class Daemon {
 
 			$job =& $this->jobs[$jobId];
 
-			if (array_key_exists('data', $nextResult) && $nextResult['data'] !== NULL) {
-				$job['result'] = $nextResult['data'];
-				$job['state'] = 'done';
-				$done++;
-			} else {
+			if ($nextResult->hasError()) {
 				$job['state'] = 'error';
 				$erroneous++;
+			} else {
+				$job['result'] = $nextResult->getData();
+				$job['state'] = 'done';
+				$done++;
 			}
 
 			unset($this->runningJobs[$jobId]);
@@ -119,7 +129,7 @@ class Daemon {
 
 	/**
 	 * @param array $job
-	 * @param int $jobId
+	 * @param int   $jobId
 	 */
 	protected function runJob(array $job, $jobId) {
 		$pid = $this->workerPool->run($job['data']);
@@ -128,6 +138,7 @@ class Daemon {
 
 	/**
 	 * @param $jobId
+	 *
 	 * @return bool
 	 */
 	protected function isJobRunning($jobId) {
@@ -158,22 +169,17 @@ class Daemon {
 		return $jobs;
 	}
 
-	protected function initializeSignals() {
-		$signals = array(SIGTERM, SIGINT);
-
-		foreach ($signals as $signal) {
-			pcntl_signal($signal, array($this, 'signal'));
-		}
-	}
-
 	public function signal($signo) {
 		switch ($signo) {
 			case SIGINT:
 			case SIGTERM:
-				echo "Shutting down...\n";
-				$this->terminating = TRUE;
-				$this->workerPool->destroy();
-				$this->workerPool->exitPhp(0);
+				if (ProcessControl::instance()->isObjectRegistered($this)) {
+					if ($this->terminating === FALSE) {
+						echo "Shutting down...\n";
+						$this->terminating = TRUE;
+						$this->workerPool->destroy();
+					}
+				}
 				break;
 		}
 	}
