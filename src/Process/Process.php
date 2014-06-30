@@ -185,6 +185,8 @@ abstract class Process {
 
 		if ($this->processRequest(Message::createExitMessage()) === TRUE) {
 			$this->status = self::STATUS_EXITING;
+			// Reap before going into wait-loop
+			ProcessControl::instance()->reaper();
 			while ($this->processWithThisPidIsRunning()) {
 				ProcessControl::sleepAndSignal();
 			}
@@ -232,7 +234,7 @@ abstract class Process {
 			$this->addDeferredMessage($this->receiveMessage());
 		}
 
-		while ($this->isIdle() === FALSE) {
+		while ($this->isRunning() && $this->isIdle() === FALSE) {
 			ProcessControl::sleepAndSignal();
 		}
 
