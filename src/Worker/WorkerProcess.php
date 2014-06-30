@@ -43,7 +43,7 @@ class WorkerProcess extends Process {
 		}
 	}
 
-	protected function onDestroyed() {
+	protected function onChildExit() {
 		$this->worker->onProcessDestroy();
 	}
 
