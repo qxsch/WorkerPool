@@ -14,7 +14,7 @@ class WorkerResult {
 	protected $workerPid;
 
 	/**
-	 * @param int $workerPid
+	 * @param int   $workerPid
 	 * @param mixed $data
 	 */
 	public function __construct($workerPid, $data) {
