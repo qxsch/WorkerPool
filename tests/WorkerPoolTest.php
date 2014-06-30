@@ -26,9 +26,10 @@ class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @param int $min
-	 * @param int $max
+	 * @param int  $min
+	 * @param int  $max
 	 * @param bool $failing
+	 *
 	 * @return WorkerPool
 	 */
 	protected function createDefaultPool($min = 1, $max = 5, $failing = FALSE) {
@@ -50,10 +51,7 @@ class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
 		return $workerPool;
 	}
 
-	/**
-	 * @test
-	 */
-	public function poolHasMinimumAmountOfWorkersAfterCreate() {
+	public function testPoolHasMinimumAmountOfWorkersAfterCreate() {
 		$wp = $this->createDefaultPool();
 		$this->assertEquals(0, $wp->getBusyWorkers());
 		$this->assertEquals(1, $wp->getFreeWorkers());
@@ -62,10 +60,7 @@ class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
 		$wp->destroy(0);
 	}
 
-	/**
-	 * @test
-	 */
-	public function poolHasNoWorkersAtAllIfMinimumIsSetToZero() {
+	public function testPoolHasNoWorkersAtAllIfMinimumIsSetToZero() {
 		$wp = $this->createDefaultPool(0, 5);
 
 		$this->assertEquals(0, $wp->getFreeWorkers());
@@ -74,10 +69,7 @@ class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
 		$wp->destroy(0);
 	}
 
-	/**
-	 * @test
-	 */
-	public function poolCreatesWorkersOnDemand() {
+	public function testPoolCreatesWorkersOnDemand() {
 		$wp = $this->createDefaultPool(0);
 
 		for ($i = 0; $i < 5; $i++) {
@@ -91,10 +83,7 @@ class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
 		$wp->destroy(0);
 	}
 
-	/**
-	 * @test
-	 */
-	public function runMethodReturnsARunningProcessId() {
+	public function testRunMethodReturnsARunningProcessId() {
 		$wp = $this->createDefaultPool();
 
 		for ($i = 0; $i < 5; $i++) {
@@ -105,10 +94,7 @@ class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
 		$wp->destroy(0);
 	}
 
-	/**
-	 * @test
-	 */
-	public function idleWorkerProcessesGetsTerminated() {
+	public function testIdleWorkerProcessesGetsTerminated() {
 		$wp = $this->createDefaultPool(0, 5);
 
 		$pids = array();
@@ -128,10 +114,7 @@ class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
 		$wp->destroy(0);
 	}
 
-	/**
-	 * @test
-	 */
-	public function failedWorkersAreRecreatedInOnDemandMode() {
+	public function testFailedWorkersAreRecreatedInOnDemandMode() {
 		$wp = $this->createDefaultPool(2, 2, TRUE);
 
 		for ($i = 0; $i < 5; $i++) {
@@ -144,10 +127,7 @@ class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
 		$wp->destroy(0);
 	}
 
-	/**
-	 * @test
-	 */
-	public function resultCountShouldBeZeroAfterIteratingOverTheResults() {
+	public function testResultCountShouldBeZeroAfterIteratingOverTheResults() {
 		$wp = $this->createDefaultPool();
 		for ($i = 0; $i < 5; $i++) {
 			$wp->run('foo bar');
@@ -163,10 +143,7 @@ class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
 		$wp->destroy(0);
 	}
 
-	/**
-	 * @test
-	 */
-	public function thereShouldBeNoBusyWorkersAfterCallingWaitForAllWorkers() {
+	public function testThereShouldBeNoBusyWorkersAfterCallingWaitForAllWorkers() {
 		$wp = $this->createDefaultPool();
 		for ($i = 0; $i < 6; $i++) {
 			$wp->run('foo bar');
@@ -178,10 +155,7 @@ class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
 		$wp->destroy(0);
 	}
 
-	/**
-	 * @test
-	 */
-	public function thereShouldBeNFreeWorkersAfterCallingWaitForAllWorkers() {
+	public function testThereShouldBeNFreeWorkersAfterCallingWaitForAllWorkers() {
 		$wp = $this->createDefaultPool(5);
 		for ($i = 0; $i < 6; $i++) {
 			$wp->run('foo bar');
@@ -193,10 +167,7 @@ class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
 		$wp->destroy(0);
 	}
 
-	/**
-	 * @test
-	 */
-	public function waitForAllWorkersShouldBeCallableMultipleTimes() {
+	public function testWaitForAllWorkersShouldBeCallableMultipleTimes() {
 		$wp = $this->createDefaultPool();
 		for ($j = 1; $j <= 3; $j++) {
 			for ($i = 0; $i < 6; $i++) {
@@ -210,10 +181,7 @@ class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
 		$wp->destroy(0);
 	}
 
-	/**
-	 * @test
-	 */
-	public function getNextResultShouldReturnNResultsForNJobs() {
+	public function testGetNextResultShouldReturnNResultsForNJobs() {
 		$wp = $this->createDefaultPool();
 		for ($i = 0; $i < 5; $i++) {
 			$wp->run('foo bar');
@@ -229,10 +197,7 @@ class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
 		$wp->destroy(0);
 	}
 
-	/**
-	 * @test
-	 */
-	public function getResultsShouldReturnNResultsForNJobs() {
+	public function testGetResultsShouldReturnNResultsForNJobs() {
 		$wp = $this->createDefaultPool();
 		for ($i = 0; $i < 5; $i++) {
 			$wp->run('foo bar');
