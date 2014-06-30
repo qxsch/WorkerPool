@@ -204,7 +204,7 @@ class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
 			};
 			$wp->waitForAllWorkers();
 			$this->assertEquals(5, $wp->getFreeWorkers());
-			$this->assertEquals(6 * $j, count($wp->getResults()));
+			$this->assertEquals(6, count($wp->getResults()));
 		}
 
 		$wp->destroy(0);
