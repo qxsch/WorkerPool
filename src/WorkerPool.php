@@ -423,6 +423,7 @@ class WorkerPool extends Process {
 	 */
 	private function createWorkerProcess() {
 		$workerProcess = new WorkerProcess();
+		$workerProcess->setSemaphore($this->semaphore);
 		$workerProcess->setWorker($this->worker);
 		$workerProcess->start();
 		ProcessControl::instance()->onProcessReaped(array($this, 'onWorkerProcessReaped'), $workerProcess->getPid());
