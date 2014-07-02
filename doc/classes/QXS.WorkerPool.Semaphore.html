@@ -114,7 +114,7 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">1</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">2</span>
                                 </a>
                             </li>
                             <li>
@@ -144,28 +144,28 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-396341399"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1227088515"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-396341399" class="accordion-body collapse in">
+            <div id="namespace-1227088515" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-243663744"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-871847827"></a>
                                 <a href="../namespaces/QXS.html" style="margin-left: 30px; padding-left: 0">QXS</a>
             </div>
-            <div id="namespace-243663744" class="accordion-body collapse ">
+            <div id="namespace-871847827" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-406481898"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-401133797"></a>
                                 <a href="../namespaces/QXS.WorkerPool.html" style="margin-left: 30px; padding-left: 0">WorkerPool</a>
             </div>
-            <div id="namespace-406481898" class="accordion-body collapse ">
+            <div id="namespace-401133797" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -251,6 +251,7 @@ $t->synchronizedEnd();</p>
                                                                     <a href="../classes/QXS.WorkerPool.Semaphore.html#method_synchronizedBegin" class="">synchronizedBegin()</a><br />
                                                                     <a href="../classes/QXS.WorkerPool.Semaphore.html#method_synchronizedEnd" class="">synchronizedEnd()</a><br />
                                                                     <a href="../classes/QXS.WorkerPool.Semaphore.html#method_synchronize" class="">synchronize()</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.Semaphore.html#method_isCreated" class="">isCreated()</a><br />
                                                                     <a href="../classes/QXS.WorkerPool.Semaphore.html#method_destroy" class="">destroy()</a><br />
                                                             </section>
                             <section class="span4">
@@ -259,7 +260,8 @@ $t->synchronizedEnd();</p>
                             <section class="span4">
                                                                     <a href="../classes/QXS.WorkerPool.Semaphore.html#constant_SEM_RAND_KEY" class="">SEM_RAND_KEY</a><br />
                                                                     <a href="../classes/QXS.WorkerPool.Semaphore.html#constant_SEM_FTOK_KEY" class="">SEM_FTOK_KEY</a><br />
-                                                                    <a href="../classes/QXS.WorkerPool.Semaphore.html#constant_MAX_SEM_INT" class="">MAX_SEM_INT</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.Semaphore.html#constant_SEM_MIN_INT" class="">SEM_MIN_INT</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.Semaphore.html#constant_SEM_MAX_INT" class="">SEM_MAX_INT</a><br />
                                                             </section>
                         </section>
                         <section class="row-fluid protected">
@@ -380,10 +382,37 @@ $t->synchronizedEnd();</p>
 
                                     <div class="row-fluid">
         <div class="span8 content class">
-            <a id="constant_MAX_SEM_INT" name="constant_MAX_SEM_INT" class="anchor"></a>
-            <article id="constant_MAX_SEM_INT" class="constant">
-                <h3 class="">MAX_SEM_INT</h3>
-                <pre class="signature">MAX_SEM_INT</pre>
+            <a id="constant_SEM_MIN_INT" name="constant_SEM_MIN_INT" class="anchor"></a>
+            <article id="constant_SEM_MIN_INT" class="constant">
+                <h3 class="">SEM_MIN_INT</h3>
+                <pre class="signature">SEM_MIN_INT</pre>
+                <p><em>minimum semaphore int</em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SEM_MAX_INT" name="constant_SEM_MAX_INT" class="anchor"></a>
+            <article id="constant_SEM_MAX_INT" class="constant">
+                <h3 class="">SEM_MAX_INT</h3>
+                <pre class="signature">SEM_MAX_INT</pre>
                 <p><em>maximum semaphore int</em></p>
                 
             </article>
@@ -521,7 +550,7 @@ $t->synchronizedEnd();</p>
             <article class="method">
                 <h3 class="public ">create()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">create(string <span class="argument">$semKey</span>, int <span class="argument">$maxAcquire</span>) : \QXS\WorkerPool\Semaphore</pre>
+                <pre class="signature" style="margin-right: 54px;">create(string <span class="argument">$semKey</span>, int <span class="argument">$maxAcquire</span>, int <span class="argument">$perms</span>) : \QXS\WorkerPool\Semaphore</pre>
                 <p><em>Create a semaphore</em></p>
                 
 
@@ -536,6 +565,11 @@ $t->synchronizedEnd();</p>
                                 <td>int</td>
                                 <td>$maxAcquire</td>
                                 <td><p>the maximum number of processes, that can acquire the semaphore</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>int</td>
+                                <td>$perms</td>
+                                <td><p>the unix permissions for (user,group,others) - valid range from 0 to 0777</p></td>
                             </tr>
                                             </table>
                 
@@ -776,6 +810,40 @@ $t->synchronizedEnd();</p>
 
                                     <div class="row-fluid">
         <div class="span8 content class">
+            <a id="method_isCreated" name="method_isCreated" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">isCreated()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">isCreated() : bool</pre>
+                <p><em>Has the semaphore been created?</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    bool
+                                            &mdash; <p>true in case the semaphore has been created</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
             <a id="method_destroy" name="method_destroy" class="anchor"></a>
             <article class="method">
                 <h3 class="public ">destroy()</h3>
@@ -863,7 +931,7 @@ $t->synchronizedEnd();</p>
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on May 23rd, 2014 at 19:35.
+                    on July 2nd, 2014 at 22:24.
                 </section>
             </section>
         </section>
