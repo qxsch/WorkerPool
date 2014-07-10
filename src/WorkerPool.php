@@ -163,6 +163,33 @@ class WorkerPool implements \Iterator, \Countable {
 	}
 
 	/**
+	 * Sets the Semaphore, that will be used within the worker processes
+	 * @return null|\QXS\WorkerPool\Semaphore $semaphore the Semaphore, that should be used for the workers
+	 * @throws \InvalidArgumentException in case the semaphre hasn't been created
+	 */
+	public function getSemaphore() {
+		return $this->semaphore;
+	}
+
+	/**
+	 * Sets the Semaphore, that will be used within the worker processes
+	 * @param \QXS\WorkerPool\Semaphore $semaphore the Semaphore, that should be used for the workers
+	 * @return WorkerPool
+	 * @throws \QXS\WorkerPool\WorkerPoolException in case the WorkerPool has already been created
+	 * @throws \InvalidArgumentException in case the semaphre hasn't been created
+	 */
+	public function setSemaphore(Semaphore $semaphore) {
+		if ($this->created) {
+			throw new WorkerPoolException('Cannot set the Worker Pool Size for a created pool.');
+		}
+		if (!$semaphore->isCreated()) {
+			throw new \InvalidArgumentException('The Semaphore hasn\'t yet been created.');
+		}
+		$this->semaphore = $semaphore;
+		return $this;
+	}
+
+	/**
 	 * Terminates the current process
 	 * @param int $code the exit code
 	 */
@@ -232,8 +259,13 @@ class WorkerPool implements \Iterator, \Countable {
 		pcntl_signal(SIGHUP, array($this, 'signalHandler'));
 		pcntl_signal(SIGUSR1, array($this, 'signalHandler'));
 
-		$this->semaphore = new Semaphore();
-		$this->semaphore->create(Semaphore::SEM_RAND_KEY);
+		if(!($this->semaphore instanceof Semaphore)) {
+			$this->semaphore = new Semaphore();
+			$this->semaphore->create(Semaphore::SEM_RAND_KEY);
+		}
+		elseif(!$this->semaphore->isCreated()) {
+			$this->semaphore->create(Semaphore::SEM_RAND_KEY);
+		}
 
 		$this->setProcessTitle(
 			$this->parentProcessTitleFormat,
