@@ -166,6 +166,14 @@ class WorkerPool implements \Iterator, \Countable {
 	}
 
 	/**
+	 * Gets the Semaphore, that will be used within the worker processes
+	 * @return null|\QXS\WorkerPool\Semaphore $semaphore the Semaphore, that should be used for the workers
+	 */
+	public function getSemaphore() {
+		return $this->semaphore;
+	}
+
+	/**
 	 * Sets the Semaphore, that will be used within the worker processes
 	 * @param \QXS\WorkerPool\Semaphore $semaphore the Semaphore, that should be used for the workers
 	 * @return WorkerPool
@@ -221,6 +229,9 @@ class WorkerPool implements \Iterator, \Countable {
 		// no Semaphore attached? -> create one
 		if (!($this->semaphore instanceof Semaphore)) {
 			$this->semaphore = new Semaphore();
+			$this->semaphore->create(Semaphore::SEM_RAND_KEY);
+		}
+		elseif(!$this->semaphore->isCreated()) {
 			$this->semaphore->create(Semaphore::SEM_RAND_KEY);
 		}
 
