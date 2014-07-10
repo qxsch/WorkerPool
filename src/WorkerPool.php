@@ -232,6 +232,9 @@ class WorkerPool implements \Iterator, \Countable {
 			$this->semaphore = new Semaphore();
 			$this->semaphore->create(Semaphore::SEM_RAND_KEY);
 		}
+		elseif(!$this->semaphore->isCreated()) {
+			$this->semaphore->create(Semaphore::SEM_RAND_KEY);
+		}
 
 		ProcessDetails::setProcessTitle(
 			$this->parentProcessTitleFormat,
