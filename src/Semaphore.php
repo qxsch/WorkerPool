@@ -114,7 +114,7 @@ class Semaphore {
 	 */
 	public function acquire() {
 		if (!@sem_acquire($this->semaphore)) {
-			throw new SemaphoreException('Cannot acquire the semaphore.');
+			throw new SemaphoreException('Cannot acquire the semaphore. '.$php_errormsg);
 		}
 		return $this;
 	}
@@ -126,7 +126,7 @@ class Semaphore {
 	 */
 	public function release() {
 		if (!@sem_release($this->semaphore)) {
-			throw new SemaphoreException('Cannot release the semaphore.');
+			throw new SemaphoreException('Cannot release the semaphore. '.$php_errormsg);
 		}
 		return $this;
 	}

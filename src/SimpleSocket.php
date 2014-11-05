@@ -158,8 +158,7 @@ class SimpleSocket {
 		while ($total > 0) {
 			$sent = @socket_write($this->socket, $buffer);
 			if ($sent === FALSE) {
-				throw new SimpleSocketException('Sending failed with: ' . socket_strerror(socket_last_error()));
-				break;
+				throw new SimpleSocketException('Sending failed with: ' . socket_strerror(socket_last_error($this->socket)));
 			}
 			$total -= $sent;
 			$buffer = substr($buffer, $sent);
@@ -175,10 +174,11 @@ class SimpleSocket {
 		// read 4 byte length first
 		$hdr = '';
 		do {
-			$read = socket_read($this->socket, 4 - strlen($hdr));
+			$read = @socket_read($this->socket, 4 - strlen($hdr));
 			if ($read === FALSE) {
-				throw new SimpleSocketException('Reception failed with: ' . socket_strerror(socket_last_error()));
-			} elseif ($read === '' || $read === NULL) {
+				throw new SimpleSocketException('Reception failed with: ' . socket_strerror(socket_last_error($this->socket)));
+			}
+			elseif ($read === '' || $read === NULL) {
 				return NULL;
 			}
 			$hdr .= $read;
@@ -189,8 +189,11 @@ class SimpleSocket {
 		// read the full buffer
 		$buffer = '';
 		do {
-			$read = socket_read($this->socket, $len - strlen($buffer));
+			$read = @socket_read($this->socket, $len - strlen($buffer));
 			if ($read === FALSE || $read == '') {
+				throw new SimpleSocketException('Reception failed with: ' . socket_strerror(socket_last_error($this->socket)));
+			}
+			elseif ($read == '') {
 				return NULL;
 			}
 			$buffer .= $read;
