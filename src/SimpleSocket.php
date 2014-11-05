@@ -24,7 +24,7 @@ class SimpleSocket {
 	 * @throws \InvalidArgumentException
 	 */
 	public function __construct($socket) {
-		if (!is_resource($socket) && strtolower(@get_resource_type($socket) != 'socket')) {
+		if (!is_resource($socket) && strtolower(@get_resource_type($socket)) != 'socket') {
 			throw new \InvalidArgumentException('Socket resource is required!');
 		}
 		$this->socket = $socket;
@@ -34,7 +34,7 @@ class SimpleSocket {
 	 * The destructor
 	 */
 	public function __destruct() {
-		@socket_close($this->socket);
+		socket_close($this->socket);
 	}
 
 	/**
@@ -156,7 +156,7 @@ class SimpleSocket {
 		unset($hdr);
 		$total = strlen($buffer);
 		while ($total > 0) {
-			$sent = @socket_write($this->socket, $buffer);
+			$sent = socket_write($this->socket, $buffer);
 			if ($sent === FALSE) {
 				throw new SimpleSocketException('Sending failed with: ' . socket_strerror(socket_last_error($this->socket)));
 			}
@@ -174,7 +174,7 @@ class SimpleSocket {
 		// read 4 byte length first
 		$hdr = '';
 		do {
-			$read = @socket_read($this->socket, 4 - strlen($hdr));
+			$read = socket_read($this->socket, 4 - strlen($hdr));
 			if ($read === FALSE) {
 				throw new SimpleSocketException('Reception failed with: ' . socket_strerror(socket_last_error($this->socket)));
 			}
@@ -189,7 +189,7 @@ class SimpleSocket {
 		// read the full buffer
 		$buffer = '';
 		do {
-			$read = @socket_read($this->socket, $len - strlen($buffer));
+			$read = socket_read($this->socket, $len - strlen($buffer));
 			if ($read === FALSE || $read == '') {
 				throw new SimpleSocketException('Reception failed with: ' . socket_strerror(socket_last_error($this->socket)));
 			}
