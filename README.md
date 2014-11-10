@@ -8,7 +8,7 @@ WorkerPool
 
 **Parallel Processing WorkerPool for PHP**
 
-_This library is in its infancy. I am adding features to it as anyone requires them._
+_10K Downloads within 4 Months, thank you very much! We're adding features as anyone requires them._
 
 ## Examples
 
