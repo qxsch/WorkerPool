@@ -2,9 +2,9 @@
 namespace QXS\Tests\WorkerPool\Fixtures;
 
 use QXS\WorkerPool\Semaphore;
-use QXS\WorkerPool\Worker;
+use QXS\WorkerPool\WorkerInterface;
 
-Class FatalFailingWorker implements Worker {
+Class FatalFailingWorker implements WorkerInterface {
 
 	public function onProcessCreate(Semaphore $semaphore) {
 	}

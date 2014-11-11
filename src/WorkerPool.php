@@ -38,7 +38,7 @@ class WorkerPool implements \Iterator, \Countable {
 	/** @var int id of the parent */
 	protected $parentPid = 0;
 
-	/** @var \QXS\WorkerPool\Worker the worker class, that is used to run the tasks */
+	/** @var \QXS\WorkerPool\WorkerInterface the worker class, that is used to run the tasks */
 	protected $worker;
 
 	/** @var \QXS\WorkerPool\Semaphore the semaphore, that is used to synchronizd tasks across all processes */
@@ -205,12 +205,12 @@ class WorkerPool implements \Iterator, \Countable {
 	 * Please close all open resources before running this function.
 	 * Child processes are going to close all open resources uppon exit,
 	 * leaving the parent process behind with invalid resource handles.
-	 * @param \QXS\WorkerPool\Worker $worker the worker, that runs future tasks
+	 * @param \QXS\WorkerPool\WorkerInterface $worker the worker, that runs future tasks
 	 * @throws \RuntimeException
 	 * @throws WorkerPoolException
 	 * @return WorkerPool
 	 */
-	public function create(Worker $worker) {
+	public function create(WorkerInterface $worker) {
 		if ($this->workerPoolSize <= 1) {
 			$this->workerPoolSize = 2;
 		}
@@ -275,11 +275,11 @@ class WorkerPool implements \Iterator, \Countable {
 
 	/**
 	 * Run the worker process
-	 * @param \QXS\WorkerPool\Worker $worker the worker, that runs the tasks
+	 * @param \QXS\WorkerPool\WorkerInterface $worker the worker, that runs the tasks
 	 * @param \QXS\WorkerPool\SimpleSocket $simpleSocket the simpleSocket, that is used for the communication
 	 * @param int $i the number of the child
 	 */
-	protected function runWorkerProcess(Worker $worker, SimpleSocket $simpleSocket, $i) {
+	protected function runWorkerProcess(WorkerInterface $worker, SimpleSocket $simpleSocket, $i) {
 		$replacements = array(
 			'basename' => basename($_SERVER['PHP_SELF']),
 			'fullname' => $_SERVER['PHP_SELF'],
