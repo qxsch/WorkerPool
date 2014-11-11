@@ -2,9 +2,9 @@
 namespace QXS\Tests\WorkerPool\Fixtures;
 
 use QXS\WorkerPool\Semaphore;
-use QXS\WorkerPool\Worker;
+use QXS\WorkerPool\WorkerInterface;
 
-Class PingWorker implements Worker {
+Class PingWorker implements WorkerInterface {
 
 	public function onProcessCreate(Semaphore $semaphore) {
 	}

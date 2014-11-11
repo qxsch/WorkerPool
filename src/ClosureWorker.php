@@ -8,7 +8,7 @@ namespace QXS\WorkerPool;
 /**
  * The Closure Worker Class
  */
-class ClosureWorker implements Worker {
+class ClosureWorker implements WorkerInterface {
 
 	/** @var \Closure Closure that runs the task */
 	protected $create;
