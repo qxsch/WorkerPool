@@ -7,11 +7,18 @@ use QXS\WorkerPool\WorkerInterface;
 use QXS\WorkerPool\Semaphore;
 
 
-
+/**
+ * The PI Worker
+ */
 class PiWorker implements WorkerInterface {
+	/** @var int the number of steps */
 	protected $num_steps;
+	/** @var float the step */
 	protected $step;
 
+	/**
+	 * The constructor
+	 */
 	public function __construct($num_steps, $step) {
 		$this->num_steps = (int) $num_steps;
 		$this->step = (float) $step;
@@ -56,8 +63,8 @@ class PiWorker implements WorkerInterface {
 
 
 
-$num_steps = 1000000;
-$part_step = 8; // set to workerpool size
+$num_steps = 1000000; // setps - sets the calculation detail
+$part_step = 8; // parallelization degree set to number of cores
 
 $step = 1.0 / $num_steps;
 
