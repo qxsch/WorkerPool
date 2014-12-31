@@ -80,7 +80,7 @@ for($i = 0; $i < $part_step; $i++) {
 
 $wp->waitForAllWorkers(); // wait for all workers
 
-$sum=0;
+$sum='0';
 foreach($wp as $result) {
 	$sum=bcadd($sum, $result['data']);
 }
