@@ -53,8 +53,8 @@ class ProcessDetails {
 	 * @return void
 	 */
 	public static function setProcessTitle($title, array $replacements = array()) {
-		// skip empty title names
-		if (trim($title) == '') {
+		// skip when empty title names or running on MacOS
+		if (trim($title) == '' || PHP_OS == 'Darwin') {
 			return;
 		}
 		// 1. replace the values
