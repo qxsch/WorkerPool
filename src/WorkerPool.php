@@ -15,6 +15,8 @@
 
 namespace QXS\WorkerPool;
 
+use Psr\Log\LoggerInterface;
+
 /**
  * The Worker Pool class runs worker processes in parallel
  *
@@ -59,11 +61,15 @@ class WorkerPool implements \Iterator, \Countable {
 	/** @var string process title of the children */
 	protected $childProcessTitleFormat = '%basename%: Worker %i% of %class% [%state%]';
 
-	/**
+        /** @var LoggerInterface */
+        protected $logger;
+
+        /**
 	 * The constructor
 	 */
-	public function __construct() {
+	public function __construct(LoggerInterface $logger) {
 		$this->workerProcesses = new ProcessDetailsCollection();
+                $this->logger = $logger;
 	}
 
 	/**
@@ -100,6 +106,7 @@ class WorkerPool implements \Iterator, \Countable {
 	 */
 	public function setChildProcessTitleFormat($string) {
 		if ($this->created) {
+                        $this->logger->critical("Cannot set the Parent's Process Title Format '$string' for a created pool.");
 			throw new WorkerPoolException('Cannot set the Parent\'s Process Title Format for a created pool.');
 		}
 		$this->childProcessTitleFormat = ProcessDetails::sanitizeProcessTitleFormat($string);
@@ -129,6 +136,7 @@ class WorkerPool implements \Iterator, \Countable {
 	 */
 	public function setParentProcessTitleFormat($string) {
 		if ($this->created) {
+                        $this->logger->critical("Cannot set the Children\'s Process Title Format '$string' for a created pool.");
 			throw new WorkerPoolException('Cannot set the Children\'s Process Title Format for a created pool.');
 		}
 		$this->parentProcessTitleFormat = ProcessDetails::sanitizeProcessTitleFormat($string);
@@ -155,10 +163,12 @@ class WorkerPool implements \Iterator, \Countable {
 	 */
 	public function setWorkerPoolSize($size) {
 		if ($this->created) {
+                        $this->logger->critical("Cannot set the Worker Pool Size '$size' for a created pool.");
 			throw new WorkerPoolException('Cannot set the Worker Pool Size for a created pool.');
 		}
 		$size = (int)$size;
 		if ($size <= 0) {
+                        $this->logger->critical("Cannot set the Worker Pool Size: '$size' is not an integer greater than 0.");
 			throw new \InvalidArgumentException('"' . $size . '" is not an integer greater than 0.');
 		}
 		$this->workerPoolSize = $size;
@@ -182,9 +192,11 @@ class WorkerPool implements \Iterator, \Countable {
 	 */
 	public function setSemaphore(Semaphore $semaphore) {
 		if ($this->created) {
+                        $this->logger->critical('Cannot set the Worker Pool Size for a created pool.');
 			throw new WorkerPoolException('Cannot set the Worker Pool Size for a created pool.');
 		}
 		if (!$semaphore->isCreated()) {
+                        $this->logger->critical('The Semaphore hasn\'t yet been created.');
 			throw new \InvalidArgumentException('The Semaphore hasn\'t yet been created.');
 		}
 		$this->semaphore = $semaphore;
@@ -217,6 +229,7 @@ class WorkerPool implements \Iterator, \Countable {
 		$this->parentPid = getmypid();
 		$this->worker = $worker;
 		if ($this->created) {
+                        $this->logger->critical('The pool has already been created.');
 			throw new WorkerPoolException('The pool has already been created.');
 		}
 
@@ -340,6 +353,7 @@ class WorkerPool implements \Iterator, \Countable {
 	 */
 	public function destroy($maxWaitSecs = self::CHILD_TIMEOUT_SEC) {
 		if (!$this->created) {
+                        $this->logger->critical('The pool hasn\'t yet been created.');
 			throw new WorkerPoolException('The pool hasn\'t yet been created.');
 		}
 		$this->created = FALSE;
@@ -516,6 +530,7 @@ class WorkerPool implements \Iterator, \Countable {
 
 			$sec = self::CHILD_TIMEOUT_SEC;
 			if ($this->workerPoolSize <= 0) {
+                                $this->logger->error('All workers were gone.');
 				throw new WorkerPoolException('All workers were gone.');
 			}
 		}
@@ -533,6 +548,7 @@ class WorkerPool implements \Iterator, \Countable {
 		pcntl_signal_dispatch();
 
 		if (isset($this->workerProcesses) === FALSE) {
+                    $this->logger->error('There is no list of worker processes. Maybe you destroyed the worker pool?');
 			throw new WorkerPoolException('There is no list of worker processes. Maybe you destroyed the worker pool?', 1401179881);
 		}
 		$result = SimpleSocket::select($this->workerProcesses->getSockets(), array(), array(), $sec);
@@ -575,9 +591,11 @@ class WorkerPool implements \Iterator, \Countable {
 				$processDetailsOfFreeWorker->getSocket()->send(array('cmd' => 'run', 'data' => $input));
 				return $processDetailsOfFreeWorker->getPid();
 			} catch (\Exception $e) {
+                                $this->logger->error("Error while running the task: {$e->getMessage()}.");
 				pcntl_signal_dispatch();
 			}
 		}
+                $this->logger->error('Unable to run the task.');
 		throw new WorkerPoolException('Unable to run the task.');
 	}
 

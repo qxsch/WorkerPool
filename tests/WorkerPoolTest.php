@@ -27,14 +27,14 @@ class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
 		if (!empty($missingExtensions)) {
 			$this->markTestSkipped('The following extension are missing: ' . implode(', ', $missingExtensions));
 		}
-		$this->sut = new WorkerPool();
+		$this->sut = new WorkerPool(new Psr\Log\NullLogger());
 	}
 
 	public function testFatalFailingWorker() {
 		$this->markTestSkipped('Failing workers get respawned now.');
 		$exceptionMsg = NULL;
 		$exception = NULL;
-		$wp = new WorkerPool();
+		$wp = new WorkerPool(new Psr\Log\NullLogger());
 		$wp->setWorkerPoolSize(10);
 		$wp->create(new Fixtures\FatalFailingWorker());
 		try {
@@ -55,7 +55,7 @@ class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetters() {
-		$wp = new WorkerPool();
+		$wp = new WorkerPool(new Psr\Log\NullLogger());
 		$wp->create(new Fixtures\PingWorker());
 		$this->assertTrue(
 			is_int($wp->getWorkerPoolSize()),
@@ -73,7 +73,7 @@ class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testSetters() {
-		$wp = new WorkerPool();
+		$wp = new WorkerPool(new Psr\Log\NullLogger());
 		try {
 			$wp->setWorkerPoolSize(5);
 		} catch (\Exception $e) {
@@ -145,7 +145,7 @@ class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testDestroyException() {
-		$wp = new WorkerPool();
+		$wp = new WorkerPool(new Psr\Log\NullLogger());
 		$wp->setWorkerPoolSize(50);
 		$wp->create(new Fixtures\FatalFailingWorker());
 		$failCount = 0;
@@ -174,7 +174,7 @@ class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
 
 	public function testPingWorkers() {
 		try {
-			$wp = new WorkerPool();
+			$wp = new WorkerPool(new Psr\Log\NullLogger());
 			$wp->setWorkerPoolSize(50);
 			$wp->create(new Fixtures\PingWorker());
 			$failCount = 0;
