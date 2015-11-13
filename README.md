@@ -143,6 +143,52 @@ echo "ByeBye\n";
 
 ```
 
+### Automatic respawn
+
+You can choose to automatically respawn dead workers.
+
+```php
+<?php
+
+$wp=new \QXS\WorkerPool\WorkerPool();
+$wp->setWorkerPoolSize(4)
+   ->respawnAutomatically()
+   ->create(new \QXS\WorkerPool\ClosureWorker(
+                        /**
+                          * @param mixed $input the input from the WorkerPool::run() Method
+                          * @param \QXS\WorkerPool\Semaphore $semaphore the semaphore to synchronize calls accross all workers
+                          * @param \ArrayObject $storage a persistent storage for the current child process
+                          */
+                        function($input, $semaphore, $storage) {
+                                echo "[".getmypid()."]"." hi $input\n";
+                                sleep(rand(1,3)); // this is the working load!
+
+                                // Simulate unexpected worker death
+                                if (rand(1, 10) > 5) exit;
+
+                                return $input; // return null here, in case you do not want to pass any data to the parent 
+                        }
+                )
+);
+
+
+for($i=0; $i<10; $i++) {
+        $wp->run($i);
+}
+
+$wp->waitForAllWorkers(); // wait for all workers
+
+foreach($wp as $val) {
+        var_dump($val);  // dump the returned values
+}
+
+```
+
+Each time a worker dies, a new one will be created with an incremented index.
+
+You should avoid the situation where a worker dies but the respawn capability can be a useful workaround until you fix the situation.
+
+
 ### Transparent output to ps
 
 See what's happening when running a PS:

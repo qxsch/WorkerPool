@@ -37,6 +37,12 @@ class WorkerPool implements \Iterator, \Countable {
 	/** @var int number of children in the pool */
 	private $workerPoolSize = 2;
 
+	/** @var int number of children initially in the pool */
+	private $initialPoolSize;
+
+        /** @var int Current index for the last worker created in the pool */
+        private $currentWorkerIndex = 0;
+
 	/** @var int id of the parent */
 	protected $parentPid = 0;
 
@@ -63,6 +69,9 @@ class WorkerPool implements \Iterator, \Countable {
 
         /** @var LoggerInterface */
         protected $logger;
+
+        /** @var boolean Respawn dead workers automatically if set to TRUE */
+        private $respawnAutomatically = false;
 
         /**
 	 * The constructor
@@ -226,6 +235,7 @@ class WorkerPool implements \Iterator, \Countable {
 		if ($this->workerPoolSize <= 1) {
 			$this->workerPoolSize = 2;
 		}
+                $this->initialPoolSize = $this->workerPoolSize;
 		$this->parentPid = getmypid();
 		$this->worker = $worker;
 		if ($this->created) {
@@ -257,8 +267,8 @@ class WorkerPool implements \Iterator, \Countable {
 			)
 		);
 
-		for ($i = 1; $i <= $this->workerPoolSize; $i++) {
-                    $this->createWorker($i);
+		for ($this->currentWorkerIndex = 1; $this->currentWorkerIndex <= $this->workerPoolSize; $this->currentWorkerIndex++) {
+                    $this->createWorker($this->currentWorkerIndex);
 		}
 
 		return $this;
@@ -433,11 +443,42 @@ class WorkerPool implements \Iterator, \Countable {
 			case SIGUSR1:
 				// handle sigusr
 				break;
+			case SIGALRM:
+				$this->respawnIfRequired();
+				break;
 			default: // handle all other signals
 		}
 		// more signals to dispatch?
 		pcntl_signal_dispatch();
 	}
+
+        /**
+         * Respawn workers automatically if they died
+         *
+         * @param boolean $respawn
+         */
+        public function respawnAutomatically($respawn = true)
+        {
+            if ($this->respawnAutomatically = $respawn) {
+                $this->logger->info("WorkerPool configured to respawn");
+                pcntl_signal(SIGALRM, [$this, 'signalHandler']);
+                pcntl_alarm(1);
+            }
+        }
+
+        private function respawnIfRequired()
+        {
+            if (!$this->respawnAutomatically) {
+                return;
+            }
+            while ($this->workerPoolSize < $this->initialPoolSize) {
+                $this->logger->info('Reswpaning a worker...');
+                $this->createWorker(++$this->currentWorkerIndex);
+                $this->workerPoolSize++;
+            }
+
+            pcntl_alarm(1);
+        }
 
 	/**
 	 * Child process reaper
