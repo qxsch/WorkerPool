@@ -258,33 +258,43 @@ class WorkerPool implements \Iterator, \Countable {
 		);
 
 		for ($i = 1; $i <= $this->workerPoolSize; $i++) {
-			$sockets = array();
-			if (socket_create_pair(AF_UNIX, SOCK_STREAM, 0, $sockets) === FALSE) {
-				// clean_up using posix_kill & pcntl_wait
-				throw new \RuntimeException('socket_create_pair failed.');
-				break;
-			}
-			$processId = pcntl_fork();
-			if ($processId < 0) {
-				// cleanup using posix_kill & pcntl_wait
-				throw new \RuntimeException('pcntl_fork failed.');
-				break;
-			} elseif ($processId === 0) {
-				// WE ARE IN THE CHILD
-				$this->workerProcesses = new ProcessDetailsCollection(); // we do not have any children
-				$this->workerPoolSize = 0; // we do not have any children
-				socket_close($sockets[1]); // close the parent socket
-				$this->runWorkerProcess($worker, new SimpleSocket($sockets[0]), $i);
-			} else {
-				// WE ARE IN THE PARENT
-				socket_close($sockets[0]); // close child socket
-				// create the child
-				$this->workerProcesses->addFree(new ProcessDetails($processId, new SimpleSocket($sockets[1])));
-			}
+                    $this->createWorker($i);
 		}
 
 		return $this;
 	}
+
+        /**
+         *
+         * @param int $i
+         * @throws \RuntimeException
+         */
+        private function createWorker($i)
+        {
+            $sockets = array();
+            if (socket_create_pair(AF_UNIX, SOCK_STREAM, 0, $sockets) === FALSE) {
+                    // clean_up using posix_kill & pcntl_wait
+                    throw new \RuntimeException('socket_create_pair failed.');
+                    return;
+            }
+            $processId = pcntl_fork();
+            if ($processId < 0) {
+                    // cleanup using posix_kill & pcntl_wait
+                    throw new \RuntimeException('pcntl_fork failed.');
+                    return;
+            } elseif ($processId === 0) {
+                    // WE ARE IN THE CHILD
+                    $this->workerProcesses = new ProcessDetailsCollection(); // we do not have any children
+                    $this->workerPoolSize = 0; // we do not have any children
+                    socket_close($sockets[1]); // close the parent socket
+                    $this->runWorkerProcess($this->worker, new SimpleSocket($sockets[0]), $i);
+            } else {
+                    // WE ARE IN THE PARENT
+                    socket_close($sockets[0]); // close child socket
+                    // create the child
+                    $this->workerProcesses->addFree(new ProcessDetails($processId, new SimpleSocket($sockets[1])));
+            }
+        }
 
 	/**
 	 * Run the worker process
