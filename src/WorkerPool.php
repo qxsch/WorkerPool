@@ -303,6 +303,15 @@ class WorkerPool implements \Iterator, \Countable {
                     socket_close($sockets[0]); // close child socket
                     // create the child
                     $this->workerProcesses->addFree(new ProcessDetails($processId, new SimpleSocket($sockets[1])));
+                    
+                    /**
+                     * Workaround to force destroy() to be called
+                     * @see https://github.com/qxsch/WorkerPool/issues/4
+                     */
+                    if (!isset($this->shutdownRegistered)) {
+                    	register_shutdown_function([$this, 'destroy']);
+                    	$this->shutdownRegistered = true;
+                    }
             }
         }
 
