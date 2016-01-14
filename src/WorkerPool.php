@@ -263,7 +263,7 @@ class WorkerPool implements \Iterator, \Countable {
 	}
 
 	/**
-	 *
+	 * Creates the worker
 	 * @param int $i
 	 * @throws \RuntimeException
 	 */
