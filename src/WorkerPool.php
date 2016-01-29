@@ -339,9 +339,7 @@ class WorkerPool implements \Iterator, \Countable {
 	public function onShutDown() {
 		// are we in the parent?
 		if ($this->parentPid === getmypid()) {
-			echo "Hello master\n";
 			if($this->created) {
-				echo "Destroy\n";
 				$this->destroy();
 			}
 		}
