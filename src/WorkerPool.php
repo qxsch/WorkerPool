@@ -64,6 +64,7 @@ class WorkerPool implements \Iterator, \Countable {
 	 */
 	public function __construct() {
 		$this->workerProcesses = new ProcessDetailsCollection();
+		register_shutdown_function(array($this, 'onShutDown'));
 	}
 
 	/**
@@ -330,6 +331,20 @@ class WorkerPool implements \Iterator, \Countable {
 		}
 		$this->worker->onProcessDestroy();
 		$this->exitPhp(0);
+	}
+
+	/**
+	 * This runs on shutdown to prevent the system from semaphore leaks
+	 */
+	public function onShutDown() {
+		// are we in the parent?
+		if ($this->parentPid === getmypid()) {
+			echo "Hello master\n";
+			if($this->created) {
+				echo "Destroy\n";
+				$this->destroy();
+			}
+		}
 	}
 
 	/**
