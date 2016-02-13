@@ -113,7 +113,7 @@ class Semaphore {
 	 * @return \QXS\WorkerPool\Semaphore the current object
 	 */
 	public function acquire() {
-		if (!@sem_acquire($this->semaphore)) {
+		if (!sem_acquire($this->semaphore)) {
 			throw new SemaphoreException('Cannot acquire the semaphore.');
 		}
 		return $this;
@@ -125,7 +125,7 @@ class Semaphore {
 	 * @return \QXS\WorkerPool\Semaphore the current object
 	 */
 	public function release() {
-		if (!@sem_release($this->semaphore)) {
+		if (!sem_release($this->semaphore)) {
 			throw new SemaphoreException('Cannot release the semaphore.');
 		}
 		return $this;
