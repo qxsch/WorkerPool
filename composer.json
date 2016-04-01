@@ -1,5 +1,6 @@
 {
-	"name": "qxsch/worker-pool",
+	"name": "libcast/worker-pool",
+	"replaces": "qxsch/worker-pool",
 	"description": "Runs tasks in a parallel processing workerpool.",
 	"keywords": ["fork", "parallel", "worker", "workerpool", "task"],
 	"homepage": "https://github.com/qxsch/WorkerPool",
