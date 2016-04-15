@@ -5,8 +5,7 @@
 
 namespace QXS\WorkerPool;
 
-use DomainException,
-    Jeremeamia\SuperClosure\SerializableClosure;
+use DomainException;
 
 /**
  * The Super Closure Worker Class
