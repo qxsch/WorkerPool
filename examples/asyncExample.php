@@ -26,20 +26,21 @@ while($i<40) {
 		$i++;
 	}
 	else {
-		// poll some data
+		// poll some data - get free workers could be removed to priorize result polling in favor of result submission
 		while($wp->hasResults() && $wp->getFreeWorkers()==0) {
 			$val=$wp->getNextResult();
 			echo "Received: ".$val['data']."    from pid ".$val['pid']."\n";
 		}
-		// still no free workers?
-		if($wp->getFreeWorkers()==0) {
-			usleep(1000); // and sleep a bit
-		}
+		$wp->waitForOneFreeWorker();
+		//// as an alternative you can manually wait for free workers?
+		//if($wp->getFreeWorkers()==0) {
+		//	usleep(1000); // and sleep a bit
+		//}
 	}
 }
 
-
-while($wp->hasResults() || $wp->getBusyWorkers()>0) {
+// bug fix - run get busy workers before has results (worker can finish between the calls and the next call will deliver results)
+while($wp->getBusyWorkers()>0 || $wp->hasResults()) {
 	// poll some data
 	foreach($wp as $val) {
 		echo "Received: ".$val['data']."    from pid ".$val['pid']."\n";
