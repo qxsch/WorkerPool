@@ -462,6 +462,7 @@ class WorkerPool implements \Iterator, \Countable {
 	 *
 	 * This function blocks until a worker has finished its work.
 	 * You can kill hanging child processes, so that the parent will be unblocked.
+	 * Note: the run method already blocks until a free worker is available.
 	 */
 	public function waitForOneFreeWorker() {
 		while ($this->getFreeWorkers() == 0) {
