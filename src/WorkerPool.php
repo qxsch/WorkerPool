@@ -202,6 +202,21 @@ class WorkerPool implements \Iterator, \Countable {
 	}
 
 	/**
+	 * Disables the semaphore feature in the workerpool
+	 * 
+	 * Attention: You will lose the possibility to synchronize worker processes
+	 *
+	 * @throws \QXS\WorkerPool\WorkerPoolException in case the WorkerPool has already been created
+	 * @throws \InvalidArgumentException in case the semaphre hasn't been created
+	 */
+	public function disableSemaphore() {
+		$sem = new NoSemaphore();
+		$sem->create();
+		$this->setSemaphore($sem);
+		return $this;
+	}
+
+	/**
 	 * Terminates the current process
 	 * @param int $code the exit code
 	 */
