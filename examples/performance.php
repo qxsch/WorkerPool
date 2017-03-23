@@ -31,5 +31,5 @@ $wp->waitForAllWorkers(); // wait for all workers
 
 $timeused=microtime(true)-$timeused;
 echo "\t- With the workerpool it took: ".number_format($timeused, 2)." seconds\n";
-echo "\t- In this example the workerpool is ". number_format(750/$timeused, 2) ." times faster!\n";
+echo "\t- In this example the workerpool is ". number_format(750/$timeused, 2) ." times faster to the avg!\n";
 echo "\t- BTW: This is a simulation of a real world example, where we were waiting for remote results. This initiated the development of the workerpool.\n";
