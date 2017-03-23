@@ -38,8 +38,8 @@ class WorkerPool implements \Iterator, \Countable {
 	/** @var int number of children initially in the pool */
 	private $initialPoolSize;
 
-        /** @var int Current index for the last worker created in the pool */
-        private $currentWorkerIndex = 0;
+	/** @var int Current index for the last worker created in the pool */
+	private $currentWorkerIndex = 0;
 
 	/** @var int id of the parent */
 	protected $parentPid = 0;
@@ -65,10 +65,10 @@ class WorkerPool implements \Iterator, \Countable {
 	/** @var string process title of the children */
 	protected $childProcessTitleFormat = '%basename%: Worker %i% of %class% [%state%]';
 
-        /** @var boolean Respawn dead workers automatically if set to TRUE */
-        private $respawnAutomatically = false;
+	/** @var boolean Respawn dead workers automatically if set to TRUE */
+	private $respawnAutomatically = false;
 
-        /**
+	/**
 	 * The constructor
 	 */
 	public function __construct() {
@@ -224,7 +224,7 @@ class WorkerPool implements \Iterator, \Countable {
 		if ($this->workerPoolSize <= 1) {
 			$this->workerPoolSize = 2;
 		}
-                $this->initialPoolSize = $this->workerPoolSize;
+		$this->initialPoolSize = $this->workerPoolSize;
 		$this->parentPid = getmypid();
 		$this->worker = $worker;
 		if ($this->created) {
@@ -256,43 +256,44 @@ class WorkerPool implements \Iterator, \Countable {
 		);
 
 		for ($this->currentWorkerIndex = 1; $this->currentWorkerIndex <= $this->workerPoolSize; $this->currentWorkerIndex++) {
-                    $this->createWorker($this->currentWorkerIndex);
+			$this->createWorker($this->currentWorkerIndex);
 		}
 
 		return $this;
 	}
 
-        /**
-         *
-         * @param int $i
-         * @throws \RuntimeException
-         */
-        private function createWorker($i)
-        {
-            $sockets = array();
-            if (socket_create_pair(AF_UNIX, SOCK_STREAM, 0, $sockets) === FALSE) {
-                    // clean_up using posix_kill & pcntl_wait
-                    throw new \RuntimeException('socket_create_pair failed.');
-                    return;
-            }
-            $processId = pcntl_fork();
-            if ($processId < 0) {
-                    // cleanup using posix_kill & pcntl_wait
-                    throw new \RuntimeException('pcntl_fork failed.');
-                    return;
-            } elseif ($processId === 0) {
-                    // WE ARE IN THE CHILD
-                    $this->workerProcesses = new ProcessDetailsCollection(); // we do not have any children
-                    $this->workerPoolSize = 0; // we do not have any children
-                    socket_close($sockets[1]); // close the parent socket
-                    $this->runWorkerProcess($this->worker, new SimpleSocket($sockets[0]), $i);
-            } else {
-                    // WE ARE IN THE PARENT
-                    socket_close($sockets[0]); // close child socket
-                    // create the child
-                    $this->workerProcesses->addFree(new ProcessDetails($processId, new SimpleSocket($sockets[1])));
-            }
-        }
+	/**
+	 *
+	 * @param int $i
+	 * @throws \RuntimeException
+	 */
+	private function createWorker($i) {
+		$sockets = array();
+		if (socket_create_pair(AF_UNIX, SOCK_STREAM, 0, $sockets) === FALSE) {
+			// clean_up using posix_kill & pcntl_wait
+			throw new \RuntimeException('socket_create_pair failed.');
+			return;
+		}
+		$processId = pcntl_fork();
+		if ($processId < 0) {
+			// cleanup using posix_kill & pcntl_wait
+			throw new \RuntimeException('pcntl_fork failed.');
+			return;
+		}
+		elseif ($processId === 0) {
+			// WE ARE IN THE CHILD
+			$this->workerProcesses = new ProcessDetailsCollection(); // we do not have any children
+			$this->workerPoolSize = 0; // we do not have any children
+			socket_close($sockets[1]); // close the parent socket
+			$this->runWorkerProcess($this->worker, new SimpleSocket($sockets[0]), $i);
+		}
+		else {
+			// WE ARE IN THE PARENT
+			socket_close($sockets[0]); // close child socket
+			// create the child
+			$this->workerProcesses->addFree(new ProcessDetails($processId, new SimpleSocket($sockets[1])));
+		}
+	}
 
 	/**
 	 * Run the worker process
@@ -451,31 +452,28 @@ class WorkerPool implements \Iterator, \Countable {
 		pcntl_signal_dispatch();
 	}
 
-        /**
-         * Respawn workers automatically if they died
-         *
-         * @param boolean $respawn
-         */
-        public function respawnAutomatically($respawn = true)
-        {
-            if ($this->respawnAutomatically = $respawn) {
-                pcntl_signal(SIGALRM, [$this, 'signalHandler']);
-                pcntl_alarm(1);
-            }
-        }
+	/**
+	* Respawn workers automatically if they died
+	*
+	* @param boolean $respawn
+	*/
+	public function respawnAutomatically($respawn = true) {
+		if ($this->respawnAutomatically = $respawn) {
+			pcntl_signal(SIGALRM, array($this, 'signalHandler'));
+			pcntl_alarm(1);
+		}
+	}
 
-        private function respawnIfRequired()
-        {
-            if (!$this->respawnAutomatically) {
-                return;
-            }
-            while ($this->workerPoolSize < $this->initialPoolSize) {
-                $this->createWorker(++$this->currentWorkerIndex);
-                $this->workerPoolSize++;
-            }
-
-            pcntl_alarm(1);
-        }
+	private function respawnIfRequired() {
+		if (!$this->respawnAutomatically) {
+			return;
+		}
+		while ($this->workerPoolSize < $this->initialPoolSize) {
+			$this->createWorker(++$this->currentWorkerIndex);
+			$this->workerPoolSize++;
+		}
+		pcntl_alarm(1);
+	}
 
 	/**
 	 * Child process reaper
