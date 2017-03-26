@@ -468,10 +468,10 @@ class WorkerPool implements \Iterator, \Countable {
 	}
 
 	/**
-	* Respawn workers automatically if they died
-	*
-	* @param boolean $respawn
-	*/
+	 * Respawn workers automatically if they died
+	 *
+	 * @param boolean $respawn
+	 */
 	public function respawnAutomatically($respawn = true) {
 		if ($this->respawnAutomatically = $respawn) {
 			pcntl_signal(SIGALRM, array($this, 'signalHandler'));
@@ -519,6 +519,20 @@ class WorkerPool implements \Iterator, \Countable {
 		}
 	}
 
+
+	/**
+	 * Trys to wait for one free worker within a fixed timeout
+	 *
+	 * This function blocks until a worker has finished its work or the timeout has been reached.
+	 * You can kill hanging child processes, so that the parent will be unblocked.
+	 * Note: the run method already blocks until a free worker is available.
+	 * @param int $timeout  the timeout in seconds
+	 * @return bool  true, in case there is a free worker  or  false, in case the timeout has been reached
+	 */
+	public function tryWaitForOneFreeWorker($timeout=self::CHILD_TIMEOUT_SEC) {
+		$this->collectWorkerResults((int)abs($timeout));
+		return $this->getFreeWorkers() > 0;
+	}
 	/**
 	 * Waits for one free worker
 	 *
