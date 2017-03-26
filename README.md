@@ -2,7 +2,7 @@ WorkerPool
 ==========
 
 [![Build Status](https://travis-ci.org/qxsch/WorkerPool.svg?branch=master)](https://travis-ci.org/qxsch/WorkerPool)
-![Project Status](http://stillmaintained.com/qxsch/WorkerPool.png)
+[![Project Status](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 
 [![Latest Stable Version](https://poser.pugx.org/qxsch/worker-pool/v/stable.png)](https://packagist.org/packages/qxsch/worker-pool) [![Total Downloads](https://poser.pugx.org/qxsch/worker-pool/downloads.png)](https://packagist.org/packages/qxsch/worker-pool) [![License](https://poser.pugx.org/qxsch/worker-pool/license.png)](https://packagist.org/packages/qxsch/worker-pool)
 
