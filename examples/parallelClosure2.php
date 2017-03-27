@@ -1,6 +1,8 @@
 <?php
 /**
- * Thisfile requires the jeremeamia/SuperClosure 
+ * This file requires the jeremeamia/SuperClosure 
+ *
+ * Serialization of closures comes with some overhead...
  */
 
 require_once(__DIR__ . '/../autoload.php');
