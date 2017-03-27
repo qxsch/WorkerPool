@@ -529,7 +529,7 @@ class WorkerPool implements \Iterator, \Countable {
 	 * @param int $timeout  the timeout in seconds
 	 * @return bool  true, in case there is a free worker  or  false, in case the timeout has been reached
 	 */
-	public function tryWaitForOneFreeWorker($timeout=self::CHILD_TIMEOUT_SEC) {
+	public function tryWaitForOneFreeWorker($timeout=10) {
 		$this->collectWorkerResults((int)abs($timeout));
 		return $this->getFreeWorkers() > 0;
 	}
