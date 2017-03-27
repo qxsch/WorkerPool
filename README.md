@@ -57,14 +57,14 @@ foreach($wp as $val) {
 <?php
 
 use QXS\WorkerPool\WorkerPool;
-use QXS\WorkerPool\Worker;
+use QXS\WorkerPool\WorkerInterface;
 use QXS\WorkerPool\Semaphore;
 
 
 /**
  * Our Worker Class
  */
-Class MyWorker implements Worker {
+Class MyWorker implements WorkerInterface {
         protected $sem;
         /**
          * after the worker has been forked into another process
