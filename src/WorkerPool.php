@@ -203,7 +203,7 @@ class WorkerPool implements \Iterator, \Countable {
 
 	/**
 	 * Disables the semaphore feature in the workerpool
-	 * 
+	 *
 	 * Attention: You will lose the possibility to synchronize worker processes
 	 *
 	 * @throws \QXS\WorkerPool\WorkerPoolException in case the WorkerPool has already been created
@@ -476,7 +476,8 @@ class WorkerPool implements \Iterator, \Countable {
 		if ($this->respawnAutomatically = $respawn) {
 			pcntl_signal(SIGALRM, array($this, 'signalHandler'));
 			pcntl_alarm(1);
-		}
+               }
+               return $this;
 	}
 
 	private function respawnIfRequired() {
