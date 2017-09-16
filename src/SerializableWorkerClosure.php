@@ -5,7 +5,7 @@
 
 namespace QXS\WorkerPool;
 
-use Jeremeamia\SuperClosure\SerializableClosure;
+use SuperClosure\SerializableClosure;
 
 /**
  * The Serializeable Worker Closure
