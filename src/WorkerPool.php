@@ -236,9 +236,6 @@ class WorkerPool implements \Iterator, \Countable {
 	 * @return WorkerPool
 	 */
 	public function create(WorkerInterface $worker) {
-		if ($this->workerPoolSize <= 1) {
-			$this->workerPoolSize = 2;
-		}
 		$this->initialPoolSize = $this->workerPoolSize;
 		$this->parentPid = getmypid();
 		$this->worker = $worker;
