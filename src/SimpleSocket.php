@@ -65,7 +65,11 @@ class SimpleSocket {
 
 		$socketsSelected = socket_select($readSocketsResources, $writeSocketsResources, $exceptSocketsResources, $sec, $usec);
 		if ($socketsSelected === FALSE) {
-			return $out;
+			// 1 more retry https://stackoverflow.com/questions/2933343/php-can-pcntl-alarm-and-socket-select-peacefully-exist-in-the-same-thread/2938156#2938156
+			$socketsSelected = socket_select($readSocketsResources, $writeSocketsResources, $exceptSocketsResources, $sec, $usec);
+			if ($socketsSelected === FALSE) {
+				return $out;
+			}
 		}
 
 		foreach ($readSocketsResources as $socketResource) {
