@@ -63,12 +63,22 @@ class SimpleSocket {
 		$writeSockets = self::createSocketsIndex($writeSockets, $writeSocketsResources);
 		$exceptSockets = self::createSocketsIndex($exceptSockets, $exceptSocketsResources);
 
-		$socketsSelected = socket_select($readSocketsResources, $writeSocketsResources, $exceptSocketsResources, $sec, $usec);
+		$socketsSelected = @socket_select($readSocketsResources, $writeSocketsResources, $exceptSocketsResources, $sec, $usec);
 		if ($socketsSelected === FALSE) {
+			$socketError = socket_last_error();
 			// 1 more retry https://stackoverflow.com/questions/2933343/php-can-pcntl-alarm-and-socket-select-peacefully-exist-in-the-same-thread/2938156#2938156
-			$socketsSelected = socket_select($readSocketsResources, $writeSocketsResources, $exceptSocketsResources, $sec, $usec);
-			if ($socketsSelected === FALSE) {
-				return $out;
+			if ($socketError === SOCKET_EINTR) {
+				socket_clear_error();
+
+				$socketsSelected = socket_select($readSocketsResources, $writeSocketsResources, $exceptSocketsResources, $sec, $usec);
+				if ($socketsSelected === FALSE) {
+					return $out;
+				}
+			} else {
+				trigger_error(
+					sprintf('socket_select(): unable to select [%d]: %s', $socketError, socket_strerror($socketError)),
+					E_USER_WARNING
+				);
 			}
 		}
 
