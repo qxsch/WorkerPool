@@ -68,6 +68,9 @@ class WorkerPool implements \Iterator, \Countable {
 	/** @var boolean Respawn dead workers automatically if set to TRUE */
 	private $respawnAutomatically = false;
 
+	/** @var int Default child timeout in seconds */
+	private $child_timeout_sec = self::CHILD_TIMEOUT_SEC;
+
 	/**
 	 * The constructor
 	 */
@@ -213,6 +216,16 @@ class WorkerPool implements \Iterator, \Countable {
 		$sem = new NoSemaphore();
 		$sem->create();
 		$this->setSemaphore($sem);
+		return $this;
+	}
+
+	/**
+	 * Sets default child timeout in seconds.
+	 * @param int $child_timeout_sec
+	 * @return WorkerPool
+	 */
+	public function setChildTimeoutSec($child_timeout_sec) {
+		$this->child_timeout_sec = $child_timeout_sec;
 		return $this;
 	}
 
@@ -384,7 +397,10 @@ class WorkerPool implements \Iterator, \Countable {
 	 * @throws WorkerPoolException
 	 * @return WorkerPool
 	 */
-	public function destroy($maxWaitSecs = self::CHILD_TIMEOUT_SEC) {
+	public function destroy($maxWaitSecs = null) {
+		if ($maxWaitSecs === null) {
+			$maxWaitSecs = $this->child_timeout_sec;
+		}
 		if (!$this->created) {
 			throw new WorkerPoolException('The pool hasn\'t yet been created.');
 		}
@@ -455,9 +471,6 @@ class WorkerPool implements \Iterator, \Countable {
 			case SIGUSR1:
 				// handle sigusr
 				break;
-			case SIGALRM:
-				$this->respawnIfRequired();
-				break;
 			default: // handle all other signals
 		}
 		// more signals to dispatch?
@@ -466,15 +479,14 @@ class WorkerPool implements \Iterator, \Countable {
 
 	/**
 	 * Respawn workers automatically if they died
-	 *
 	 * @param boolean $respawn
+	 * @return WorkerPool
 	 */
 	public function respawnAutomatically($respawn = true) {
 		if ($this->respawnAutomatically = $respawn) {
-			pcntl_signal(SIGALRM, array($this, 'signalHandler'));
-			pcntl_alarm(1);
-               }
-               return $this;
+			$this->child_timeout_sec = 1;
+		}
+		return $this;
 	}
 
 	private function respawnIfRequired() {
@@ -485,7 +497,6 @@ class WorkerPool implements \Iterator, \Countable {
 			$this->createWorker(++$this->currentWorkerIndex);
 			$this->workerPoolSize++;
 		}
-		pcntl_alarm(1);
 	}
 
 	/**
@@ -540,7 +551,7 @@ class WorkerPool implements \Iterator, \Countable {
 	 */
 	public function waitForOneFreeWorker() {
 		while ($this->getFreeWorkers() == 0) {
-			$this->collectWorkerResults(self::CHILD_TIMEOUT_SEC);
+			$this->collectWorkerResults($this->child_timeout_sec);
 		}
 	}
 	/**
@@ -551,7 +562,7 @@ class WorkerPool implements \Iterator, \Countable {
 	 */
 	public function waitForAllWorkers() {
 		while ($this->getBusyWorkers() > 0) {
-			$this->collectWorkerResults(self::CHILD_TIMEOUT_SEC);
+			$this->collectWorkerResults($this->child_timeout_sec);
 		}
 	}
 
@@ -613,7 +624,7 @@ class WorkerPool implements \Iterator, \Countable {
 				return $freeProcess;
 			}
 
-			$sec = self::CHILD_TIMEOUT_SEC;
+			$sec = $this->child_timeout_sec;
 			if ($this->workerPoolSize <= 0) {
 				throw new WorkerPoolException('All workers were gone.');
 			}
@@ -628,6 +639,8 @@ class WorkerPool implements \Iterator, \Countable {
 	 * @throws WorkerPoolException
 	 */
 	protected function collectWorkerResults($sec = 0) {
+		$this->respawnIfRequired();
+
 		// dispatch signals
 		pcntl_signal_dispatch();
 
@@ -656,6 +669,8 @@ class WorkerPool implements \Iterator, \Countable {
 		}
 		// dispatch signals
 		pcntl_signal_dispatch();
+
+		$this->respawnIfRequired();
 	}
 
 	/**
