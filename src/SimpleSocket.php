@@ -79,6 +79,7 @@ class SimpleSocket {
 					sprintf('socket_select(): unable to select [%d]: %s', $socketError, socket_strerror($socketError)),
 					E_USER_WARNING
 				);
+				return $out;
 			}
 		}
 
