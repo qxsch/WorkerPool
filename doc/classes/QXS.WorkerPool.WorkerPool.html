@@ -1,0 +1,2183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>API Documentation</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/QXS.html">\QXS</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">4</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">1</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-289655807"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-289655807" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1417566596"></a>
+                                <a href="../namespaces/QXS.html" style="margin-left: 30px; padding-left: 0">QXS</a>
+            </div>
+            <div id="namespace-1417566596" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-254788875"></a>
+                                <a href="../namespaces/QXS.WorkerPool.html" style="margin-left: 30px; padding-left: 0">WorkerPool</a>
+            </div>
+            <div id="namespace-254788875" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/QXS.WorkerPool.Worker.html">Worker</a></li>
+                                                    <li class="interface"><a href="../classes/QXS.WorkerPool.WorkerInterface.html">WorkerInterface</a></li>
+                                                                                                    <li class="class"><a href="../classes/QXS.WorkerPool.ClosureWorker.html">ClosureWorker</a></li>
+                                                    <li class="class"><a href="../classes/QXS.WorkerPool.NoSemaphore.html">NoSemaphore</a></li>
+                                                    <li class="class"><a href="../classes/QXS.WorkerPool.ProcessDetails.html">ProcessDetails</a></li>
+                                                    <li class="class"><a href="../classes/QXS.WorkerPool.ProcessDetailsCollection.html">ProcessDetailsCollection</a></li>
+                                                    <li class="class"><a href="../classes/QXS.WorkerPool.Semaphore.html">Semaphore</a></li>
+                                                    <li class="class"><a href="../classes/QXS.WorkerPool.SemaphoreException.html">SemaphoreException</a></li>
+                                                    <li class="class"><a href="../classes/QXS.WorkerPool.SerializableWorkerClosure.html">SerializableWorkerClosure</a></li>
+                                                    <li class="class"><a href="../classes/QXS.WorkerPool.SimpleSocket.html">SimpleSocket</a></li>
+                                                    <li class="class"><a href="../classes/QXS.WorkerPool.SimpleSocketException.html">SimpleSocketException</a></li>
+                                                    <li class="class"><a href="../classes/QXS.WorkerPool.SuperClosureWorker.html">SuperClosureWorker</a></li>
+                                                    <li class="class"><a href="../classes/QXS.WorkerPool.WorkerPool.html">WorkerPool</a></li>
+                                                    <li class="class"><a href="../classes/QXS.WorkerPool.WorkerPoolException.html">WorkerPoolException</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/QXS.WorkerPool.html">\QXS\WorkerPool</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\QXS\WorkerPool</small>WorkerPool</h1>
+                    <p><em>The Worker Pool class runs worker processes in parallel</em></p>
+                    
+                    
+                                        
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#method___construct" class="">__construct()</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#method___destruct" class="">__destruct()</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_getChildProcessTitleFormat" class="">getChildProcessTitleFormat()</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_setChildProcessTitleFormat" class="">setChildProcessTitleFormat()</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_getParentProcessTitleFormat" class="">getParentProcessTitleFormat()</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_setParentProcessTitleFormat" class="">setParentProcessTitleFormat()</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_getWorkerPoolSize" class="">getWorkerPoolSize()</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_setWorkerPoolSize" class="">setWorkerPoolSize()</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_getSemaphore" class="">getSemaphore()</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_setSemaphore" class="">setSemaphore()</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_disableSemaphore" class="">disableSemaphore()</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_setChildTimeoutSec" class="">setChildTimeoutSec()</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_exitPhp" class="">exitPhp()</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_create" class="">create()</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_onShutDown" class="">onShutDown()</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_destroy" class="">destroy()</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_signalHandler" class="">signalHandler()</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_respawnAutomatically" class="">respawnAutomatically()</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_tryWaitForOneFreeWorker" class="">tryWaitForOneFreeWorker()</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_waitForOneFreeWorker" class="">waitForOneFreeWorker()</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_waitForAllWorkers" class="">waitForAllWorkers()</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_getFreeAndBusyWorkers" class="">getFreeAndBusyWorkers()</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_getFreeWorkers" class="">getFreeWorkers()</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_getBusyWorkers" class="">getBusyWorkers()</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_run" class="">run()</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_clearResults" class="">clearResults()</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_hasResults" class="">hasResults()</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_countResults" class="">countResults()</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_getNextResult" class="">getNextResult()</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_count" class="">count()</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_current" class="">current()</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_key" class="">key()</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_next" class="">next()</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_rewind" class="">rewind()</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_valid" class="">valid()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#constant_CHILD_TIMEOUT_SEC" class="">CHILD_TIMEOUT_SEC</a><br />
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_runWorkerProcess" class="">runWorkerProcess()</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_reaper" class="">reaper()</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_getNextFreeWorker" class="">getNextFreeWorker()</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_collectWorkerResults" class="">collectWorkerResults()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#property_signals" class="">$signals</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#property_parentPid" class="">$parentPid</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#property_worker" class="">$worker</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#property_semaphore" class="">$semaphore</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#property_workerProcesses" class="">$workerProcesses</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#property_results" class="">$results</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#property_resultPosition" class="">$resultPosition</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#property_parentProcessTitleFormat" class="">$parentProcessTitleFormat</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#property_childProcessTitleFormat" class="">$childProcessTitleFormat</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_createWorker" class="">createWorker()</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#method_respawnIfRequired" class="">respawnIfRequired()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#property_created" class="">$created</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#property_workerPoolSize" class="">$workerPoolSize</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#property_initialPoolSize" class="">$initialPoolSize</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#property_currentWorkerIndex" class="">$currentWorkerIndex</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#property_respawnAutomatically" class="">$respawnAutomatically</a><br />
+                                                                    <a href="../classes/QXS.WorkerPool.WorkerPool.html#property_child_timeout_sec" class="">$child_timeout_sec</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/WorkerPool.html"><div class="path-wrapper">WorkerPool.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">Default</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                    <div class="namespace-wrapper">\QXS\WorkerPool\WorkerPool</div>
+                            </dd>
+
+                                                                            <dt>Implements</dt>
+                                                        <dd><a href=""><div class="namespace-wrapper"></div></a></dd>
+                                                                                <dd><a href=""><div class="namespace-wrapper"></div></a></dd>
+                        
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr><td colspan="2"><em>None found</em></td></tr>
+                                        </table>
+                </aside>
+            </div>
+
+                                    <a id="constants" name="constants"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Constants</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_CHILD_TIMEOUT_SEC" name="constant_CHILD_TIMEOUT_SEC" class="anchor"></a>
+            <article id="constant_CHILD_TIMEOUT_SEC" class="constant">
+                <h3 class="">CHILD_TIMEOUT_SEC</h3>
+                <pre class="signature">CHILD_TIMEOUT_SEC</pre>
+                <p><em>Default child timeout in seconds</em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_signals" name="property_signals" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$signals</h3>
+                <pre class="signature">$signals : array</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                array
+                &mdash; signals, that should be watched                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_parentPid" name="property_parentPid" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$parentPid</h3>
+                <pre class="signature">$parentPid : integer</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                integer
+                &mdash; id of the parent                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_worker" name="property_worker" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$worker</h3>
+                <pre class="signature">$worker : \QXS\WorkerPool\WorkerInterface</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                <a href="../classes/QXS.WorkerPool.WorkerInterface.html">\QXS\WorkerPool\WorkerInterface</a>
+                &mdash; the worker class, that is used to run the tasks                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_semaphore" name="property_semaphore" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$semaphore</h3>
+                <pre class="signature">$semaphore : \QXS\WorkerPool\Semaphore</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                <a href="../classes/QXS.WorkerPool.Semaphore.html">\QXS\WorkerPool\Semaphore</a>
+                &mdash; the semaphore, that is used to synchronizd tasks across all processes                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_workerProcesses" name="property_workerProcesses" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$workerProcesses</h3>
+                <pre class="signature">$workerProcesses : \QXS\WorkerPool\ProcessDetailsCollection|array&lt;mixed,\QXS\WorkerPool\ProcessDetails&gt;</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                <a href="../classes/QXS.WorkerPool.ProcessDetailsCollection.html">\QXS\WorkerPool\ProcessDetailsCollection</a>|array&lt;mixed,<a href="../classes/QXS.WorkerPool.ProcessDetails.html">\QXS\WorkerPool\ProcessDetails</a>&gt;
+                &mdash; Collection of the worker processes                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_results" name="property_results" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$results</h3>
+                <pre class="signature">$results : array</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                array
+                &mdash; received results from the workers                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_resultPosition" name="property_resultPosition" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$resultPosition</h3>
+                <pre class="signature">$resultPosition : integer</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                integer
+                &mdash; number of received results                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_parentProcessTitleFormat" name="property_parentProcessTitleFormat" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$parentProcessTitleFormat</h3>
+                <pre class="signature">$parentProcessTitleFormat : string</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                &mdash; process title of the parent                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_childProcessTitleFormat" name="property_childProcessTitleFormat" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$childProcessTitleFormat</h3>
+                <pre class="signature">$childProcessTitleFormat : string</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                &mdash; process title of the children                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_created" name="property_created" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$created</h3>
+                <pre class="signature">$created : boolean</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                boolean
+                &mdash; is the pool created? (children forked)                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_workerPoolSize" name="property_workerPoolSize" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$workerPoolSize</h3>
+                <pre class="signature">$workerPoolSize : integer</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                integer
+                &mdash; number of children in the pool                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_initialPoolSize" name="property_initialPoolSize" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$initialPoolSize</h3>
+                <pre class="signature">$initialPoolSize : integer</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                integer
+                &mdash; number of children initially in the pool                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_currentWorkerIndex" name="property_currentWorkerIndex" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$currentWorkerIndex</h3>
+                <pre class="signature">$currentWorkerIndex : integer</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                integer
+                &mdash; Current index for the last worker created in the pool                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_respawnAutomatically" name="property_respawnAutomatically" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$respawnAutomatically</h3>
+                <pre class="signature">$respawnAutomatically : boolean</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                boolean
+                &mdash; Respawn dead workers automatically if set to TRUE                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_child_timeout_sec" name="property_child_timeout_sec" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$child_timeout_sec</h3>
+                <pre class="signature">$child_timeout_sec : integer</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                integer
+                &mdash; Default child timeout in seconds                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___construct" name="method___construct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__construct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__construct() </pre>
+                <p><em>The constructor</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___destruct" name="method___destruct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__destruct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__destruct() </pre>
+                <p><em>The destructor</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getChildProcessTitleFormat" name="method_getChildProcessTitleFormat" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getChildProcessTitleFormat()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getChildProcessTitleFormat() : string</pre>
+                <p><em>Returns the process title of the child</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>the process title of the child</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setChildProcessTitleFormat" name="method_setChildProcessTitleFormat" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setChildProcessTitleFormat()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setChildProcessTitleFormat(string  <span class="argument">$string</span>) : \QXS\WorkerPool\WorkerPool</pre>
+                <p><em>Sets the process title of the child</em></p>
+                <p>Listing permitted replacments
+%i%         The Child's Number
+%basename%  The base name of PHPSELF
+%fullname%  The value of PHPSELF
+%class%     The Worker's Classname
+%state%     The Worker's State</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$string </td>
+                                <td><p>the process title of the child</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\QXS\WorkerPool\WorkerPoolException</dt>
+                            <dd><p>in case the WorkerPool has already been created</p></dd>
+                                                    <dt>\DomainException</dt>
+                            <dd><p>in case the $string value is not within the permitted range</p></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/QXS.WorkerPool.WorkerPool.html">\QXS\WorkerPool\WorkerPool</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getParentProcessTitleFormat" name="method_getParentProcessTitleFormat" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getParentProcessTitleFormat()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getParentProcessTitleFormat() : string</pre>
+                <p><em>Returns the process title of the parent</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>the process title of the parent</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setParentProcessTitleFormat" name="method_setParentProcessTitleFormat" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setParentProcessTitleFormat()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setParentProcessTitleFormat(string  <span class="argument">$string</span>) : \QXS\WorkerPool\WorkerPool</pre>
+                <p><em>Sets the process title of the parent</em></p>
+                <p>Listing permitted replacments
+%basename%  The base name of PHPSELF
+%fullname%  The value of PHPSELF
+%class%     The WorkerPool's Classname</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$string </td>
+                                <td><p>the process title of the parent</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\QXS\WorkerPool\WorkerPoolException</dt>
+                            <dd><p>in case the WorkerPool has already been created</p></dd>
+                                                    <dt>\DomainException</dt>
+                            <dd><p>in case the $string value is not within the permitted range</p></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/QXS.WorkerPool.WorkerPool.html">\QXS\WorkerPool\WorkerPool</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getWorkerPoolSize" name="method_getWorkerPoolSize" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getWorkerPoolSize()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getWorkerPoolSize() : integer</pre>
+                <p><em>Returns the current size of the worker pool</em></p>
+                <p>In case the pool hasn't yet been created, this method returns the value of the currently set pool size.
+In case of a created pool, this method reports the real pool size (number of alive worker processes).</p>
+
+                
+                
+                                    <h4>Returns</h4>
+                    integer
+                                            &mdash; <p>the number of processes</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setWorkerPoolSize" name="method_setWorkerPoolSize" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setWorkerPoolSize()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setWorkerPoolSize(integer  <span class="argument">$size</span>) : \QXS\WorkerPool\WorkerPool</pre>
+                <p><em>Sets the current size of the worker pool</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$size </td>
+                                <td><p>the new worker pool size</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\QXS\WorkerPool\WorkerPoolException</dt>
+                            <dd><p>in case the WorkerPool has already been created</p></dd>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>in case the $size value is not within the permitted range</p></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/QXS.WorkerPool.WorkerPool.html">\QXS\WorkerPool\WorkerPool</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getSemaphore" name="method_getSemaphore" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getSemaphore()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getSemaphore() : null|\QXS\WorkerPool\Semaphore</pre>
+                <p><em>Gets the Semaphore, that will be used within the worker processes</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    null|<a href="../classes/QXS.WorkerPool.Semaphore.html">\QXS\WorkerPool\Semaphore</a>
+                                            &mdash; <p>$semaphore the Semaphore, that should be used for the workers</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setSemaphore" name="method_setSemaphore" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setSemaphore()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setSemaphore(\QXS\WorkerPool\Semaphore  <span class="argument">$semaphore</span>) : \QXS\WorkerPool\WorkerPool</pre>
+                <p><em>Sets the Semaphore, that will be used within the worker processes</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/QXS.WorkerPool.Semaphore.html">\QXS\WorkerPool\Semaphore</a></td>
+                                <td>$semaphore </td>
+                                <td><p>the Semaphore, that should be used for the workers</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\QXS\WorkerPool\WorkerPoolException</dt>
+                            <dd><p>in case the WorkerPool has already been created</p></dd>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>in case the semaphre hasn't been created</p></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/QXS.WorkerPool.WorkerPool.html">\QXS\WorkerPool\WorkerPool</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_disableSemaphore" name="method_disableSemaphore" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">disableSemaphore()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">disableSemaphore() </pre>
+                <p><em>Disables the semaphore feature in the workerpool</em></p>
+                <p>Attention: You will lose the possibility to synchronize worker processes</p>
+
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\QXS\WorkerPool\WorkerPoolException</dt>
+                            <dd><p>in case the WorkerPool has already been created</p></dd>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>in case the semaphre hasn't been created</p></dd>
+                                                                    </dl>
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setChildTimeoutSec" name="method_setChildTimeoutSec" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setChildTimeoutSec()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setChildTimeoutSec(integer  <span class="argument">$child_timeout_sec</span>) : \QXS\WorkerPool\WorkerPool</pre>
+                <p><em>Sets default child timeout in seconds.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$child_timeout_sec </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/QXS.WorkerPool.WorkerPool.html">\QXS\WorkerPool\WorkerPool</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_exitPhp" name="method_exitPhp" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">exitPhp()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">exitPhp(integer  <span class="argument">$code</span>) </pre>
+                <p><em>Terminates the current process</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$code </td>
+                                <td><p>the exit code</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_create" name="method_create" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">create()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">create(\QXS\WorkerPool\WorkerInterface  <span class="argument">$worker</span>) : \QXS\WorkerPool\WorkerPool</pre>
+                <p><em>Creates the worker pool (forks the children)</em></p>
+                <p>Please close all open resources before running this function.
+Child processes are going to close all open resources uppon exit,
+leaving the parent process behind with invalid resource handles.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/QXS.WorkerPool.WorkerInterface.html">\QXS\WorkerPool\WorkerInterface</a></td>
+                                <td>$worker </td>
+                                <td><p>the worker, that runs future tasks</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\RuntimeException</dt>
+                            <dd></dd>
+                                                    <dt>\QXS\WorkerPool\WorkerPoolException</dt>
+                            <dd></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/QXS.WorkerPool.WorkerPool.html">\QXS\WorkerPool\WorkerPool</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_onShutDown" name="method_onShutDown" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">onShutDown()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">onShutDown() </pre>
+                <p><em>This runs on shutdown to prevent the system from semaphore leaks</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_destroy" name="method_destroy" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">destroy()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">destroy(integer  <span class="argument">$maxWaitSecs = null</span>) : \QXS\WorkerPool\WorkerPool</pre>
+                <p><em>Destroy the WorkerPool with all its children</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$maxWaitSecs </td>
+                                <td><p>a timeout to wait for the children, before killing them</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\QXS\WorkerPool\WorkerPoolException</dt>
+                            <dd></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/QXS.WorkerPool.WorkerPool.html">\QXS\WorkerPool\WorkerPool</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_signalHandler" name="method_signalHandler" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">signalHandler()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">signalHandler(integer  <span class="argument">$signo</span>) </pre>
+                <p><em>Receives signals</em></p>
+                <p>DO NOT MANUALLY CALL THIS METHOD!
+pcntl_signal_dispatch() will be calling this method.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$signo </td>
+                                <td><p>the signal number</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper">\QXS\WorkerPool\pcntl_signal_dispatch</span></a></dd>
+                                            <dd><a href=""><span class="namespace-wrapper">\QXS\WorkerPool\pcntl_signal</span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_respawnAutomatically" name="method_respawnAutomatically" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">respawnAutomatically()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">respawnAutomatically(boolean  <span class="argument">$respawn = true</span>) : \QXS\WorkerPool\WorkerPool</pre>
+                <p><em>Respawn workers automatically if they died</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$respawn </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/QXS.WorkerPool.WorkerPool.html">\QXS\WorkerPool\WorkerPool</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_tryWaitForOneFreeWorker" name="method_tryWaitForOneFreeWorker" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">tryWaitForOneFreeWorker()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">tryWaitForOneFreeWorker(integer  <span class="argument">$timeout = 10</span>) : boolean</pre>
+                <p><em>Trys to wait for one free worker within a fixed timeout</em></p>
+                <p>This function blocks until a worker has finished its work or the timeout has been reached.
+You can kill hanging child processes, so that the parent will be unblocked.
+Note: the run method already blocks until a free worker is available.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$timeout </td>
+                                <td><p>the timeout in seconds</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                            &mdash; <p>true, in case there is a free worker  or  false, in case the timeout has been reached</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_waitForOneFreeWorker" name="method_waitForOneFreeWorker" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">waitForOneFreeWorker()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">waitForOneFreeWorker() </pre>
+                <p><em>Waits for one free worker</em></p>
+                <p>This function blocks until a worker has finished its work.
+You can kill hanging child processes, so that the parent will be unblocked.
+Note: the run method already blocks until a free worker is available.</p>
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_waitForAllWorkers" name="method_waitForAllWorkers" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">waitForAllWorkers()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">waitForAllWorkers() </pre>
+                <p><em>Waits for all children to finish their worker</em></p>
+                <p>This function blocks until every worker has finished its work.
+You can kill hanging child processes, so that the parent will be unblocked.</p>
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getFreeAndBusyWorkers" name="method_getFreeAndBusyWorkers" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getFreeAndBusyWorkers()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getFreeAndBusyWorkers() : array</pre>
+                <p><em>Returns the number of busy and free workers</em></p>
+                <p>This function collects all the information at once.</p>
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>with the keys 'free', 'busy', 'total'</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getFreeWorkers" name="method_getFreeWorkers" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getFreeWorkers()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getFreeWorkers() : integer</pre>
+                <p><em>Returns the number of free workers</em></p>
+                <p>PAY ATTENTION WHEN USING THIS FUNCTION WITH A SUBSEQUENT CALL OF getBusyWorkers().
+IN THIS CASE THE SUM MIGHT NOT EQUAL TO THE CURRENT POOL SIZE.
+USE getFreeAndBusyWorkers() TO GET CONSISTENT RESULTS.</p>
+
+                
+                
+                                    <h4>Returns</h4>
+                    integer
+                                            &mdash; <p>number of free workers</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getBusyWorkers" name="method_getBusyWorkers" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getBusyWorkers()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getBusyWorkers() : integer</pre>
+                <p><em>Returns the number of busy workers</em></p>
+                <p>PAY ATTENTION WHEN USING THIS FUNCTION WITH A SUBSEQUENT CALL OF getFreeWorkers().
+IN THIS CASE THE SUM MIGHT NOT EQUAL TO THE CURRENT POOL SIZE.
+USE getFreeAndBusyWorkers() TO GET CONSISTENT RESULTS.</p>
+
+                
+                
+                                    <h4>Returns</h4>
+                    integer
+                                            &mdash; <p>number of free workers</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_run" name="method_run" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">run()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">run(mixed  <span class="argument">$input</span>) : integer</pre>
+                <p><em>Sends the input to the next free worker process</em></p>
+                <p>This function blocks until a worker has finished its work.
+You can kill all child processes, so that the parent will be unblocked.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$input </td>
+                                <td><p>any serializable value</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\QXS\WorkerPool\WorkerPoolException</dt>
+                            <dd></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    integer
+                                            &mdash; <p>The PID of the processing worker process</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_clearResults" name="method_clearResults" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">clearResults()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">clearResults() </pre>
+                <p><em>Clear all the results</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_hasResults" name="method_hasResults" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">hasResults()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">hasResults() : boolean</pre>
+                <p><em>Is there any result available?</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                            &mdash; <p>true, in case we have received some results</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_countResults" name="method_countResults" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">countResults()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">countResults() : integer</pre>
+                <p><em>How many results did we receive?</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    integer
+                                            &mdash; <p>the number of results</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getNextResult" name="method_getNextResult" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getNextResult()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getNextResult() : array</pre>
+                <p><em>Shifts the next result from the result queue</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>gets the next result</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_count" name="method_count" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">count()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">count() : integer</pre>
+                <p><em>Countable Method count</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    integer
+                                            &mdash; <p>the number of results</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/QXS.WorkerPool.WorkerPool.html#method_countResults"><span class="namespace-wrapper">\QXS\WorkerPool\WorkerPool::countResults()</span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_current" name="method_current" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">current()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">current() : array</pre>
+                <p><em>Iterator Method current</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>gets the current result</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_key" name="method_key" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">key()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">key() : string</pre>
+                <p><em>Iterator Method key</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>returns the current key</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_next" name="method_next" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">next()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">next() </pre>
+                <p><em>Iterator Method next()</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_rewind" name="method_rewind" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">rewind()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">rewind() </pre>
+                <p><em>Iterator Method rewind()</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_valid" name="method_valid" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">valid()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">valid() : boolean</pre>
+                <p><em>Iterator Method valid()</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                            &mdash; <p>true = there is a pending result</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_runWorkerProcess" name="method_runWorkerProcess" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">runWorkerProcess()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">runWorkerProcess(\QXS\WorkerPool\WorkerInterface  <span class="argument">$worker</span>, \QXS\WorkerPool\SimpleSocket  <span class="argument">$simpleSocket</span>, integer  <span class="argument">$i</span>) </pre>
+                <p><em>Run the worker process</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/QXS.WorkerPool.WorkerInterface.html">\QXS\WorkerPool\WorkerInterface</a></td>
+                                <td>$worker </td>
+                                <td><p>the worker, that runs the tasks</p></td>
+                            </tr>
+                                                    <tr>
+                                <td><a href="../classes/QXS.WorkerPool.SimpleSocket.html">\QXS\WorkerPool\SimpleSocket</a></td>
+                                <td>$simpleSocket </td>
+                                <td><p>the simpleSocket, that is used for the communication</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$i </td>
+                                <td><p>the number of the child</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_reaper" name="method_reaper" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">reaper()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">reaper(integer  <span class="argument">$pid = -1</span>) </pre>
+                <p><em>Child process reaper</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$pid </td>
+                                <td><p>the process id</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper">\QXS\WorkerPool\pcntl_waitpid</span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getNextFreeWorker" name="method_getNextFreeWorker" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">getNextFreeWorker()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getNextFreeWorker() : \QXS\WorkerPool\ProcessDetails</pre>
+                <p><em>Get the pid of the next free worker</em></p>
+                <p>This function blocks until a worker has finished its work.
+You can kill all child processes, so that the parent will be unblocked.</p>
+
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\QXS\WorkerPool\WorkerPoolException</dt>
+                            <dd></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/QXS.WorkerPool.ProcessDetails.html">\QXS\WorkerPool\ProcessDetails</a>
+                                            &mdash; <p>the pid of the next free child</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_collectWorkerResults" name="method_collectWorkerResults" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">collectWorkerResults()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">collectWorkerResults(integer  <span class="argument">$sec</span>) </pre>
+                <p><em>Collects the results form the workers and processes any pending signals</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$sec </td>
+                                <td><p>timeout to wait for new results from the workers</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\QXS\WorkerPool\WorkerPoolException</dt>
+                            <dd></dd>
+                                                                    </dl>
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_createWorker" name="method_createWorker" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">createWorker()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">createWorker(integer  <span class="argument">$i</span>) </pre>
+                <p><em>Creates the worker</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$i </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\RuntimeException</dt>
+                            <dd></dd>
+                                                                    </dl>
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_respawnIfRequired" name="method_respawnIfRequired" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">respawnIfRequired()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">respawnIfRequired() </pre>
+                <p><em></em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">WorkerPool.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/WorkerPool.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/QXS.html">\QXS</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on September 12th, 2018 at 14:30.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>

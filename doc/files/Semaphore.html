@@ -21,54 +21,54 @@
     <script src="../js/jquery.smooth-scroll.js"></script>
     <script src="../js/prism.min.js"></script>
     <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
-    <script type="text/javascript">
-    function loadExternalCodeSnippets() {
-        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
-            var src = pre.getAttribute('data-src');
-            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
-            var language = 'php';
+        <script type="text/javascript">
+        function loadExternalCodeSnippets() {
+            Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+                var src = pre.getAttribute('data-src');
+                var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+                var language = 'php';
 
-            var code = document.createElement('code');
-            code.className = 'language-' + language;
+                var code = document.createElement('code');
+                code.className = 'language-' + language;
 
-            pre.textContent = '';
+                pre.textContent = '';
 
-            code.textContent = 'Loading…';
+                code.textContent = 'Loading…';
 
-            pre.appendChild(code);
+                pre.appendChild(code);
 
-            var xhr = new XMLHttpRequest();
+                var xhr = new XMLHttpRequest();
 
-            xhr.open('GET', src, true);
+                xhr.open('GET', src, true);
 
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState == 4) {
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4) {
 
-                    if (xhr.status < 400 && xhr.responseText) {
-                        code.textContent = xhr.responseText;
+                        if (xhr.status < 400 && xhr.responseText) {
+                            code.textContent = xhr.responseText;
 
-                        Prism.highlightElement(code);
+                            Prism.highlightElement(code);
+                        }
+                        else if (xhr.status >= 400) {
+                            code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                        }
+                        else {
+                            code.textContent = '✖ Error: File does not exist or is empty';
+                        }
                     }
-                    else if (xhr.status >= 400) {
-                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
-                    }
-                    else {
-                        code.textContent = '✖ Error: File does not exist or is empty';
-                    }
-                }
-            };
+                };
 
-            xhr.send(null);
+                xhr.send(null);
+            });
+        }
+
+        $(document).ready(function(){
+            loadExternalCodeSnippets();
         });
-    }
-
-    $(document).ready(function(){
-        loadExternalCodeSnippets();
-    });
-    $('#source-view').on('shown', function () {
-        loadExternalCodeSnippets();
-    })
-</script>
+        $('#source-view').on('shown', function () {
+            loadExternalCodeSnippets();
+        })
+    </script>
 
     <link rel="shortcut icon" href="../images/favicon.ico"/>
     <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
@@ -144,28 +144,28 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1871622789"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1574273041"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1871622789" class="accordion-body collapse in">
+            <div id="namespace-1574273041" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-202888371"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2076168133"></a>
                                 <a href="../namespaces/QXS.html" style="margin-left: 30px; padding-left: 0">QXS</a>
             </div>
-            <div id="namespace-202888371" class="accordion-body collapse ">
+            <div id="namespace-2076168133" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-511307893"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-643919826"></a>
                                 <a href="../namespaces/QXS.WorkerPool.html" style="margin-left: 30px; padding-left: 0">WorkerPool</a>
             </div>
-            <div id="namespace-511307893" class="accordion-body collapse ">
+            <div id="namespace-643919826" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -211,104 +211,53 @@
     <section class="row-fluid">
         <div class="span10 offset2">
             <div class="row-fluid">
-                <div class="span8 content class">
+                <div class="span8 content file">
                     <nav>
-                                                <a href="../namespaces/QXS.WorkerPool.html">\QXS\WorkerPool</a> <i class="icon-level-up"></i>
-                                            </nav>
+                                                                    </nav>
+
                     <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+                    <h1><small></small>Semaphore.php</h1>
+                    <p><em>A simple Object wrapper arround the semaphore functions</em></p>
+                    
 
-                    <h1><small>\QXS\WorkerPool</small>SimpleSocketException</h1>
-                    <p><em>Exception for the WorkerPool Class</em></p>
                     
                     
-                                        
-                    <section id="summary">
-                        <h2>Summary</h2>
-                        <section class="row-fluid heading">
-                            <section class="span4">
-                                <a href="#methods">Methods</a>
-                            </section>
-                            <section class="span4">
-                                <a href="#properties">Properties</a>
-                            </section>
-                            <section class="span4">
-                                <a href="#constants">Constants</a>
-                            </section>
-                        </section>
-                        <section class="row-fluid public">
-                            <section class="span4">
-                                                                    <em>No public methods found</em>
-                                                            </section>
-                            <section class="span4">
-                                                                    <em>No public properties found</em>
-                                                            </section>
-                            <section class="span4">
-                                                                    <em>No constants found</em>
-                                                            </section>
-                        </section>
-                        <section class="row-fluid protected">
-                            <section class="span4">
-                                                                    <em>No protected methods found</em>
-                                                            </section>
-                            <section class="span4">
-                                                                    <em>No protected properties found</em>
-                                                            </section>
-                            <section class="span4">
-                                <em>N/A</em>
-                            </section>
-                        </section>
-                        <section class="row-fluid private">
-                            <section class="span4">
-                                                                    <em>No private methods found</em>
-                                                            </section>
-                            <section class="span4">
-                                                                    <em>No private properties found</em>
-                                                            </section>
-                            <section class="span4">
-                                <em>N/A</em>
-                            </section>
-                        </section>
-                    </section>
-                </div>
+                                        <h2>Classes</h2>
+                    <table class="table table-hover">
+                                            <tr>
+                            <td><a href="../classes/QXS.WorkerPool.Semaphore.html">Semaphore</a></td>
+                            <td><em>Semaphore Class</em></td>
+                        </tr>
+                                        </table>
+                                    </div>
+
                 <aside class="span4 detailsbar">
-                                        
-                    
                     <dl>
-                        <dt>File</dt>
-                            <dd><a href="../files/SimpleSocketException.html"><div class="path-wrapper">SimpleSocketException.php</div></a></dd>
-                                                <dt>Package</dt>
-                            <dd><div class="namespace-wrapper">Default</div></dd>
-                                                <dt>Class hierarchy</dt>
-                            <dd class="hierarchy">
-                                                                                                                                                                                                                                                                                                
-                                        <div class="namespace-wrapper">\Exception</div>
-                                                                                                    <div class="namespace-wrapper">\QXS\WorkerPool\SimpleSocketException</div>
-                            </dd>
-
+                                                    <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">\Default</div></dd>
                         
                         
-                        
-                        
-                                                                        </dl>
+                    </dl>
                     <h2>Tags</h2>
                     <table class="table table-condensed">
-                                            <tr><td colspan="2"><em>None found</em></td></tr>
-                                        </table>
+                                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                                            </table>
+
                 </aside>
             </div>
 
-                        
-                        
-                                </div>
+            
+            
+        </div>
     </section>
 
     <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h3 id="source-view-label">SimpleSocketException.php</h3>
+            <h3 id="source-view-label"></h3>
         </div>
         <div class="modal-body">
-            <pre data-src="../files/SimpleSocketException.php.txt" class="language-php line-numbers"></pre>
+            <pre data-src="../files/Semaphore.php.txt" class="language-php line-numbers"></pre>
         </div>
     </div>
 
