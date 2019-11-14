@@ -146,11 +146,11 @@ class WorkerPoolTest extends \PHPUnit\Framework\TestCase {
 
 	public function testDestroyException() {
 		$wp = new WorkerPool();
-		$wp->setWorkerPoolSize(50);
+		$wp->setWorkerPoolSize(3);
 		$wp->create(new Fixtures\FatalFailingWorker());
 		$failCount = 0;
 		try {
-			for ($i = 0; $i < 50; $i++) {
+			for ($i = 0; $i < 3; $i++) {
 				$wp->run($i);
 				$a = $wp->getFreeAndBusyWorkers();
 			}
@@ -175,10 +175,10 @@ class WorkerPoolTest extends \PHPUnit\Framework\TestCase {
 	public function testPingWorkers() {
 		try {
 			$wp = new WorkerPool();
-			$wp->setWorkerPoolSize(50);
+			$wp->setWorkerPoolSize(5);
 			$wp->create(new Fixtures\PingWorker());
 			$failCount = 0;
-			for ($i = 0; $i < 500; $i++) {
+			for ($i = 0; $i < 50; $i++) {
 				$wp->run($i);
 				$a = $wp->getFreeAndBusyWorkers();
 				if ($a['free'] + $a['busy'] != $a['total']) {
@@ -192,18 +192,18 @@ class WorkerPoolTest extends \PHPUnit\Framework\TestCase {
 				'Sometimes the sum of free and busy workers does not equal to the pool size.'
 			);
 			$this->assertEquals(
-				500,
+				50,
 				count($wp),
-				'The result count should be 500.'
+				'The result count should be 50.'
 			);
 			$i = 0;
 			foreach ($wp as $val) {
 				$i++;
 			}
 			$this->assertEquals(
-				500,
+				50,
 				$i,
-				'We should have 500 results in the pool.'
+				'We should have 50 results in the pool.'
 			);
 			$this->assertEquals(
 				0,
