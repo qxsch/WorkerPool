@@ -10,14 +10,14 @@ use QXS\WorkerPool\WorkerPool;
  * @requires extension sysvsem
  * @requires extension sockets
  */
-class WorkerPoolTest extends \PHPUnit_Framework_TestCase {
+class WorkerPoolTest extends \PHPUnit\Framework\TestCase {
 
 	/**
 	 * @var WorkerPool
 	 */
 	protected $sut;
 
-	public function setUp() {
+	public function setUp() : void {
 		$missingExtensions = array();
 		foreach (array('sockets', 'posix', 'sysvsem', 'pcntl') as $extension) {
 			if (!extension_loaded($extension)) {

@@ -11,7 +11,7 @@ use QXS\WorkerPool\Semaphore;
  * @requires extension sysvsem
  * @requires extension sockets
  */
-class ClosureWorkerTest extends \PHPUnit_Framework_TestCase {
+class ClosureWorkerTest extends \PHPUnit\Framework\TestCase {
 
 	public function testClosureMethods() {
 		$semaphore = new Semaphore();
