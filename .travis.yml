@@ -1,11 +1,11 @@
 language: php
 php:
-  - 7.1
   - 7.2
   - 7.3
+  - 7.4
 
 install:
-  - composer require "phpunit/phpunit:7.*"
+  - composer require "phpunit/phpunit:8.*"
 #before_script:
 #  - pecl install -f proctitle
 #  - phpenv config-add travisphp.ini
