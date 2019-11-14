@@ -77,8 +77,6 @@ class ProcessDetails {
 		// 3. set the title
 		if (function_exists('cli_set_process_title')) {
 			cli_set_process_title($title); // PHP 5.5+ has a builtin function
-		} elseif (function_exists('setproctitle')) {
-			setproctitle($title); // pecl proctitle extension
 		}
 	}
 
