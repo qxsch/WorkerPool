@@ -15,7 +15,7 @@ _10K Downloads within 4 Months, thank you very much! We're adding features as an
 
 
 The WorkerPool class provides a very simple interface to pass data to a worker pool and have it processed.
-You can at any time fetch the results from the workers. Each worker child can return any value that can be [serialized][serialize].
+You can at any time fetch the results from the workers. Each worker child can receive and return any value that can be [serialized][serialize].
 
 ### A simple example
 
@@ -159,11 +159,16 @@ $wp->setWorkerPoolSize(4)
                           * @param \ArrayObject $storage a persistent storge for the current child process
                           */
                         function($input, $semaphore, $storage) {
-                                $semaphore->synchronizedBegin();
+				$semaphore->synchronizedBegin();
+				try {
                                         // this code is being synchronized accross all workers
 					// so here we have just one worker at a time
                                         echo "[A][".getmypid()."]"." hi $input\n";
-                                $semaphore->synchronizedEnd();
+				}
+				finally {
+                                	$semaphore->synchronizedEnd();
+				}
+				
                                 // alternative example
                                 $semaphore->synchronize(function() use ($input, $storage) {
                                         // this code is being synchronized accross all workers
