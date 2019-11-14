@@ -159,8 +159,12 @@ class Semaphore {
 	 */
 	public function synchronize(\Closure $closure) {
 		$this->acquire();
-		call_user_func($closure);
-		$this->release();
+		try {
+			call_user_func($closure);
+		}
+		finally {
+			$this->release();
+		}
 		return $this;
 	}
 

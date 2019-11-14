@@ -12,10 +12,17 @@ $wp->setWorkerPoolSize(4)
                           * @param \ArrayObject $storage a persistent storge for the current child process
                           */
                         function($input, $semaphore, $storage) {
+				// synchronized begin and end (Always use try finally to make sure, that lock will be cleaned up!)
                                 $semaphore->synchronizedBegin();
+				try {
                                         // this code is being synchronized accross all workers
                                         echo "[A][".getmypid()."]"." hi $input\n";
-                                $semaphore->synchronizedEnd();
+				}
+				finally {
+	                                $semaphore->synchronizedEnd();
+				}
+
+
 				// alternative example
                                 $semaphore->synchronize(function() use ($input, $storage) {
                                         // this code is being synchronized accross all workers
