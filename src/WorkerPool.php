@@ -26,7 +26,7 @@ class WorkerPool implements \Iterator, \Countable {
 
 	/** @var array signals, that should be watched */
 	protected $signals = array(
-		SIGCHLD, SIGTERM, SIGHUP, SIGUSR1
+		SIGCHLD, SIGTERM, SIGHUP, SIGUSR1, SIGINT
 	);
 
 	/** @var bool is the pool created? (children forked) */
@@ -339,6 +339,7 @@ class WorkerPool implements \Iterator, \Countable {
 		while (TRUE) {
 			$output = array('pid' => getmypid());
 			try {
+				pcntl_signal_dispatch();
 				$replacements['state'] = 'free';
 				ProcessDetails::setProcessTitle($this->childProcessTitleFormat, $replacements);
 				$cmd = $simpleSocket->receive();
