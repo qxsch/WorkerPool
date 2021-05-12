@@ -37,7 +37,7 @@ class Semaphore {
 	/** maximum semaphore int */
 	const SEM_MAX_INT=2147483647;
 
-	/** @var resource the semaphore resource */
+	/** @var resource|\SysvSemaphore the semaphore resource */
 	protected $semaphore = NULL;
 
 	/** @var int the key that is used to access the semaphore */
@@ -60,7 +60,7 @@ class Semaphore {
 	 * @return \QXS\WorkerPool\Semaphore the current object
 	 */
 	public function create($semKey = Semaphore::SEM_FTOK_KEY, $maxAcquire = 1, $perms=0666) {
-		if (is_resource($this->semaphore)) {
+		if ($this->isCreated()) {
 			throw new SemaphoreException('Semaphore has already been created.');
 		}
 
@@ -80,7 +80,7 @@ class Semaphore {
 			$retries = 1;
 		}
 		// try to generate a semaphore
-		while (!is_resource($this->semaphore) && $retries > 0) {
+		while (!$this->isCreated() && $retries > 0) {
 			$retries--;
 			// generate a semKey
 			if (!is_int($semKey)) {
@@ -98,7 +98,7 @@ class Semaphore {
 			}
 			$this->semaphore = sem_get($this->semKey, $maxAcquire, $perms, 0);
 		}
-		if (!is_resource($this->semaphore)) {
+		if (!$this->isCreated()) {
 			$this->semaphore = NULL;
 			$this->semKey = NULL;
 			throw new SemaphoreException('Cannot create the semaphore.');
@@ -173,7 +173,7 @@ class Semaphore {
 	 * @return bool true in case the semaphore has been created
 	 */
 	public function isCreated() {
-		return is_resource($this->semaphore);
+		return is_resource($this->semaphore) || $this->semaphore instanceof \SysvSemaphore;
 	}
 
 	/**
@@ -182,7 +182,7 @@ class Semaphore {
 	 * @return \QXS\WorkerPool\Semaphore the current object
 	 */
 	public function destroy() {
-		if (!is_resource($this->semaphore)) {
+		if (!$this->isCreated()) {
 			throw new SemaphoreException('Semaphore hasn\'t yet been created.');
 		}
 		if (!sem_remove($this->semaphore)) {
