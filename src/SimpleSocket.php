@@ -10,7 +10,7 @@ namespace QXS\WorkerPool;
  */
 class SimpleSocket {
 
-	/** @var resource the connection socket, that is used for IPC */
+	/** @var resource|\Socket the connection socket, that is used for IPC */
 	protected $socket = NULL;
 	/**
 	 * This Variable can be used to attack custom information to the socket
@@ -24,7 +24,9 @@ class SimpleSocket {
 	 * @throws \InvalidArgumentException
 	 */
 	public function __construct($socket) {
-		if (!is_resource($socket) && strtolower(@get_resource_type($socket)) != 'socket') {
+	    $hasSocket = (is_resource($socket) && strtolower(@get_resource_type($socket)) === 'socket')
+            || $socket instanceof \Socket;
+		if (!$hasSocket) {
 			throw new \InvalidArgumentException('Socket resource is required!');
 		}
 		$this->socket = $socket;
@@ -84,13 +86,13 @@ class SimpleSocket {
 		}
 
 		foreach ($readSocketsResources as $socketResource) {
-			$out['read'][] = $readSockets[intval($socketResource)];
+			$out['read'][] = $readSockets[self::getSocketId($socketResource)];
 		}
 		foreach ($writeSocketsResources as $socketResource) {
-			$out['write'][] = $writeSockets[intval($socketResource)];
+			$out['write'][] = $writeSockets[self::getSocketId($socketResource)];
 		}
 		foreach ($exceptSocketsResources as $socketResource) {
-			$out['except'][] = $exceptSockets[intval($socketResource)];
+			$out['except'][] = $exceptSockets[self::getSocketId($socketResource)];
 		}
 
 		return $out;
@@ -120,8 +122,21 @@ class SimpleSocket {
 	 * @return int the id of the socket resource
 	 */
 	public function getResourceId() {
-		return intval($this->socket);
+		return self::getSocketId($this->socket);
 	}
+
+    /**
+     * Get the id of the socket
+     * @param $socket
+     * @return int the id of the socket
+     */
+	protected static function getSocketId($socket) {
+	    if ($socket instanceof \Socket) {
+	        return spl_object_id($socket);
+        }
+
+        return intval($socket);
+    }
 
 	/**
 	 * Get the socket resource
