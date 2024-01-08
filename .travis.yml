@@ -2,9 +2,10 @@ language: php
 php:
   - 7.2
   - 7.3
-  - 7.3
   - 7.4
   - 8.0
+  - 8.1
+  - 8.2
 
 install:
   - composer require "phpunit/phpunit:8.*"
