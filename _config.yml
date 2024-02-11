@@ -1,8 +1,0 @@
-title: Workerpool
-description: Parallel Processing WorkerPool for PHP
-google_analytics: 
-show_downloads: true
-theme: jekyll-theme-tactile
-
-gems:
-  - jekyll-mentions

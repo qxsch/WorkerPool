@@ -1,0 +1,3384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+            <title>Documentation</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="../">
+    <link rel="icon" href="images/favicon.ico"/>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/base.css">
+            <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@100;200;300;400;600;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="css/template.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css" integrity="sha256-ybRkN9dBjhcS2qrW1z+hfCxq+1aBdwyQM5wlQoQVt/0=" crossorigin="anonymous" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism-okaidia.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-highlight/prism-line-highlight.css">
+                <script src="https://cdn.jsdelivr.net/npm/fuse.js@3.4.6"></script>
+        <script src="https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2"></script>
+        <script src="js/template.js"></script>
+        <script src="js/search.js"></script>
+        <script defer src="js/searchIndex.js"></script>
+    </head>
+<body id="top">
+    <header class="phpdocumentor-header phpdocumentor-section">
+    <h1 class="phpdocumentor-title"><a href="" class="phpdocumentor-title__link">Documentation</a></h1>
+    <input class="phpdocumentor-header__menu-button" type="checkbox" id="menu-button" name="menu-button" />
+    <label class="phpdocumentor-header__menu-icon" for="menu-button">
+        <i class="fas fa-bars"></i>
+    </label>
+    <section data-search-form class="phpdocumentor-search">
+    <label>
+        <span class="visually-hidden">Search for</span>
+        <svg class="phpdocumentor-search__icon" width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="7.5" cy="7.5" r="6.5" stroke="currentColor" stroke-width="2"/>
+            <line x1="12.4892" y1="12.2727" x2="19.1559" y2="18.9393" stroke="currentColor" stroke-width="3"/>
+        </svg>
+        <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+    </label>
+</section>
+
+    <nav class="phpdocumentor-topnav">
+    <ul class="phpdocumentor-topnav__menu">
+        </ul>
+</nav>
+</header>
+
+    <main class="phpdocumentor">
+        <div class="phpdocumentor-section">
+            <input class="phpdocumentor-sidebar__menu-button" type="checkbox" id="sidebar-button" name="sidebar-button" />
+<label class="phpdocumentor-sidebar__menu-icon" for="sidebar-button">
+    Menu
+</label>
+<aside class="phpdocumentor-column -three phpdocumentor-sidebar">
+                    <section class="phpdocumentor-sidebar__category">
+            <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
+                                    <h4 class="phpdocumentor-sidebar__root-namespace">
+    <a href="namespaces/qxs.html" class="">QXS</a>
+</h4>
+    <ul class="phpdocumentor-list">
+                    <li>
+                <a href="namespaces/qxs-workerpool.html" class="">WorkerPool</a>
+                
+            </li>
+            </ul>
+
+                        </section>
+                <section class="phpdocumentor-sidebar__category">
+            <h2 class="phpdocumentor-sidebar__category-header">Packages</h2>
+                                    <h4 class="phpdocumentor-sidebar__root-namespace">
+    <a href="packages/Application.html" class="">Application</a>
+</h4>
+
+                        </section>
+            
+    <section class="phpdocumentor-sidebar__category">
+        <h2 class="phpdocumentor-sidebar__category-header">Reports</h2>
+                <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/deprecated.html">Deprecated</a></h3>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/errors.html">Errors</a></h3>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/markers.html">Markers</a></h3>
+    </section>
+
+    <section class="phpdocumentor-sidebar__category">
+        <h2 class="phpdocumentor-sidebar__category-header">Indices</h2>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="indices/files.html">Files</a></h3>
+    </section>
+</aside>
+
+            <div class="phpdocumentor-column -nine phpdocumentor-content">
+                                <section>
+                                        <ul class="phpdocumentor-breadcrumbs">
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/qxs.html">QXS</a></li>
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/qxs-workerpool.html">WorkerPool</a></li>
+    </ul>
+
+    <article class="phpdocumentor-element -class">
+        <h2 class="phpdocumentor-content__title">
+    WorkerPool
+
+    
+            <div class="phpdocumentor-element__package">
+            in package
+            <ul class="phpdocumentor-breadcrumbs">
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Application.html">Application</a></li>
+                            </ul>
+        </div>
+    
+            <span class="phpdocumentor-element__implements">
+            implements
+                            <abbr title="\Iterator">Iterator</abbr>,                             <abbr title="\Countable">Countable</abbr>                    </span>
+    
+    </h2>
+
+<div class="phpdocumentor-label-line">
+
+
+</div>
+
+        <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">22</span>
+
+    </aside>
+
+            <p class="phpdocumentor-summary">The Worker Pool class runs worker processes in parallel</p>
+
+
+
+
+
+
+<h3 id="toc">
+    Table of Contents
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
+
+</h3>
+
+
+
+    <h4 id="toc-interfaces">
+        Interfaces
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#toc-interfaces" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <dl class="phpdocumentor-table-of-contents">
+                    <dt class="phpdocumentor-table-of-contents__entry -interface"><abbr title="\Iterator">Iterator</abbr></dt>            <dt class="phpdocumentor-table-of-contents__entry -interface"><abbr title="\Countable">Countable</abbr></dt>    </dl>
+
+
+
+
+<h4 id="toc-constants">
+    Constants
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#toc-constants" class="headerlink"><i class="fas fa-link"></i></a>
+
+</h4>
+<dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#constant_CHILD_TIMEOUT_SEC">CHILD_TIMEOUT_SEC</a>
+    <span>
+        &nbsp;= 10                            </span>
+</dt>
+<dd>Default child timeout in seconds</dd>
+
+    </dl>
+
+
+<h4 id="toc-properties">
+    Properties
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#toc-properties" class="headerlink"><i class="fas fa-link"></i></a>
+
+</h4>
+<dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#property_childProcessTitleFormat">$childProcessTitleFormat</a>
+    <span>
+                        &nbsp;: string            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#property_parentPid">$parentPid</a>
+    <span>
+                        &nbsp;: int            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#property_parentProcessTitleFormat">$parentProcessTitleFormat</a>
+    <span>
+                        &nbsp;: string            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#property_resultPosition">$resultPosition</a>
+    <span>
+                        &nbsp;: int            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#property_results">$results</a>
+    <span>
+                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#property_semaphore">$semaphore</a>
+    <span>
+                        &nbsp;: <a href="classes/QXS-WorkerPool-Semaphore.html"><abbr title="\QXS\WorkerPool\Semaphore">Semaphore</abbr></a>            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#property_signals">$signals</a>
+    <span>
+                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#property_worker">$worker</a>
+    <span>
+                        &nbsp;: <a href="classes/QXS-WorkerPool-WorkerInterface.html"><abbr title="\QXS\WorkerPool\WorkerInterface">WorkerInterface</abbr></a>            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#property_workerProcesses">$workerProcesses</a>
+    <span>
+                        &nbsp;: <a href="classes/QXS-WorkerPool-ProcessDetailsCollection.html"><abbr title="\QXS\WorkerPool\ProcessDetailsCollection">ProcessDetailsCollection</abbr></a>|array&lt;string|int, <a href="classes/QXS-WorkerPool-ProcessDetails.html"><abbr title="\QXS\WorkerPool\ProcessDetails">ProcessDetails</abbr></a>&gt;            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#property_child_timeout_sec">$child_timeout_sec</a>
+    <span>
+                        &nbsp;: int            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#property_created">$created</a>
+    <span>
+                        &nbsp;: bool            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#property_currentWorkerIndex">$currentWorkerIndex</a>
+    <span>
+                        &nbsp;: int            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#property_initialPoolSize">$initialPoolSize</a>
+    <span>
+                        &nbsp;: int            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#property_respawnAutomatically">$respawnAutomatically</a>
+    <span>
+                        &nbsp;: bool            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#property_workerPoolSize">$workerPoolSize</a>
+    <span>
+                        &nbsp;: int            </span>
+</dt>
+
+    </dl>
+
+<h4 id="toc-methods">
+    Methods
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#toc-methods" class="headerlink"><i class="fas fa-link"></i></a>
+
+</h4>
+<dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#method___construct">__construct()</a>
+    <span>
+                                &nbsp;: mixed    </span>
+</dt>
+<dd>The constructor</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#method___destruct">__destruct()</a>
+    <span>
+                                &nbsp;: mixed    </span>
+</dt>
+<dd>The destructor</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#method_clearResults">clearResults()</a>
+    <span>
+                                &nbsp;: <a href="classes/QXS-WorkerPool-WorkerPool.html"><abbr title="\QXS\WorkerPool\WorkerPool">WorkerPool</abbr></a>    </span>
+</dt>
+<dd>Clear all the results</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#method_count">count()</a>
+    <span>
+                                &nbsp;: int    </span>
+</dt>
+<dd>Countable Method count</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#method_countResults">countResults()</a>
+    <span>
+                                &nbsp;: int    </span>
+</dt>
+<dd>How many results did we receive?</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#method_create">create()</a>
+    <span>
+                                &nbsp;: <a href="classes/QXS-WorkerPool-WorkerPool.html"><abbr title="\QXS\WorkerPool\WorkerPool">WorkerPool</abbr></a>    </span>
+</dt>
+<dd>Creates the worker pool (forks the children)</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#method_current">current()</a>
+    <span>
+                                &nbsp;: null|<a href="classes/QXS-WorkerPool-WorkerPoolResult.html"><abbr title="\QXS\WorkerPool\WorkerPoolResult">WorkerPoolResult</abbr></a>    </span>
+</dt>
+<dd>Iterator Method current</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#method_destroy">destroy()</a>
+    <span>
+                                &nbsp;: <a href="classes/QXS-WorkerPool-WorkerPool.html"><abbr title="\QXS\WorkerPool\WorkerPool">WorkerPool</abbr></a>    </span>
+</dt>
+<dd>Destroy the WorkerPool with all its children</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#method_disableSemaphore">disableSemaphore()</a>
+    <span>
+                                &nbsp;: <a href="classes/QXS-WorkerPool-WorkerPool.html"><abbr title="\QXS\WorkerPool\WorkerPool">WorkerPool</abbr></a>    </span>
+</dt>
+<dd>Disables the semaphore feature in the workerpool</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#method_exitPhp">exitPhp()</a>
+    <span>
+                                &nbsp;: mixed    </span>
+</dt>
+<dd>Terminates the current process</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#method_getBusyWorkers">getBusyWorkers()</a>
+    <span>
+                                &nbsp;: int    </span>
+</dt>
+<dd>Returns the number of busy workers</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#method_getChildProcessTitleFormat">getChildProcessTitleFormat()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+<dd>Returns the process title of the child</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#method_getFreeAndBusyWorkers">getFreeAndBusyWorkers()</a>
+    <span>
+                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+</dt>
+<dd>Returns the number of busy and free workers</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#method_getFreeWorkers">getFreeWorkers()</a>
+    <span>
+                                &nbsp;: int    </span>
+</dt>
+<dd>Returns the number of free workers</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#method_getNextResult">getNextResult()</a>
+    <span>
+                                &nbsp;: null|<a href="classes/QXS-WorkerPool-WorkerPoolResult.html"><abbr title="\QXS\WorkerPool\WorkerPoolResult">WorkerPoolResult</abbr></a>    </span>
+</dt>
+<dd>Shifts the next result from the result queue</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#method_getParentProcessTitleFormat">getParentProcessTitleFormat()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+<dd>Returns the process title of the parent</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#method_getSemaphore">getSemaphore()</a>
+    <span>
+                                &nbsp;: null|<a href="classes/QXS-WorkerPool-Semaphore.html"><abbr title="\QXS\WorkerPool\Semaphore">Semaphore</abbr></a>    </span>
+</dt>
+<dd>Gets the Semaphore, that will be used within the worker processes</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#method_getWorkerPoolSize">getWorkerPoolSize()</a>
+    <span>
+                                &nbsp;: int    </span>
+</dt>
+<dd>Returns the current size of the worker pool</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#method_hasResults">hasResults()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Is there any result available?</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#method_key">key()</a>
+    <span>
+                                &nbsp;: int    </span>
+</dt>
+<dd>Iterator Method key</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#method_next">next()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+<dd>Iterator Method next()</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#method_onShutDown">onShutDown()</a>
+    <span>
+                                &nbsp;: mixed    </span>
+</dt>
+<dd>This runs on shutdown to prevent the system from semaphore leaks</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#method_respawnAutomatically">respawnAutomatically()</a>
+    <span>
+                                &nbsp;: <a href="classes/QXS-WorkerPool-WorkerPool.html"><abbr title="\QXS\WorkerPool\WorkerPool">WorkerPool</abbr></a>    </span>
+</dt>
+<dd>Respawn workers automatically if they died</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#method_rewind">rewind()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+<dd>Iterator Method rewind()</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#method_run">run()</a>
+    <span>
+                                &nbsp;: int    </span>
+</dt>
+<dd>Sends the input to the next free worker process</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#method_setChildProcessTitleFormat">setChildProcessTitleFormat()</a>
+    <span>
+                                &nbsp;: <a href="classes/QXS-WorkerPool-WorkerPool.html"><abbr title="\QXS\WorkerPool\WorkerPool">WorkerPool</abbr></a>    </span>
+</dt>
+<dd>Sets the process title of the child</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#method_setChildTimeoutSec">setChildTimeoutSec()</a>
+    <span>
+                                &nbsp;: <a href="classes/QXS-WorkerPool-WorkerPool.html"><abbr title="\QXS\WorkerPool\WorkerPool">WorkerPool</abbr></a>    </span>
+</dt>
+<dd>Sets default child timeout in seconds.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#method_setParentProcessTitleFormat">setParentProcessTitleFormat()</a>
+    <span>
+                                &nbsp;: <a href="classes/QXS-WorkerPool-WorkerPool.html"><abbr title="\QXS\WorkerPool\WorkerPool">WorkerPool</abbr></a>    </span>
+</dt>
+<dd>Sets the process title of the parent</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#method_setSemaphore">setSemaphore()</a>
+    <span>
+                                &nbsp;: <a href="classes/QXS-WorkerPool-WorkerPool.html"><abbr title="\QXS\WorkerPool\WorkerPool">WorkerPool</abbr></a>    </span>
+</dt>
+<dd>Sets the Semaphore, that will be used within the worker processes</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#method_setWorkerPoolSize">setWorkerPoolSize()</a>
+    <span>
+                                &nbsp;: <a href="classes/QXS-WorkerPool-WorkerPool.html"><abbr title="\QXS\WorkerPool\WorkerPool">WorkerPool</abbr></a>    </span>
+</dt>
+<dd>Sets the current size of the worker pool</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#method_signalHandler">signalHandler()</a>
+    <span>
+                                &nbsp;: mixed    </span>
+</dt>
+<dd>Receives signals</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#method_tryWaitForOneFreeWorker">tryWaitForOneFreeWorker()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Trys to wait for one free worker within a fixed timeout</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#method_valid">valid()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Iterator Method valid()</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#method_waitForAllWorkers">waitForAllWorkers()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+<dd>Waits for all children to finish their worker</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#method_waitForOneFreeWorker">waitForOneFreeWorker()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+<dd>Waits for one free worker</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -protected">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#method_collectWorkerResults">collectWorkerResults()</a>
+    <span>
+                                &nbsp;: mixed    </span>
+</dt>
+<dd>Collects the results form the workers and processes any pending signals</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -protected">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#method_getNextFreeWorker">getNextFreeWorker()</a>
+    <span>
+                                &nbsp;: <a href="classes/QXS-WorkerPool-ProcessDetails.html"><abbr title="\QXS\WorkerPool\ProcessDetails">ProcessDetails</abbr></a>    </span>
+</dt>
+<dd>Get the pid of the next free worker</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -protected">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#method_reaper">reaper()</a>
+    <span>
+                                &nbsp;: mixed    </span>
+</dt>
+<dd>Child process reaper</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -protected">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#method_runWorkerProcess">runWorkerProcess()</a>
+    <span>
+                                &nbsp;: mixed    </span>
+</dt>
+<dd>Run the worker process</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#method_createWorker">createWorker()</a>
+    <span>
+                                &nbsp;: mixed    </span>
+</dt>
+<dd>Creates the worker</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a href="classes/QXS-WorkerPool-WorkerPool.html#method_respawnIfRequired">respawnIfRequired()</a>
+    <span>
+                                &nbsp;: mixed    </span>
+</dt>
+
+    </dl>
+
+
+
+
+        
+    <section class="phpdocumentor-constants">
+        <h3 class="phpdocumentor-elements__header" id="constants">
+            Constants
+            <a href="classes/QXS-WorkerPool-WorkerPool.html#constants" class="headerlink"><i class="fas fa-link"></i></a>
+
+        </h3>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_CHILD_TIMEOUT_SEC">
+        CHILD_TIMEOUT_SEC
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#constant_CHILD_TIMEOUT_SEC" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">25</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Default child timeout in seconds</p>
+
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">CHILD_TIMEOUT_SEC</span>
+    = <span class="phpdocumentor-signature__default-value">10</span>
+</code>
+
+
+    
+    
+    
+
+</article>
+            </section>
+
+        
+    <section class="phpdocumentor-properties">
+        <h3 class="phpdocumentor-elements__header" id="properties">
+            Properties
+            <a href="classes/QXS-WorkerPool-WorkerPool.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
+
+        </h3>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_childProcessTitleFormat">
+        $childProcessTitleFormat
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#property_childProcessTitleFormat" class="headerlink"><i class="fas fa-link"></i></a>
+
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">66</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">$childProcessTitleFormat</span>
+     = <span class="phpdocumentor-signature__default-value">&#039;%basename%: Worker %i% of %class% [%state%]&#039;</span></code>
+
+    
+        <section class="phpdocumentor-description"><p>process title of the children</p>
+</section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_parentPid">
+        $parentPid
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#property_parentPid" class="headerlink"><i class="fas fa-link"></i></a>
+
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">45</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">int</span>
+    <span class="phpdocumentor-signature__name">$parentPid</span>
+     = <span class="phpdocumentor-signature__default-value">0</span></code>
+
+    
+        <section class="phpdocumentor-description"><p>id of the parent</p>
+</section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_parentProcessTitleFormat">
+        $parentProcessTitleFormat
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#property_parentProcessTitleFormat" class="headerlink"><i class="fas fa-link"></i></a>
+
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">63</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">$parentProcessTitleFormat</span>
+     = <span class="phpdocumentor-signature__default-value">&#039;%basename%: Parent&#039;</span></code>
+
+    
+        <section class="phpdocumentor-description"><p>process title of the parent</p>
+</section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_resultPosition">
+        $resultPosition
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#property_resultPosition" class="headerlink"><i class="fas fa-link"></i></a>
+
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">60</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">int</span>
+    <span class="phpdocumentor-signature__name">$resultPosition</span>
+     = <span class="phpdocumentor-signature__default-value">0</span></code>
+
+    
+        <section class="phpdocumentor-description"><p>number of received results</p>
+</section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_results">
+        $results
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#property_results" class="headerlink"><i class="fas fa-link"></i></a>
+
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">57</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+    <span class="phpdocumentor-signature__name">$results</span>
+     = <span class="phpdocumentor-signature__default-value">array()</span></code>
+
+    
+        <section class="phpdocumentor-description"><p>received results from the workers</p>
+</section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_semaphore">
+        $semaphore
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#property_semaphore" class="headerlink"><i class="fas fa-link"></i></a>
+
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">51</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type"><a href="classes/QXS-WorkerPool-Semaphore.html"><abbr title="\QXS\WorkerPool\Semaphore">Semaphore</abbr></a></span>
+    <span class="phpdocumentor-signature__name">$semaphore</span>
+    </code>
+
+    
+        <section class="phpdocumentor-description"><p>the semaphore, that is used to synchronizd tasks across all processes</p>
+</section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_signals">
+        $signals
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#property_signals" class="headerlink"><i class="fas fa-link"></i></a>
+
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">28</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+    <span class="phpdocumentor-signature__name">$signals</span>
+     = <span class="phpdocumentor-signature__default-value">array(SIGCHLD, SIGTERM, SIGHUP, SIGUSR1, SIGINT)</span></code>
+
+    
+        <section class="phpdocumentor-description"><p>signals, that should be watched</p>
+</section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_worker">
+        $worker
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#property_worker" class="headerlink"><i class="fas fa-link"></i></a>
+
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">48</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type"><a href="classes/QXS-WorkerPool-WorkerInterface.html"><abbr title="\QXS\WorkerPool\WorkerInterface">WorkerInterface</abbr></a></span>
+    <span class="phpdocumentor-signature__name">$worker</span>
+    </code>
+
+    
+        <section class="phpdocumentor-description"><p>the worker class, that is used to run the tasks</p>
+</section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_workerProcesses">
+        $workerProcesses
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#property_workerProcesses" class="headerlink"><i class="fas fa-link"></i></a>
+
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">54</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type"><a href="classes/QXS-WorkerPool-ProcessDetailsCollection.html"><abbr title="\QXS\WorkerPool\ProcessDetailsCollection">ProcessDetailsCollection</abbr></a>|array&lt;string|int, <a href="classes/QXS-WorkerPool-ProcessDetails.html"><abbr title="\QXS\WorkerPool\ProcessDetails">ProcessDetails</abbr></a>&gt;</span>
+    <span class="phpdocumentor-signature__name">$workerProcesses</span>
+    </code>
+
+    
+        <section class="phpdocumentor-description"><p>Collection of the worker processes</p>
+</section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_child_timeout_sec">
+        $child_timeout_sec
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#property_child_timeout_sec" class="headerlink"><i class="fas fa-link"></i></a>
+
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">72</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">int</span>
+    <span class="phpdocumentor-signature__name">$child_timeout_sec</span>
+     = <span class="phpdocumentor-signature__default-value">self::CHILD_TIMEOUT_SEC</span></code>
+
+    
+        <section class="phpdocumentor-description"><p>Default child timeout in seconds</p>
+</section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_created">
+        $created
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#property_created" class="headerlink"><i class="fas fa-link"></i></a>
+
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">33</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">bool</span>
+    <span class="phpdocumentor-signature__name">$created</span>
+     = <span class="phpdocumentor-signature__default-value">FALSE</span></code>
+
+    
+        <section class="phpdocumentor-description"><p>is the pool created? (children forked)</p>
+</section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_currentWorkerIndex">
+        $currentWorkerIndex
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#property_currentWorkerIndex" class="headerlink"><i class="fas fa-link"></i></a>
+
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">42</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">int</span>
+    <span class="phpdocumentor-signature__name">$currentWorkerIndex</span>
+     = <span class="phpdocumentor-signature__default-value">0</span></code>
+
+    
+        <section class="phpdocumentor-description"><p>Current index for the last worker created in the pool</p>
+</section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_initialPoolSize">
+        $initialPoolSize
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#property_initialPoolSize" class="headerlink"><i class="fas fa-link"></i></a>
+
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">39</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">int</span>
+    <span class="phpdocumentor-signature__name">$initialPoolSize</span>
+    </code>
+
+    
+        <section class="phpdocumentor-description"><p>number of children initially in the pool</p>
+</section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_respawnAutomatically">
+        $respawnAutomatically
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#property_respawnAutomatically" class="headerlink"><i class="fas fa-link"></i></a>
+
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">69</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">bool</span>
+    <span class="phpdocumentor-signature__name">$respawnAutomatically</span>
+     = <span class="phpdocumentor-signature__default-value">false</span></code>
+
+    
+        <section class="phpdocumentor-description"><p>Respawn dead workers automatically if set to TRUE</p>
+</section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_workerPoolSize">
+        $workerPoolSize
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#property_workerPoolSize" class="headerlink"><i class="fas fa-link"></i></a>
+
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">36</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">int</span>
+    <span class="phpdocumentor-signature__name">$workerPoolSize</span>
+     = <span class="phpdocumentor-signature__default-value">2</span></code>
+
+    
+        <section class="phpdocumentor-description"><p>number of children in the pool</p>
+</section>
+
+    
+
+</article>
+            </section>
+
+            <section class="phpdocumentor-methods">
+        <h3 class="phpdocumentor-elements__header" id="methods">
+            Methods
+            <a href="classes/QXS-WorkerPool-WorkerPool.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
+
+        </h3>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method___construct">
+        __construct()
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">77</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">The constructor</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method___destruct">
+        __destruct()
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method___destruct" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">85</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">The destructor</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">__destruct</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_clearResults">
+        clearResults()
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_clearResults" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">702</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Clear all the results</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">clearResults</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/QXS-WorkerPool-WorkerPool.html"><abbr title="\QXS\WorkerPool\WorkerPool">WorkerPool</abbr></a></span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="classes/QXS-WorkerPool-WorkerPool.html"><abbr title="\QXS\WorkerPool\WorkerPool">WorkerPool</abbr></a></span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_count">
+        count()
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_count" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">740</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Countable Method count</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">count</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_count#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><a href="classes/QXS-WorkerPool-WorkerPool.html#method_countResults"><abbr title="\QXS\WorkerPool\WorkerPool::countResults()">WorkerPool::countResults()</abbr></a></span>
+                                        
+                                             
+                                    </dd>
+                                            </dl>
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">int</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>the number of results</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_countResults">
+        countResults()
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_countResults" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">721</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">How many results did we receive?</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">countResults</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">int</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>the number of results</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_create">
+        create()
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_create" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">251</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Creates the worker pool (forks the children)</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">create</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/QXS-WorkerPool-WorkerInterface.html"><abbr title="\QXS\WorkerPool\WorkerInterface">WorkerInterface</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$worker</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/QXS-WorkerPool-WorkerPool.html"><abbr title="\QXS\WorkerPool\WorkerPool">WorkerPool</abbr></a></span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+        <section class="phpdocumentor-description"><p>Please close all open resources before running this function.
+Child processes are going to close all open resources uppon exit,
+leaving the parent process behind with invalid resource handles.</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$worker</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/QXS-WorkerPool-WorkerInterface.html"><abbr title="\QXS\WorkerPool\WorkerInterface">WorkerInterface</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>the worker, that runs future tasks</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_create#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\RuntimeException">RuntimeException</abbr></span>
+                                                            
+                                             
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/QXS-WorkerPool-WorkerPoolException.html"><abbr title="\QXS\WorkerPool\WorkerPoolException">WorkerPoolException</abbr></a></span>
+                                                            
+                                             
+                                    </dd>
+                                            </dl>
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="classes/QXS-WorkerPool-WorkerPool.html"><abbr title="\QXS\WorkerPool\WorkerPool">WorkerPool</abbr></a></span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_current">
+        current()
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_current" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">749</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Iterator Method current</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">current</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">null|<a href="classes/QXS-WorkerPool-WorkerPoolResult.html"><abbr title="\QXS\WorkerPool\WorkerPoolResult">WorkerPoolResult</abbr></a></span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">null|<a href="classes/QXS-WorkerPool-WorkerPoolResult.html"><abbr title="\QXS\WorkerPool\WorkerPoolResult">WorkerPoolResult</abbr></a></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>gets the current result</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_destroy">
+        destroy()
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_destroy" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">401</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Destroy the WorkerPool with all its children</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">destroy</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$maxWaitSecs</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/QXS-WorkerPool-WorkerPool.html"><abbr title="\QXS\WorkerPool\WorkerPool">WorkerPool</abbr></a></span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$maxWaitSecs</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>a timeout to wait for the children, before killing them</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_destroy#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/QXS-WorkerPool-WorkerPoolException.html"><abbr title="\QXS\WorkerPool\WorkerPoolException">WorkerPoolException</abbr></a></span>
+                                                            
+                                             
+                                    </dd>
+                                            </dl>
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="classes/QXS-WorkerPool-WorkerPool.html"><abbr title="\QXS\WorkerPool\WorkerPool">WorkerPool</abbr></a></span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_disableSemaphore">
+        disableSemaphore()
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_disableSemaphore" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">215</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Disables the semaphore feature in the workerpool</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">disableSemaphore</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/QXS-WorkerPool-WorkerPool.html"><abbr title="\QXS\WorkerPool\WorkerPool">WorkerPool</abbr></a></span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+        <section class="phpdocumentor-description"><p>Attention: You will lose the possibility to synchronize worker processes</p>
+</section>
+
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_disableSemaphore#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/QXS-WorkerPool-WorkerPoolException.html"><abbr title="\QXS\WorkerPool\WorkerPoolException">WorkerPoolException</abbr></a></span>
+                                                            
+                                                 <section class="phpdocumentor-description"><p>in case the WorkerPool has already been created</p>
+</section>
+
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\InvalidArgumentException">InvalidArgumentException</abbr></span>
+                                                            
+                                                 <section class="phpdocumentor-description"><p>in case the semaphre hasn't been created</p>
+</section>
+
+                                    </dd>
+                                            </dl>
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="classes/QXS-WorkerPool-WorkerPool.html"><abbr title="\QXS\WorkerPool\WorkerPool">WorkerPool</abbr></a></span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_exitPhp">
+        exitPhp()
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_exitPhp" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">236</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Terminates the current process</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">exitPhp</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$code</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$code</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>the exit code</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getBusyWorkers">
+        getBusyWorkers()
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_getBusyWorkers" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">606</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Returns the number of busy workers</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getBusyWorkers</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+        <section class="phpdocumentor-description"><p>PAY ATTENTION WHEN USING THIS FUNCTION WITH A SUBSEQUENT CALL OF getFreeWorkers().
+IN THIS CASE THE SUM MIGHT NOT EQUAL TO THE CURRENT POOL SIZE.
+USE getFreeAndBusyWorkers() TO GET CONSISTENT RESULTS.</p>
+</section>
+
+    
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">int</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>number of free workers</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getChildProcessTitleFormat">
+        getChildProcessTitleFormat()
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_getChildProcessTitleFormat" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">95</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Returns the process title of the child</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getChildProcessTitleFormat</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>the process title of the child</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getFreeAndBusyWorkers">
+        getFreeAndBusyWorkers()
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_getFreeAndBusyWorkers" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">576</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Returns the number of busy and free workers</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getFreeAndBusyWorkers</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+        <section class="phpdocumentor-description"><p>This function collects all the information at once.</p>
+</section>
+
+    
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>with the keys 'free', 'busy', 'total'</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getFreeWorkers">
+        getFreeWorkers()
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_getFreeWorkers" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">593</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Returns the number of free workers</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getFreeWorkers</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+        <section class="phpdocumentor-description"><p>PAY ATTENTION WHEN USING THIS FUNCTION WITH A SUBSEQUENT CALL OF getBusyWorkers().
+IN THIS CASE THE SUM MIGHT NOT EQUAL TO THE CURRENT POOL SIZE.
+USE getFreeAndBusyWorkers() TO GET CONSISTENT RESULTS.</p>
+</section>
+
+    
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">int</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>number of free workers</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getNextResult">
+        getNextResult()
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_getNextResult" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">730</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Shifts the next result from the result queue</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getNextResult</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">null|<a href="classes/QXS-WorkerPool-WorkerPoolResult.html"><abbr title="\QXS\WorkerPool\WorkerPoolResult">WorkerPoolResult</abbr></a></span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">null|<a href="classes/QXS-WorkerPool-WorkerPoolResult.html"><abbr title="\QXS\WorkerPool\WorkerPoolResult">WorkerPoolResult</abbr></a></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>gets the next result</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getParentProcessTitleFormat">
+        getParentProcessTitleFormat()
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_getParentProcessTitleFormat" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">126</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Returns the process title of the parent</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getParentProcessTitleFormat</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>the process title of the parent</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getSemaphore">
+        getSemaphore()
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_getSemaphore" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">185</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Gets the Semaphore, that will be used within the worker processes</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getSemaphore</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">null|<a href="classes/QXS-WorkerPool-Semaphore.html"><abbr title="\QXS\WorkerPool\Semaphore">Semaphore</abbr></a></span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">null|<a href="classes/QXS-WorkerPool-Semaphore.html"><abbr title="\QXS\WorkerPool\Semaphore">Semaphore</abbr></a></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>$semaphore the Semaphore, that should be used for the workers</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getWorkerPoolSize">
+        getWorkerPoolSize()
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_getWorkerPoolSize" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">158</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Returns the current size of the worker pool</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getWorkerPoolSize</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+        <section class="phpdocumentor-description"><p>In case the pool hasn't yet been created, this method returns the value of the currently set pool size.
+In case of a created pool, this method reports the real pool size (number of alive worker processes).</p>
+</section>
+
+    
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">int</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>the number of processes</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_hasResults">
+        hasResults()
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_hasResults" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">712</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Is there any result available?</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">hasResults</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>true, in case we have received some results</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_key">
+        key()
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_key" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">761</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Iterator Method key</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">key</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">int</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>returns the current key</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_next">
+        next()
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_next" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">768</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Iterator Method next()</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">next</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_onShutDown">
+        onShutDown()
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_onShutDown" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">386</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">This runs on shutdown to prevent the system from semaphore leaks</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">onShutDown</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_respawnAutomatically">
+        respawnAutomatically()
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_respawnAutomatically" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">486</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Respawn workers automatically if they died</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">respawnAutomatically</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$respawn</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">true</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/QXS-WorkerPool-WorkerPool.html"><abbr title="\QXS\WorkerPool\WorkerPool">WorkerPool</abbr></a></span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$respawn</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">true</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="classes/QXS-WorkerPool-WorkerPool.html"><abbr title="\QXS\WorkerPool\WorkerPool">WorkerPool</abbr></a></span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_rewind">
+        rewind()
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_rewind" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">779</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Iterator Method rewind()</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">rewind</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_run">
+        run()
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_run" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">686</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Sends the input to the next free worker process</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">run</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$input</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+        <section class="phpdocumentor-description"><p>This function blocks until a worker has finished its work.
+You can kill all child processes, so that the parent will be unblocked.</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$input</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>any serializable value</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_run#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/QXS-WorkerPool-WorkerPoolException.html"><abbr title="\QXS\WorkerPool\WorkerPoolException">WorkerPoolException</abbr></a></span>
+                                                            
+                                             
+                                    </dd>
+                                            </dl>
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">int</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The PID of the processing worker process</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setChildProcessTitleFormat">
+        setChildProcessTitleFormat()
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_setChildProcessTitleFormat" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">114</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Sets the process title of the child</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">setChildProcessTitleFormat</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$string</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/QXS-WorkerPool-WorkerPool.html"><abbr title="\QXS\WorkerPool\WorkerPool">WorkerPool</abbr></a></span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+        <section class="phpdocumentor-description"><p>Listing permitted replacments
+%i%         The Child's Number
+%basename%  The base name of PHPSELF
+%fullname%  The value of PHPSELF
+%class%     The Worker's Classname
+%state%     The Worker's State</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$string</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>the process title of the child</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_setChildProcessTitleFormat#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/QXS-WorkerPool-WorkerPoolException.html"><abbr title="\QXS\WorkerPool\WorkerPoolException">WorkerPoolException</abbr></a></span>
+                                                            
+                                                 <section class="phpdocumentor-description"><p>in case the WorkerPool has already been created</p>
+</section>
+
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\DomainException">DomainException</abbr></span>
+                                                            
+                                                 <section class="phpdocumentor-description"><p>in case the $string value is not within the permitted range</p>
+</section>
+
+                                    </dd>
+                                            </dl>
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="classes/QXS-WorkerPool-WorkerPool.html"><abbr title="\QXS\WorkerPool\WorkerPool">WorkerPool</abbr></a></span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setChildTimeoutSec">
+        setChildTimeoutSec()
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_setChildTimeoutSec" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">227</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Sets default child timeout in seconds.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">setChildTimeoutSec</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$child_timeout_sec</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/QXS-WorkerPool-WorkerPool.html"><abbr title="\QXS\WorkerPool\WorkerPool">WorkerPool</abbr></a></span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$child_timeout_sec</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="classes/QXS-WorkerPool-WorkerPool.html"><abbr title="\QXS\WorkerPool\WorkerPool">WorkerPool</abbr></a></span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setParentProcessTitleFormat">
+        setParentProcessTitleFormat()
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_setParentProcessTitleFormat" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">143</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Sets the process title of the parent</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">setParentProcessTitleFormat</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$string</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/QXS-WorkerPool-WorkerPool.html"><abbr title="\QXS\WorkerPool\WorkerPool">WorkerPool</abbr></a></span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+        <section class="phpdocumentor-description"><p>Listing permitted replacments
+%basename%  The base name of PHPSELF
+%fullname%  The value of PHPSELF
+%class%     The WorkerPool's Classname</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$string</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>the process title of the parent</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_setParentProcessTitleFormat#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/QXS-WorkerPool-WorkerPoolException.html"><abbr title="\QXS\WorkerPool\WorkerPoolException">WorkerPoolException</abbr></a></span>
+                                                            
+                                                 <section class="phpdocumentor-description"><p>in case the WorkerPool has already been created</p>
+</section>
+
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\DomainException">DomainException</abbr></span>
+                                                            
+                                                 <section class="phpdocumentor-description"><p>in case the $string value is not within the permitted range</p>
+</section>
+
+                                    </dd>
+                                            </dl>
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="classes/QXS-WorkerPool-WorkerPool.html"><abbr title="\QXS\WorkerPool\WorkerPool">WorkerPool</abbr></a></span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setSemaphore">
+        setSemaphore()
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_setSemaphore" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">196</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Sets the Semaphore, that will be used within the worker processes</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">setSemaphore</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/QXS-WorkerPool-Semaphore.html"><abbr title="\QXS\WorkerPool\Semaphore">Semaphore</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$semaphore</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/QXS-WorkerPool-WorkerPool.html"><abbr title="\QXS\WorkerPool\WorkerPool">WorkerPool</abbr></a></span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$semaphore</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/QXS-WorkerPool-Semaphore.html"><abbr title="\QXS\WorkerPool\Semaphore">Semaphore</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>the Semaphore, that should be used for the workers</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_setSemaphore#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/QXS-WorkerPool-WorkerPoolException.html"><abbr title="\QXS\WorkerPool\WorkerPoolException">WorkerPoolException</abbr></a></span>
+                                                            
+                                                 <section class="phpdocumentor-description"><p>in case the WorkerPool has already been created</p>
+</section>
+
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\InvalidArgumentException">InvalidArgumentException</abbr></span>
+                                                            
+                                                 <section class="phpdocumentor-description"><p>in case the semaphre hasn't been created</p>
+</section>
+
+                                    </dd>
+                                            </dl>
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="classes/QXS-WorkerPool-WorkerPool.html"><abbr title="\QXS\WorkerPool\WorkerPool">WorkerPool</abbr></a></span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setWorkerPoolSize">
+        setWorkerPoolSize()
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_setWorkerPoolSize" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">169</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Sets the current size of the worker pool</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">setWorkerPoolSize</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$size</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/QXS-WorkerPool-WorkerPool.html"><abbr title="\QXS\WorkerPool\WorkerPool">WorkerPool</abbr></a></span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$size</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>the new worker pool size</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_setWorkerPoolSize#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/QXS-WorkerPool-WorkerPoolException.html"><abbr title="\QXS\WorkerPool\WorkerPoolException">WorkerPoolException</abbr></a></span>
+                                                            
+                                                 <section class="phpdocumentor-description"><p>in case the WorkerPool has already been created</p>
+</section>
+
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\InvalidArgumentException">InvalidArgumentException</abbr></span>
+                                                            
+                                                 <section class="phpdocumentor-description"><p>in case the $size value is not within the permitted range</p>
+</section>
+
+                                    </dd>
+                                            </dl>
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="classes/QXS-WorkerPool-WorkerPool.html"><abbr title="\QXS\WorkerPool\WorkerPool">WorkerPool</abbr></a></span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_signalHandler">
+        signalHandler()
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_signalHandler" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">460</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Receives signals</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">signalHandler</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$signo</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+        <section class="phpdocumentor-description"><p>DO NOT MANUALLY CALL THIS METHOD!
+pcntl_signal_dispatch() will be calling this method.</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$signo</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>the signal number</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_signalHandler#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><abbr title="\QXS\WorkerPool\pcntl_signal_dispatch">pcntl_signal_dispatch</abbr></span>
+                                        
+                                             
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><abbr title="\QXS\WorkerPool\pcntl_signal">pcntl_signal</abbr></span>
+                                        
+                                             
+                                    </dd>
+                                            </dl>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_tryWaitForOneFreeWorker">
+        tryWaitForOneFreeWorker()
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_tryWaitForOneFreeWorker" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">542</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Trys to wait for one free worker within a fixed timeout</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">tryWaitForOneFreeWorker</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$timeout</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">10</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+        <section class="phpdocumentor-description"><p>This function blocks until a worker has finished its work or the timeout has been reached.
+You can kill hanging child processes, so that the parent will be unblocked.
+Note: the run method already blocks until a free worker is available.</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$timeout</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">10</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>the timeout in seconds</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>true, in case there is a free worker  or  false, in case the timeout has been reached</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_valid">
+        valid()
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_valid" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">786</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Iterator Method valid()</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">valid</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>true = there is a pending result</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_waitForAllWorkers">
+        waitForAllWorkers()
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_waitForAllWorkers" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">564</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Waits for all children to finish their worker</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">waitForAllWorkers</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+        <section class="phpdocumentor-description"><p>This function blocks until every worker has finished its work.
+You can kill hanging child processes, so that the parent will be unblocked.</p>
+</section>
+
+    
+    
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_waitForOneFreeWorker">
+        waitForOneFreeWorker()
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_waitForOneFreeWorker" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">553</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Waits for one free worker</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">waitForOneFreeWorker</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+        <section class="phpdocumentor-description"><p>This function blocks until a worker has finished its work.
+You can kill hanging child processes, so that the parent will be unblocked.
+Note: the run method already blocks until a free worker is available.</p>
+</section>
+
+    
+    
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_collectWorkerResults">
+        collectWorkerResults()
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_collectWorkerResults" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">642</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Collects the results form the workers and processes any pending signals</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+                    <span class="phpdocumentor-signature__name">collectWorkerResults</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$sec</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">0</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$sec</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">0</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>timeout to wait for new results from the workers</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_collectWorkerResults#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/QXS-WorkerPool-WorkerPoolException.html"><abbr title="\QXS\WorkerPool\WorkerPoolException">WorkerPoolException</abbr></a></span>
+                                                            
+                                             
+                                    </dd>
+                                            </dl>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getNextFreeWorker">
+        getNextFreeWorker()
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_getNextFreeWorker" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">618</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Get the pid of the next free worker</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+                    <span class="phpdocumentor-signature__name">getNextFreeWorker</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/QXS-WorkerPool-ProcessDetails.html"><abbr title="\QXS\WorkerPool\ProcessDetails">ProcessDetails</abbr></a></span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+        <section class="phpdocumentor-description"><p>This function blocks until a worker has finished its work.
+You can kill all child processes, so that the parent will be unblocked.</p>
+</section>
+
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_getNextFreeWorker#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/QXS-WorkerPool-WorkerPoolException.html"><abbr title="\QXS\WorkerPool\WorkerPoolException">WorkerPoolException</abbr></a></span>
+                                                            
+                                             
+                                    </dd>
+                                            </dl>
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="classes/QXS-WorkerPool-ProcessDetails.html"><abbr title="\QXS\WorkerPool\ProcessDetails">ProcessDetails</abbr></a></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>the pid of the next free child</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_reaper">
+        reaper()
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_reaper" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">508</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Child process reaper</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+                    <span class="phpdocumentor-signature__name">reaper</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$pid</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">-1</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$pid</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">-1</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>the process id</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_reaper#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><abbr title="\QXS\WorkerPool\pcntl_waitpid">pcntl_waitpid</abbr></span>
+                                        
+                                             
+                                    </dd>
+                                            </dl>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_runWorkerProcess">
+        runWorkerProcess()
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_runWorkerProcess" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">329</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Run the worker process</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+                    <span class="phpdocumentor-signature__name">runWorkerProcess</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/QXS-WorkerPool-WorkerInterface.html"><abbr title="\QXS\WorkerPool\WorkerInterface">WorkerInterface</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$worker</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/QXS-WorkerPool-SimpleSocket.html"><abbr title="\QXS\WorkerPool\SimpleSocket">SimpleSocket</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$simpleSocket</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$i</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$worker</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/QXS-WorkerPool-WorkerInterface.html"><abbr title="\QXS\WorkerPool\WorkerInterface">WorkerInterface</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>the worker, that runs the tasks</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$simpleSocket</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/QXS-WorkerPool-SimpleSocket.html"><abbr title="\QXS\WorkerPool\SimpleSocket">SimpleSocket</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>the simpleSocket, that is used for the communication</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$i</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>the number of the child</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_createWorker">
+        createWorker()
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_createWorker" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">295</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Creates the worker</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">createWorker</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$i</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$i</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_createWorker#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\RuntimeException">RuntimeException</abbr></span>
+                                                            
+                                             
+                                    </dd>
+                                            </dl>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_respawnIfRequired">
+        respawnIfRequired()
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#method_respawnIfRequired" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/WorkerPool.php"><a href="files/src-workerpool.html"><abbr title="src/WorkerPool.php">WorkerPool.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">493</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">respawnIfRequired</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+
+    
+</article>
+            </section>
+
+        <div class="phpdocumentor-modal" id="source-view">
+    <div class="phpdocumentor-modal-bg" data-exit-button></div>
+    <div class="phpdocumentor-modal-container">
+        <div class="phpdocumentor-modal-content">
+            <pre style="max-height: 500px; overflow-y: scroll" data-src="files/src/WorkerPool.php.txt" class="language-php line-numbers linkable-line-numbers"></pre>
+        </div>
+        <button data-exit-button class="phpdocumentor-modal__close">&times;</button>
+    </div>
+</div>
+
+    <script type="text/javascript">
+        (function () {
+            function loadExternalCodeSnippet(el, url, line) {
+                Array.prototype.slice.call(el.querySelectorAll('pre[data-src]')).forEach((pre) => {
+                    const src = url || pre.getAttribute('data-src').replace(/\\/g, '/');
+                    const language = 'php';
+
+                    const code = document.createElement('code');
+                    code.className = 'language-' + language;
+                    pre.textContent = '';
+                    pre.setAttribute('data-line', line)
+                    code.textContent = 'Loading…';
+                    pre.appendChild(code);
+
+                    var xhr = new XMLHttpRequest();
+
+                    xhr.open('GET', src, true);
+
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState !== 4) {
+                            return;
+                        }
+
+                        if (xhr.status < 400 && xhr.responseText) {
+                            code.textContent = xhr.responseText;
+                            Prism.highlightElement(code);
+                            return;
+                        }
+
+                        if (xhr.status === 404) {
+                            code.textContent = '✖ Error: File could not be found';
+                            return;
+                        }
+
+                        if (xhr.status >= 400) {
+                            code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                            return;
+                        }
+
+                        code.textContent = '✖ Error: An unknown error occurred';
+                    };
+
+                    xhr.send(null);
+                });
+            }
+
+            const modalButtons = document.querySelectorAll("[data-modal]");
+            const openedAsLocalFile = window.location.protocol === 'file:';
+            if (modalButtons.length > 0 && openedAsLocalFile) {
+                console.warn(
+                    'Viewing the source code is unavailable because you are opening this page from the file:// scheme; ' +
+                    'browsers block XHR requests when a page is opened this way'
+                );
+            }
+
+            modalButtons.forEach(function (trigger) {
+                if (openedAsLocalFile) {
+                    trigger.setAttribute("hidden", "hidden");
+                }
+
+                trigger.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    const modal = document.getElementById(trigger.dataset.modal);
+                    if (!modal) {
+                        console.error(`Modal with id "${trigger.dataset.modal}" could not be found`);
+                        return;
+                    }
+                    modal.classList.add("phpdocumentor-modal__open");
+
+                    loadExternalCodeSnippet(modal, trigger.dataset.src || null, trigger.dataset.line)
+                    const exits = modal.querySelectorAll("[data-exit-button]");
+                    exits.forEach(function (exit) {
+                        exit.addEventListener("click", function (event) {
+                            event.preventDefault();
+                            modal.classList.remove("phpdocumentor-modal__open");
+                        });
+                    });
+                });
+            });
+        })();
+    </script>
+
+    </article>
+                                </section>
+                <section class="phpdocumentor-on-this-page__sidebar">
+                                
+    <section class="phpdocumentor-on-this-page__content">
+        <strong class="phpdocumentor-on-this-page__title">On this page</strong>
+
+        <ul class="phpdocumentor-list -clean">
+            <li class="phpdocumentor-on-this-page-section__title">Table Of Contents</li>
+            <li>
+                <ul class="phpdocumentor-list -clean">
+                                        <li><a href="classes/QXS-WorkerPool-WorkerPool.html#toc-constants">Constants</a></li>
+                                                            <li><a href="classes/QXS-WorkerPool-WorkerPool.html#toc-properties">Properties</a></li>
+                                                            <li><a href="classes/QXS-WorkerPool-WorkerPool.html#toc-methods">Methods</a></li>
+                                    </ul>
+            </li>
+                            <li class="phpdocumentor-on-this-page-section__title">Constants</li>
+                <li>
+                    <ul class="phpdocumentor-list -clean">
+                                                    <li><a href="classes/QXS-WorkerPool-WorkerPool.html#constant_CHILD_TIMEOUT_SEC">CHILD_TIMEOUT_SEC</a></li>
+                                            </ul>
+                </li>
+            
+                            <li class="phpdocumentor-on-this-page-section__title">Properties</li>
+                <li>
+                    <ul class="phpdocumentor-list -clean">
+                                                    <li><a href="classes/QXS-WorkerPool-WorkerPool.html#property_childProcessTitleFormat">$childProcessTitleFormat<a href="classes/QXS-WorkerPool-WorkerPool.html"></li>
+                                                    <li><a href="classes/QXS-WorkerPool-WorkerPool.html#property_parentPid">$parentPid<a href="classes/QXS-WorkerPool-WorkerPool.html"></li>
+                                                    <li><a href="classes/QXS-WorkerPool-WorkerPool.html#property_parentProcessTitleFormat">$parentProcessTitleFormat<a href="classes/QXS-WorkerPool-WorkerPool.html"></li>
+                                                    <li><a href="classes/QXS-WorkerPool-WorkerPool.html#property_resultPosition">$resultPosition<a href="classes/QXS-WorkerPool-WorkerPool.html"></li>
+                                                    <li><a href="classes/QXS-WorkerPool-WorkerPool.html#property_results">$results<a href="classes/QXS-WorkerPool-WorkerPool.html"></li>
+                                                    <li><a href="classes/QXS-WorkerPool-WorkerPool.html#property_semaphore">$semaphore<a href="classes/QXS-WorkerPool-WorkerPool.html"></li>
+                                                    <li><a href="classes/QXS-WorkerPool-WorkerPool.html#property_signals">$signals<a href="classes/QXS-WorkerPool-WorkerPool.html"></li>
+                                                    <li><a href="classes/QXS-WorkerPool-WorkerPool.html#property_worker">$worker<a href="classes/QXS-WorkerPool-WorkerPool.html"></li>
+                                                    <li><a href="classes/QXS-WorkerPool-WorkerPool.html#property_workerProcesses">$workerProcesses<a href="classes/QXS-WorkerPool-WorkerPool.html"></li>
+                                                    <li><a href="classes/QXS-WorkerPool-WorkerPool.html#property_child_timeout_sec">$child_timeout_sec<a href="classes/QXS-WorkerPool-WorkerPool.html"></li>
+                                                    <li><a href="classes/QXS-WorkerPool-WorkerPool.html#property_created">$created<a href="classes/QXS-WorkerPool-WorkerPool.html"></li>
+                                                    <li><a href="classes/QXS-WorkerPool-WorkerPool.html#property_currentWorkerIndex">$currentWorkerIndex<a href="classes/QXS-WorkerPool-WorkerPool.html"></li>
+                                                    <li><a href="classes/QXS-WorkerPool-WorkerPool.html#property_initialPoolSize">$initialPoolSize<a href="classes/QXS-WorkerPool-WorkerPool.html"></li>
+                                                    <li><a href="classes/QXS-WorkerPool-WorkerPool.html#property_respawnAutomatically">$respawnAutomatically<a href="classes/QXS-WorkerPool-WorkerPool.html"></li>
+                                                    <li><a href="classes/QXS-WorkerPool-WorkerPool.html#property_workerPoolSize">$workerPoolSize<a href="classes/QXS-WorkerPool-WorkerPool.html"></li>
+                                            </ul>
+                </li>
+            
+                        <li class="phpdocumentor-on-this-page-section__title">Methods</li>
+            <li>
+                <ul class="phpdocumentor-list -clean">
+                                            <li><a href="classes/QXS-WorkerPool-WorkerPool.html#method___construct">__construct()</a></li>
+                                            <li><a href="classes/QXS-WorkerPool-WorkerPool.html#method___destruct">__destruct()</a></li>
+                                            <li><a href="classes/QXS-WorkerPool-WorkerPool.html#method_clearResults">clearResults()</a></li>
+                                            <li><a href="classes/QXS-WorkerPool-WorkerPool.html#method_count">count()</a></li>
+                                            <li><a href="classes/QXS-WorkerPool-WorkerPool.html#method_countResults">countResults()</a></li>
+                                            <li><a href="classes/QXS-WorkerPool-WorkerPool.html#method_create">create()</a></li>
+                                            <li><a href="classes/QXS-WorkerPool-WorkerPool.html#method_current">current()</a></li>
+                                            <li><a href="classes/QXS-WorkerPool-WorkerPool.html#method_destroy">destroy()</a></li>
+                                            <li><a href="classes/QXS-WorkerPool-WorkerPool.html#method_disableSemaphore">disableSemaphore()</a></li>
+                                            <li><a href="classes/QXS-WorkerPool-WorkerPool.html#method_exitPhp">exitPhp()</a></li>
+                                            <li><a href="classes/QXS-WorkerPool-WorkerPool.html#method_getBusyWorkers">getBusyWorkers()</a></li>
+                                            <li><a href="classes/QXS-WorkerPool-WorkerPool.html#method_getChildProcessTitleFormat">getChildProcessTitleFormat()</a></li>
+                                            <li><a href="classes/QXS-WorkerPool-WorkerPool.html#method_getFreeAndBusyWorkers">getFreeAndBusyWorkers()</a></li>
+                                            <li><a href="classes/QXS-WorkerPool-WorkerPool.html#method_getFreeWorkers">getFreeWorkers()</a></li>
+                                            <li><a href="classes/QXS-WorkerPool-WorkerPool.html#method_getNextResult">getNextResult()</a></li>
+                                            <li><a href="classes/QXS-WorkerPool-WorkerPool.html#method_getParentProcessTitleFormat">getParentProcessTitleFormat()</a></li>
+                                            <li><a href="classes/QXS-WorkerPool-WorkerPool.html#method_getSemaphore">getSemaphore()</a></li>
+                                            <li><a href="classes/QXS-WorkerPool-WorkerPool.html#method_getWorkerPoolSize">getWorkerPoolSize()</a></li>
+                                            <li><a href="classes/QXS-WorkerPool-WorkerPool.html#method_hasResults">hasResults()</a></li>
+                                            <li><a href="classes/QXS-WorkerPool-WorkerPool.html#method_key">key()</a></li>
+                                            <li><a href="classes/QXS-WorkerPool-WorkerPool.html#method_next">next()</a></li>
+                                            <li><a href="classes/QXS-WorkerPool-WorkerPool.html#method_onShutDown">onShutDown()</a></li>
+                                            <li><a href="classes/QXS-WorkerPool-WorkerPool.html#method_respawnAutomatically">respawnAutomatically()</a></li>
+                                            <li><a href="classes/QXS-WorkerPool-WorkerPool.html#method_rewind">rewind()</a></li>
+                                            <li><a href="classes/QXS-WorkerPool-WorkerPool.html#method_run">run()</a></li>
+                                            <li><a href="classes/QXS-WorkerPool-WorkerPool.html#method_setChildProcessTitleFormat">setChildProcessTitleFormat()</a></li>
+                                            <li><a href="classes/QXS-WorkerPool-WorkerPool.html#method_setChildTimeoutSec">setChildTimeoutSec()</a></li>
+                                            <li><a href="classes/QXS-WorkerPool-WorkerPool.html#method_setParentProcessTitleFormat">setParentProcessTitleFormat()</a></li>
+                                            <li><a href="classes/QXS-WorkerPool-WorkerPool.html#method_setSemaphore">setSemaphore()</a></li>
+                                            <li><a href="classes/QXS-WorkerPool-WorkerPool.html#method_setWorkerPoolSize">setWorkerPoolSize()</a></li>
+                                            <li><a href="classes/QXS-WorkerPool-WorkerPool.html#method_signalHandler">signalHandler()</a></li>
+                                            <li><a href="classes/QXS-WorkerPool-WorkerPool.html#method_tryWaitForOneFreeWorker">tryWaitForOneFreeWorker()</a></li>
+                                            <li><a href="classes/QXS-WorkerPool-WorkerPool.html#method_valid">valid()</a></li>
+                                            <li><a href="classes/QXS-WorkerPool-WorkerPool.html#method_waitForAllWorkers">waitForAllWorkers()</a></li>
+                                            <li><a href="classes/QXS-WorkerPool-WorkerPool.html#method_waitForOneFreeWorker">waitForOneFreeWorker()</a></li>
+                                            <li><a href="classes/QXS-WorkerPool-WorkerPool.html#method_collectWorkerResults">collectWorkerResults()</a></li>
+                                            <li><a href="classes/QXS-WorkerPool-WorkerPool.html#method_getNextFreeWorker">getNextFreeWorker()</a></li>
+                                            <li><a href="classes/QXS-WorkerPool-WorkerPool.html#method_reaper">reaper()</a></li>
+                                            <li><a href="classes/QXS-WorkerPool-WorkerPool.html#method_runWorkerProcess">runWorkerProcess()</a></li>
+                                            <li><a href="classes/QXS-WorkerPool-WorkerPool.html#method_createWorker">createWorker()</a></li>
+                                            <li><a href="classes/QXS-WorkerPool-WorkerPool.html#method_respawnIfRequired">respawnIfRequired()</a></li>
+                                    </ul>
+            </li>
+                    </ul>
+    </section>
+
+                </section>
+                            </div>
+            <section data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+    <section class="phpdocumentor-search-results__dialog">
+        <header class="phpdocumentor-search-results__header">
+            <h2 class="phpdocumentor-search-results__title">Search results</h2>
+            <button class="phpdocumentor-search-results__close"><i class="fas fa-times"></i></button>
+        </header>
+        <section class="phpdocumentor-search-results__body">
+            <ul class="phpdocumentor-search-results__entries"></ul>
+        </section>
+    </section>
+</section>
+        </div>
+        <a href="classes/QXS-WorkerPool-WorkerPool.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
+
+    </main>
+
+    <script>
+        cssVars({});
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>
