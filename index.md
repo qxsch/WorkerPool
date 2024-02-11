@@ -157,6 +157,7 @@ root   2382       \_ simpleExample.php: Worker 4 of QXS\WorkerPool\ClosureWorker
 
 ### Documentation
 
-The documentation can be found here http://qxsch.github.io/WorkerPool/doc/
+The documentation can be found [here][documentation].
 
   [serialize]: http://php.net/serialize
+  [documentation]: http://qxsch.github.io/WorkerPool/doc/
