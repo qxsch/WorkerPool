@@ -26,7 +26,7 @@ Class MyWorker implements WorkerInterface {
                 echo "\t[".getmypid()."] has been created.\n";
                 // initialize mt_rand
                 list($usec, $sec) = explode(' ', microtime());
-                mt_srand( (float) $sec + ((float) $usec * 100000) );
+                mt_srand((int)( (float) $sec + ((float) $usec * 100000) ));
         }
         /**
          * before the worker process is getting destroyed
