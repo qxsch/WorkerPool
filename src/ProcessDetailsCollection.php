@@ -25,7 +25,7 @@ class ProcessDetailsCollection implements \IteratorAggregate {
 	 * @param ProcessDetails $processDetails
 	 * @return ProcessDetailsCollection
 	 */
-	public function addFree(ProcessDetails $processDetails) {
+	public function addFree(ProcessDetails $processDetails) : ProcessDetailsCollection {
 		$pid = $processDetails->getPid();
 		$this->processDetails[$pid] = $processDetails;
 		$this->sockets[$pid] = $processDetails->getSocket();
@@ -40,7 +40,7 @@ class ProcessDetailsCollection implements \IteratorAggregate {
 	 * @throws \InvalidArgumentException
 	 * @return ProcessDetailsCollection
 	 */
-	public function remove(ProcessDetails $processDetails) {
+	public function remove(ProcessDetails $processDetails) : ProcessDetailsCollection {
 		$pid = $processDetails->getPid();
 
 		if ($this->hasProcess($pid) === FALSE) {
@@ -65,7 +65,7 @@ class ProcessDetailsCollection implements \IteratorAggregate {
 	 *
 	 * @return void
 	 */
-	public function killAllProcesses() {
+	public function killAllProcesses() : void {
 		foreach ($this->processDetails as $pid => $processDetails) {
 			$this->remove($processDetails);
 			posix_kill($pid, SIGKILL);
@@ -79,7 +79,7 @@ class ProcessDetailsCollection implements \IteratorAggregate {
 	 * @throws \InvalidArgumentException
 	 * @return ProcessDetailsCollection
 	 */
-	public function registerFreeProcess(ProcessDetails $processDetails) {
+	public function registerFreeProcess(ProcessDetails $processDetails) : ProcessDetailsCollection {
 		$pid = $processDetails->getPid();
 		if ($this->hasProcess($pid) === FALSE) {
 			throw new \InvalidArgumentException(sprintf('Could not register free process. Process (%d) not in list.', $processDetails->getPid()), 1400761296);
@@ -95,7 +95,7 @@ class ProcessDetailsCollection implements \IteratorAggregate {
 	 * @param int $pid
 	 * @return ProcessDetailsCollection
 	 */
-	public function registerFreeProcessId($pid) {
+	public function registerFreeProcessId(int $pid) : ProcessDetailsCollection {
 		$processDetails = $this->getProcessDetails($pid);
 		if ($processDetails !== NULL) {
 			$this->registerFreeProcess($processDetails);
@@ -118,7 +118,7 @@ class ProcessDetailsCollection implements \IteratorAggregate {
 	 *
 	 * @return ProcessDetails
 	 */
-	public function takeFreeProcess() {
+	public function takeFreeProcess() : ?ProcessDetails {
 		if ($this->getFreeProcessesCount() === 0) {
 			return NULL;
 		}
@@ -135,7 +135,7 @@ class ProcessDetailsCollection implements \IteratorAggregate {
 	 * @param int $pid
 	 * @return bool
 	 */
-	public function hasProcess($pid) {
+	public function hasProcess(int $pid) : bool {
 		return isset($this->processDetails[$pid]);
 	}
 
@@ -144,7 +144,7 @@ class ProcessDetailsCollection implements \IteratorAggregate {
 	 *
 	 * @return int
 	 */
-	public function getFreeProcessesCount() {
+	public function getFreeProcessesCount() : int {
 		return count($this->freeProcessIds);
 	}
 
@@ -153,7 +153,7 @@ class ProcessDetailsCollection implements \IteratorAggregate {
 	 *
 	 * @return int
 	 */
-	public function getProcessesCount() {
+	public function getProcessesCount() : int {
 		return count($this->processDetails);
 	}
 
@@ -172,7 +172,7 @@ class ProcessDetailsCollection implements \IteratorAggregate {
 	 * @param int $pid
 	 * @return ProcessDetails
 	 */
-	public function getProcessDetails($pid) {
+	public function getProcessDetails($pid) : ?ProcessDetails {
 		if ($this->hasProcess($pid) === FALSE) {
 			return NULL;
 		}
@@ -183,7 +183,7 @@ class ProcessDetailsCollection implements \IteratorAggregate {
 	/**
 	 * @inheritdoc
 	 */
-	public function getIterator() {
+	public function getIterator() : \ArrayIterator {
 		return new \ArrayIterator($this->processDetails);
 	}
 }

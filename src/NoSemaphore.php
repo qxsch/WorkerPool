@@ -23,13 +23,13 @@ class NoSemaphore extends Semaphore {
 
 	/**
 	 * Create a semaphore
-	 * @param string $semKey the key of the semaphore - use a specific number or Semaphore::SEM_RAND_KEY or Semaphore::SEM_FTOK_KEY
+	 * @param string|int $semKey the key of the semaphore - use a specific number or Semaphore::SEM_RAND_KEY or Semaphore::SEM_FTOK_KEY
 	 * @param int $maxAcquire the maximum number of processes, that can acquire the semaphore
 	 * @param int $perms the unix permissions for (user,group,others) - valid range from 0 to 0777
 	 * @throws SemaphoreException
 	 * @return \QXS\WorkerPool\Semaphore the current object
 	 */
-	public function create($semKey = Semaphore::SEM_FTOK_KEY, $maxAcquire = 1, $perms=0666) {
+	public function create($semKey = Semaphore::SEM_FTOK_KEY, int $maxAcquire = 1, int $perms=0666) : Semaphore {
 		$this->semaphore = NULL;
 		$this->semKey = 1;
 
@@ -41,7 +41,7 @@ class NoSemaphore extends Semaphore {
 	 * @throws SemaphoreException in case of an error
 	 * @return \QXS\WorkerPool\Semaphore the current object
 	 */
-	public function acquire() {
+	public function acquire() : Semaphore {
 		return $this;
 	}
 
@@ -50,7 +50,7 @@ class NoSemaphore extends Semaphore {
 	 * @throws SemaphoreException in case of an error
 	 * @return \QXS\WorkerPool\Semaphore the current object
 	 */
-	public function release() {
+	public function release() : Semaphore {
 		return $this;
 	}
 
@@ -58,7 +58,7 @@ class NoSemaphore extends Semaphore {
 	 * Has the semaphore been created?
 	 * @return bool true in case the semaphore has been created
 	 */
-	public function isCreated() {
+	public function isCreated() : bool {
 		return $this->semKey!==NULL;
 	}
 
@@ -67,7 +67,7 @@ class NoSemaphore extends Semaphore {
 	 * @throws SemaphoreException in case of an error
 	 * @return \QXS\WorkerPool\Semaphore the current object
 	 */
-	public function destroy() {
+	public function destroy() : Semaphore {
 		$this->semaphore = NULL;
 		$this->semKey = NULL;
 		return $this;

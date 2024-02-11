@@ -45,7 +45,7 @@ class Semaphore {
 
 	/**
 	 * Returns the key, that can be used to access the semaphore
-	 * @return int the key of the semaphore
+	 * @return null|int the key of the semaphore
 	 */
 	public function getSemaphoreKey() {
 		return $this->semKey;
@@ -53,13 +53,13 @@ class Semaphore {
 
 	/**
 	 * Create a semaphore
-	 * @param string $semKey the key of the semaphore - use a specific number or Semaphore::SEM_RAND_KEY or Semaphore::SEM_FTOK_KEY
+	 * @param string|int $semKey the key of the semaphore - use a specific number or Semaphore::SEM_RAND_KEY or Semaphore::SEM_FTOK_KEY
 	 * @param int $maxAcquire the maximum number of processes, that can acquire the semaphore
 	 * @param int $perms the unix permissions for (user,group,others) - valid range from 0 to 0777
 	 * @throws SemaphoreException
 	 * @return \QXS\WorkerPool\Semaphore the current object
 	 */
-	public function create($semKey = Semaphore::SEM_FTOK_KEY, $maxAcquire = 1, $perms=0666) {
+	public function create($semKey = Semaphore::SEM_FTOK_KEY, int $maxAcquire = 1, int $perms=0666) : Semaphore {
 		if ($this->isCreated()) {
 			throw new SemaphoreException('Semaphore has already been created.');
 		}
@@ -112,7 +112,7 @@ class Semaphore {
 	 * @throws SemaphoreException in case of an error
 	 * @return \QXS\WorkerPool\Semaphore the current object
 	 */
-	public function acquire() {
+	public function acquire() : Semaphore {
 		if (!sem_acquire($this->semaphore)) {
 			throw new SemaphoreException('Cannot acquire the semaphore.');
 		}
@@ -124,7 +124,7 @@ class Semaphore {
 	 * @throws SemaphoreException in case of an error
 	 * @return \QXS\WorkerPool\Semaphore the current object
 	 */
-	public function release() {
+	public function release() : Semaphore {
 		if (!sem_release($this->semaphore)) {
 			throw new SemaphoreException('Cannot release the semaphore.');
 		}
@@ -137,7 +137,7 @@ class Semaphore {
 	 * @return \QXS\WorkerPool\Semaphore the current object
 	 * @see \QXS\WorkerPool\Semaphore::acquire()
 	 */
-	public function synchronizedBegin() {
+	public function synchronizedBegin() : Semaphore {
 		return $this->acquire();
 	}
 
@@ -147,7 +147,7 @@ class Semaphore {
 	 * @return \QXS\WorkerPool\Semaphore the current object
 	 * @see \QXS\WorkerPool\Semaphore::release()
 	 */
-	public function synchronizedEnd() {
+	public function synchronizedEnd() : Semaphore {
 		return $this->release();
 	}
 
@@ -157,7 +157,7 @@ class Semaphore {
 	 * @throws SemaphoreException in case of an error
 	 * @return \QXS\WorkerPool\Semaphore the current object
 	 */
-	public function synchronize(\Closure $closure) {
+	public function synchronize(\Closure $closure) : Semaphore {
 		$this->acquire();
 		try {
 			call_user_func($closure);
@@ -172,7 +172,7 @@ class Semaphore {
 	 * Has the semaphore been created?
 	 * @return bool true in case the semaphore has been created
 	 */
-	public function isCreated() {
+	public function isCreated() : bool {
 		return is_resource($this->semaphore) || $this->semaphore instanceof \SysvSemaphore;
 	}
 
@@ -181,7 +181,7 @@ class Semaphore {
 	 * @throws SemaphoreException in case of an error
 	 * @return \QXS\WorkerPool\Semaphore the current object
 	 */
-	public function destroy() {
+	public function destroy() : Semaphore {
 		if (!$this->isCreated()) {
 			throw new SemaphoreException('Semaphore hasn\'t yet been created.');
 		}

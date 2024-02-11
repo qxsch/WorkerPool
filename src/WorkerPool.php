@@ -92,7 +92,7 @@ class WorkerPool implements \Iterator, \Countable {
 	 * Returns the process title of the child
 	 * @return string the process title of the child
 	 */
-	public function getChildProcessTitleFormat() {
+	public function getChildProcessTitleFormat() : string {
 		return $this->childProcessTitleFormat;
 	}
 
@@ -111,7 +111,7 @@ class WorkerPool implements \Iterator, \Countable {
 	 * @throws \QXS\WorkerPool\WorkerPoolException in case the WorkerPool has already been created
 	 * @throws \DomainException in case the $string value is not within the permitted range
 	 */
-	public function setChildProcessTitleFormat($string) {
+	public function setChildProcessTitleFormat($string) : WorkerPool {
 		if ($this->created) {
 			throw new WorkerPoolException('Cannot set the Parent\'s Process Title Format for a created pool.');
 		}
@@ -182,7 +182,7 @@ class WorkerPool implements \Iterator, \Countable {
 	 * Gets the Semaphore, that will be used within the worker processes
 	 * @return null|\QXS\WorkerPool\Semaphore $semaphore the Semaphore, that should be used for the workers
 	 */
-	public function getSemaphore() {
+	public function getSemaphore() : Semaphore {
 		return $this->semaphore;
 	}
 
@@ -193,7 +193,7 @@ class WorkerPool implements \Iterator, \Countable {
 	 * @throws \QXS\WorkerPool\WorkerPoolException in case the WorkerPool has already been created
 	 * @throws \InvalidArgumentException in case the semaphre hasn't been created
 	 */
-	public function setSemaphore(Semaphore $semaphore) {
+	public function setSemaphore(Semaphore $semaphore) : WorkerPool {
 		if ($this->created) {
 			throw new WorkerPoolException('Cannot set the Worker Pool Size for a created pool.');
 		}
@@ -212,7 +212,7 @@ class WorkerPool implements \Iterator, \Countable {
 	 * @throws \QXS\WorkerPool\WorkerPoolException in case the WorkerPool has already been created
 	 * @throws \InvalidArgumentException in case the semaphre hasn't been created
 	 */
-	public function disableSemaphore() {
+	public function disableSemaphore() : WorkerPool {
 		$sem = new NoSemaphore();
 		$sem->create();
 		$this->setSemaphore($sem);
@@ -224,7 +224,7 @@ class WorkerPool implements \Iterator, \Countable {
 	 * @param int $child_timeout_sec
 	 * @return WorkerPool
 	 */
-	public function setChildTimeoutSec($child_timeout_sec) {
+	public function setChildTimeoutSec($child_timeout_sec) : WorkerPool {
 		$this->child_timeout_sec = $child_timeout_sec;
 		return $this;
 	}
@@ -248,7 +248,7 @@ class WorkerPool implements \Iterator, \Countable {
 	 * @throws WorkerPoolException
 	 * @return WorkerPool
 	 */
-	public function create(WorkerInterface $worker) {
+	public function create(WorkerInterface $worker) : WorkerPool {
 		$this->initialPoolSize = $this->workerPoolSize;
 		$this->parentPid = getmypid();
 		$this->worker = $worker;
@@ -398,7 +398,7 @@ class WorkerPool implements \Iterator, \Countable {
 	 * @throws WorkerPoolException
 	 * @return WorkerPool
 	 */
-	public function destroy($maxWaitSecs = null) {
+	public function destroy($maxWaitSecs = null) : WorkerPool {
 		if ($maxWaitSecs === null) {
 			$maxWaitSecs = $this->child_timeout_sec;
 		}
@@ -483,7 +483,7 @@ class WorkerPool implements \Iterator, \Countable {
 	 * @param boolean $respawn
 	 * @return WorkerPool
 	 */
-	public function respawnAutomatically($respawn = true) {
+	public function respawnAutomatically($respawn = true) : WorkerPool {
 		if ($this->respawnAutomatically = $respawn) {
 			$this->child_timeout_sec = 1;
 		}
@@ -513,10 +513,10 @@ class WorkerPool implements \Iterator, \Countable {
 		while ($childpid > 0) {
 			$stopSignal = pcntl_wstopsig($status);
 			if (pcntl_wifexited($stopSignal) === FALSE) {
-				array_push($this->results, array(
+				array_push($this->results, new WorkerPoolResult(array(
 					'pid' => $childpid,
 					'abnormalChildReturnCode' => $stopSignal
-				));
+				)));
 			}
 
 			$processDetails = $this->workerProcesses->getProcessDetails($childpid);
@@ -539,7 +539,7 @@ class WorkerPool implements \Iterator, \Countable {
 	 * @param int $timeout  the timeout in seconds
 	 * @return bool  true, in case there is a free worker  or  false, in case the timeout has been reached
 	 */
-	public function tryWaitForOneFreeWorker($timeout=10) {
+	public function tryWaitForOneFreeWorker($timeout=10) : bool {
 		$this->collectWorkerResults((int)abs($timeout));
 		return $this->getFreeWorkers() > 0;
 	}
@@ -550,7 +550,7 @@ class WorkerPool implements \Iterator, \Countable {
 	 * You can kill hanging child processes, so that the parent will be unblocked.
 	 * Note: the run method already blocks until a free worker is available.
 	 */
-	public function waitForOneFreeWorker() {
+	public function waitForOneFreeWorker() : void {
 		while ($this->getFreeWorkers() == 0) {
 			$this->collectWorkerResults($this->child_timeout_sec);
 		}
@@ -561,7 +561,7 @@ class WorkerPool implements \Iterator, \Countable {
 	 * This function blocks until every worker has finished its work.
 	 * You can kill hanging child processes, so that the parent will be unblocked.
 	 */
-	public function waitForAllWorkers() {
+	public function waitForAllWorkers() : void {
 		while ($this->getBusyWorkers() > 0) {
 			$this->collectWorkerResults($this->child_timeout_sec);
 		}
@@ -573,7 +573,7 @@ class WorkerPool implements \Iterator, \Countable {
 	 * This function collects all the information at once.
 	 * @return array with the keys 'free', 'busy', 'total'
 	 */
-	public function getFreeAndBusyWorkers() {
+	public function getFreeAndBusyWorkers() : array {
 		$free = $this->getFreeWorkers();
 		return array(
 			'free' => $free,
@@ -590,7 +590,7 @@ class WorkerPool implements \Iterator, \Countable {
 	 * USE getFreeAndBusyWorkers() TO GET CONSISTENT RESULTS.
 	 * @return int number of free workers
 	 */
-	public function getFreeWorkers() {
+	public function getFreeWorkers() : int {
 		$this->collectWorkerResults();
 		return $this->workerProcesses->getFreeProcessesCount();
 	}
@@ -603,7 +603,7 @@ class WorkerPool implements \Iterator, \Countable {
 	 * USE getFreeAndBusyWorkers() TO GET CONSISTENT RESULTS.
 	 * @return int number of free workers
 	 */
-	public function getBusyWorkers() {
+	public function getBusyWorkers() : int {
 		return $this->workerPoolSize - $this->getFreeWorkers();
 	}
 
@@ -615,7 +615,7 @@ class WorkerPool implements \Iterator, \Countable {
 	 * @throws WorkerPoolException
 	 * @return ProcessDetails the pid of the next free child
 	 */
-	protected function getNextFreeWorker() {
+	protected function getNextFreeWorker(): ?ProcessDetails {
 		$sec = 0;
 		while (TRUE) {
 			$this->collectWorkerResults($sec);
@@ -664,7 +664,7 @@ class WorkerPool implements \Iterator, \Countable {
 				$resultType = reset($resultTypes);
 				// Do not store NULL
 				if ($resultType !== 'data' || $result['data'] !== NULL) {
-					array_push($this->results, $result);
+					array_push($this->results, new WorkerPoolResult($result));
 				}
 			}
 		}
@@ -683,7 +683,7 @@ class WorkerPool implements \Iterator, \Countable {
 	 * @throws WorkerPoolException
 	 * @return int The PID of the processing worker process
 	 */
-	public function run($input) {
+	public function run($input) : int {
 		while ($this->workerPoolSize > 0) {
 			try {
 				$processDetailsOfFreeWorker = $this->getNextFreeWorker();
@@ -699,7 +699,7 @@ class WorkerPool implements \Iterator, \Countable {
 	/**
 	 * Clear all the results
 	 */
-	public function clearResults() {
+	public function clearResults() : WorkerPool {
 		$this->collectWorkerResults();
 		$this->results = array();
 		return $this;
@@ -709,7 +709,7 @@ class WorkerPool implements \Iterator, \Countable {
 	 * Is there any result available?
 	 * @return bool true, in case we have received some results
 	 */
-	public function hasResults() {
+	public function hasResults() : bool {
 		$this->collectWorkerResults();
 		return !empty($this->results);
 	}
@@ -718,16 +718,16 @@ class WorkerPool implements \Iterator, \Countable {
 	 * How many results did we receive?
 	 * @return int the number of results
 	 */
-	public function countResults() {
+	public function countResults() : int {
 		$this->collectWorkerResults();
 		return $this->count();
 	}
 
 	/**
 	 * Shifts the next result from the result queue
-	 * @return array gets the next result
+	 * @return null|WorkerPoolResult gets the next result
 	 */
-	public function getNextResult() {
+	public function getNextResult() : ?WorkerPoolResult {
 		$this->collectWorkerResults();
 		return array_shift($this->results);
 	}
@@ -737,31 +737,35 @@ class WorkerPool implements \Iterator, \Countable {
 	 * @return int the number of results
 	 * @see \QXS\WorkerPool\WorkerPool::countResults()
 	 */
-	public function count() {
+	public function count() : int {
 		$this->collectWorkerResults();
 		return count($this->results);
 	}
 
 	/**
 	 * Iterator Method current
-	 * @return array gets the current result
+	 * @return null|WorkerPoolResult gets the current result
 	 */
-	public function current() {
-		return reset($this->results);
+	public function current() : ?WorkerPoolResult {
+		$c = reset($this->results);
+		if(is_bool($c)) {
+			return NULL;
+		}
+		return $c;
 	}
 
 	/**
 	 * Iterator Method key
-	 * @return string returns the current key
+	 * @return int returns the current key
 	 */
-	public function key() {
+	public function key() : int {
 		return $this->resultPosition;
 	}
 
 	/**
 	 * Iterator Method next()
 	 */
-	public function next() {
+	public function next() : void {
 		$this->collectWorkerResults();
 		if (!empty($this->results)) {
 			$this->resultPosition++;
@@ -772,14 +776,14 @@ class WorkerPool implements \Iterator, \Countable {
 	/**
 	 * Iterator Method rewind()
 	 */
-	public function rewind() {
+	public function rewind() : void {
 	}
 
 	/**
 	 * Iterator Method valid()
 	 * @return bool true = there is a pending result
 	 */
-	public function valid() {
+	public function valid() : bool {
 		return !empty($this->results);
 	}
 }

@@ -24,8 +24,7 @@ class SimpleSocket {
 	 * @throws \InvalidArgumentException
 	 */
 	public function __construct($socket) {
-	    $hasSocket = (is_resource($socket) && strtolower(@get_resource_type($socket)) === 'socket')
-            || $socket instanceof \Socket;
+		$hasSocket = (is_resource($socket) && strtolower(@get_resource_type($socket)) === 'socket') || $socket instanceof \Socket;
 		if (!$hasSocket) {
 			throw new \InvalidArgumentException('Socket resource is required!');
 		}
@@ -48,7 +47,7 @@ class SimpleSocket {
 	 * @param int $usec microseconds to wait a timeout is reached
 	 * @return array Associative Array of \QXS\WorkerPool\SimpleSocket Objects, that matched the monitoring, with the following keys 'read', 'write', 'except'
 	 */
-	public static function select(array $readSockets = array(), array $writeSockets = array(), array $exceptSockets = array(), $sec = 0, $usec = 0) {
+	public static function select(array $readSockets = array(), array $writeSockets = array(), array $exceptSockets = array(), $sec = 0, $usec = 0) : array {
 		$out = array();
 		$out['read'] = array();
 		$out['write'] = array();
@@ -121,22 +120,22 @@ class SimpleSocket {
 	 * Get the id of the socket resource
 	 * @return int the id of the socket resource
 	 */
-	public function getResourceId() {
+	public function getResourceId() : int {
 		return self::getSocketId($this->socket);
 	}
 
-    /**
-     * Get the id of the socket
-     * @param $socket
-     * @return int the id of the socket
-     */
-	protected static function getSocketId($socket) {
-	    if ($socket instanceof \Socket) {
-	        return spl_object_id($socket);
-        }
+	/**
+	 * Get the id of the socket
+	 * @param $socket
+	 * @return int the id of the socket
+	 */
+	protected static function getSocketId($socket) : int {
+		if ($socket instanceof \Socket) {
+			return spl_object_id($socket);
+		}
 
-        return intval($socket);
-    }
+		return intval($socket);
+	}
 
 	/**
 	 * Get the socket resource
@@ -152,7 +151,7 @@ class SimpleSocket {
 	 * @param int $usec microseconds to wait a timeout is reached
 	 * @return bool true, in case there is data, that can be red
 	 */
-	public function hasData($sec = 0, $usec = 0) {
+	public function hasData($sec = 0, $usec = 0) : bool {
 		$sec = (int)$sec;
 		$usec = (int)$usec;
 		if ($sec < 0) {
@@ -178,7 +177,7 @@ class SimpleSocket {
 	 * @param mixed $data the data, that should be sent
 	 * @throws \QXS\WorkerPool\SimpleSocketException in case of an error
 	 */
-	public function send($data) {
+	public function send($data) : void {
 		$serialized = serialize($data);
 		$hdr = pack('N', strlen($serialized)); // 4 byte length
 		$buffer = $hdr . $serialized;

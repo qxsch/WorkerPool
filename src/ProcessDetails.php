@@ -21,7 +21,7 @@ class ProcessDetails {
 	 * @param int $pid
 	 * @param SimpleSocket $socket
 	 */
-	public function __construct($pid, SimpleSocket $socket) {
+	public function __construct(int $pid, SimpleSocket $socket) {
 		$this->pid = $pid;
 		$this->socket = $socket;
 		$this->socket->annotation['pid'] = $pid;
@@ -33,7 +33,7 @@ class ProcessDetails {
 	 * @return string the process sanitized title
 	 * @throws \DomainException in case the $string value is not within the permitted range
 	 */
-	public static function sanitizeProcessTitleFormat($string) {
+	public static function sanitizeProcessTitleFormat(string $string) : string {
 		$string = preg_replace(
 			'/[^a-z0-9-_.:% \\\\\\]\\[]/i',
 			'',
@@ -52,7 +52,7 @@ class ProcessDetails {
 	 * @param array $replacements an associative array of replacment values
 	 * @return void
 	 */
-	public static function setProcessTitle($title, array $replacements = array()) {
+	public static function setProcessTitle(string $title, array $replacements = array()) : void {
 		// skip when empty title names or running on MacOS
 		if (trim($title) == '' || PHP_OS == 'Darwin') {
 			return;
@@ -84,7 +84,7 @@ class ProcessDetails {
 	 * Get the pid
 	 * @return int
 	 */
-	public function getPid() {
+	public function getPid() : int {
 		return $this->pid;
 	}
 
@@ -92,7 +92,7 @@ class ProcessDetails {
 	 * Get the socket
 	 * @return \QXS\WorkerPool\SimpleSocket
 	 */
-	public function getSocket() {
+	public function getSocket() : SimpleSocket {
 		return $this->socket;
 	}
 }
