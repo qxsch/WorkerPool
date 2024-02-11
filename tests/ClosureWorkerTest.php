@@ -5,12 +5,10 @@ namespace QXS\Tests\WorkerPool;
 use QXS\WorkerPool\ClosureWorker;
 use QXS\WorkerPool\Semaphore;
 
-/**
- * @requires extension pcntl
- * @requires extension posix
- * @requires extension sysvsem
- * @requires extension sockets
- */
+#[RequiresPhpExtension('pcntl')]
+#[RequiresPhpExtension('posix')]
+#[RequiresPhpExtension('sysvsem')]
+#[RequiresPhpExtension('sockets')]
 class ClosureWorkerTest extends \PHPUnit\Framework\TestCase {
 
 	public function testClosureMethods() {

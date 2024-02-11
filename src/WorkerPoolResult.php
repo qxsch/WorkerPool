@@ -25,7 +25,7 @@ class WorkerPoolResult implements \ArrayAccess {
 		}
 		if(array_key_exists('abnormalChildReturnCode', $result)) {
 			if(!array_key_exists('poolException', $result)) {
-				$result['poolException'] = new WorkerPoolException(array(
+				$result['poolException'] = new WorkerPoolExceptionResult(array(
 					'class' => 'RuntimeException',
 					'message' => 'The WorkerPool process reaper discovered an abnormal child return code: ' . $result['abnormalChildReturnCode'],
 					'trace' => ''

@@ -4,12 +4,10 @@ namespace QXS\Tests\WorkerPool;
 
 use QXS\WorkerPool\WorkerPool;
 
-/**
- * @requires extension pcntl
- * @requires extension posix
- * @requires extension sysvsem
- * @requires extension sockets
- */
+#[RequiresPhpExtension('pcntl')]
+#[RequiresPhpExtension('posix')]
+#[RequiresPhpExtension('sysvsem')]
+#[RequiresPhpExtension('sockets')]
 class WorkerPoolTest extends \PHPUnit\Framework\TestCase {
 
 	/**

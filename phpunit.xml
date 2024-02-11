@@ -1,29 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/6.3/phpunit.xsd"
-         backupGlobals="true"
-         backupStaticAttributes="false"
-         bootstrap="./autoload.php"
-         cacheTokens="false"
-         colors="true"
-         convertErrorsToExceptions="true"
-         convertNoticesToExceptions="true"
-         convertWarningsToExceptions="true"
-         forceCoversAnnotation="false"
-         processIsolation="false"
-         stopOnError="false"
-         stopOnFailure="false"
-         stopOnIncomplete="false"
-         stopOnSkipped="false"
-         stopOnRisky="false"
-         timeoutForSmallTests="1"
-         timeoutForMediumTests="10"
-         timeoutForLargeTests="60"
-         verbose="false">
-    <testsuites>
-        <testsuite name="Application Test Suite">
-            <directory>./tests/</directory>
-        </testsuite>
-    </testsuites>
+<phpunit 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11.0/phpunit.xsd"
+	backupGlobals="true"
+	bootstrap="./autoload.php"
+	colors="true"
+	processIsolation="false"
+	stopOnError="false"
+	stopOnFailure="false"
+	stopOnIncomplete="false"
+	stopOnSkipped="false"
+	stopOnRisky="false"
+	timeoutForSmallTests="1"
+	timeoutForMediumTests="10"
+	timeoutForLargeTests="60"
+	cacheDirectory=".phpunit.cache"
+	backupStaticProperties="false"
+	requireCoverageMetadata="false"
+>
+	<testsuites>
+		<testsuite name="Application Test Suite">
+			<directory>./tests/</directory>
+		</testsuite>
+	</testsuites>
+	<source/>
 </phpunit>

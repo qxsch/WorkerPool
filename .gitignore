@@ -1,1 +1,5 @@
 vendor
+/.phpunit.*
+/composer.phar
+/phpDocumentor.phar
+/phpunit
