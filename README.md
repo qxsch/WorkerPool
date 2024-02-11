@@ -45,7 +45,8 @@ for($i=0; $i<10; $i++) {
 $wp->waitForAllWorkers(); // wait for all workers
 
 foreach($wp as $val) {
-        var_dump($val);  // dump the returned values
+	echo $val->dump() . "\n";  // dump the returned values
+        // var_dump($val);  // dump the returned values
 }
 
 ```
