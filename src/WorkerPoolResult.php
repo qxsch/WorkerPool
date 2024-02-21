@@ -78,8 +78,8 @@ class WorkerPoolResult implements \ArrayAccess {
 	}
 
 	/**
-	 * Get the result type
-	 * @return string one of the values 'pid', 'data', 'poolException', 'workerException'
+	 * Get the 'pid'
+	 * @return int the value of 'pid'
 	 */
 	public function getPid() : int {
 		return (int)$this->offsetGet('pid');
@@ -87,9 +87,9 @@ class WorkerPoolResult implements \ArrayAccess {
 
 	/**
 	 * Get the result type
-	 * @return string one of the values 'pid', 'data', 'poolException', 'workerException'
+	 * @return string one of the values 'data', 'poolException', 'workerException'
 	 */
-	public function getResultType() : bool {
+	public function getResultType() : string {
 		return $this->resultType;
 	}
 	
