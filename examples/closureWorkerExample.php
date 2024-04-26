@@ -33,11 +33,15 @@ $wp->setWorkerPoolSize(4)
                          */
                         function($semaphore, $storage) {
 				$semaphore->synchronizedBegin();
+				try {
                 	                echo "[".getmypid()."]"." child will be destroyed, see its history\n";
 					foreach($storage as $val) {
 						echo "\t$val\n";
 					}
-				$semaphore->synchronizedEnd();
+				}
+				finally {
+					$semaphore->synchronizedEnd();
+				}
                         }
 
                 )

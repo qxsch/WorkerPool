@@ -22,7 +22,6 @@
 		"phpunit/phpunit": ">=4.0.0"
 	},
 	"suggest": {
-		"jeremeamia/SuperClosure": ">=1.0.1",
 		"php": ">=8.0.0"
 	},
 	"autoload": {

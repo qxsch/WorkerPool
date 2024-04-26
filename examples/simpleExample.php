@@ -31,6 +31,7 @@ $wp->waitForAllWorkers(); // wait for all workers
 
 foreach($wp as $val) {
 	echo $val->dump() . "\n";
+        //var_dump($val);  // you can also dump the returned values
 }
 
 
