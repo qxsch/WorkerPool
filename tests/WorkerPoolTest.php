@@ -52,6 +52,39 @@ class WorkerPoolTest extends \PHPUnit\Framework\TestCase {
 		$wp->destroy();
 	}
 
+	public function testAbnormalWorkerExitIsReported() {
+		$wp = $this->sut;
+		$wp->setWorkerPoolSize(1)->disableSemaphore()->respawnAutomatically();
+		$wp->create(new \QXS\WorkerPool\ClosureWorker(function ($input) {
+			if ($input === 'kill') {
+				posix_kill(getmypid(), SIGKILL);
+			} elseif ($input === 'exit') {
+				exit(7);
+			}
+			return $input;
+		}));
+
+		try {
+			foreach (array('kill' => 128 + SIGKILL, 'exit' => 7) as $input => $code) {
+				$pid = $wp->run($input);
+				$wp->waitForAllWorkers();
+				$result = $wp->getNextResult();
+				$this->assertNotNull($result, 'An abnormal worker exit must produce a result.');
+				$this->assertTrue($result->hasPoolException());
+				$this->assertSame($pid, $result->getPid());
+				$this->assertSame($code, $result['abnormalChildReturnCode']);
+			}
+
+			$wp->run('success');
+			$wp->waitForAllWorkers();
+			$this->assertSame('success', $wp->getNextResult()->getData());
+		} finally {
+			$wp->destroy();
+		}
+
+		$this->assertNull($wp->current(), 'Normal shutdown must not produce failure results.');
+	}
+
 	public function testGetters() {
 		$wp = new WorkerPool();
 		$wp->create(new Fixtures\PingWorker());

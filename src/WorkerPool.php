@@ -511,11 +511,13 @@ class WorkerPool implements \Iterator, \Countable {
 		}
 		$childpid = pcntl_waitpid($pid, $status, WNOHANG);
 		while ($childpid > 0) {
-			$stopSignal = pcntl_wstopsig($status);
-			if (pcntl_wifexited($stopSignal) === FALSE) {
+			$returnCode = pcntl_wifexited($status)
+				? pcntl_wexitstatus($status)
+				: 128 + pcntl_wtermsig($status);
+			if ($returnCode !== 0) {
 				array_push($this->results, new WorkerPoolResult(array(
 					'pid' => $childpid,
-					'abnormalChildReturnCode' => $stopSignal
+					'abnormalChildReturnCode' => $returnCode
 				)));
 			}
 
