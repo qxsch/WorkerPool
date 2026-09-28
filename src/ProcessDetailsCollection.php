@@ -122,7 +122,8 @@ class ProcessDetailsCollection implements \IteratorAggregate {
 		if ($this->getFreeProcessesCount() === 0) {
 			return NULL;
 		}
-		$freePid = array_shift($this->freeProcessIds);
+		$freePid = array_key_first($this->freeProcessIds);
+		unset($this->freeProcessIds[$freePid]);
 		if ($freePid === NULL) {
 			return NULL;
 		}
